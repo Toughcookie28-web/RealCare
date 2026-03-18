@@ -1,0 +1,22 @@
+.git/
+.github/
+.env
+.env.*
+__pycache__/
+*.pyc
+.pytest_cache/
+medical_db/
+chat_db/
+biogpt-merged/
+demo.mp4
+app.png
+*.safetensors
+Improvement Phase Planning/
+Codebase Diagnosis.md
+report.md
+.vscode/
+.idea/
+.claude/
+.cache/
+.trees/
+notebook/

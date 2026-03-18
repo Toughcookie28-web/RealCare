@@ -1,0 +1,146 @@
+x-app-env: &app-env
+  DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-medigenius}
+  EMBEDDING_DIM: ${EMBEDDING_DIM:-768}
+  EMBEDDING_CACHE_DIR: /app/.cache/embeddings
+  DOCLING_ARTIFACTS_DIR: /app/.cache/embeddings/docling_artifacts
+  RAPIDOCR_MODELS_DIR: /app/.cache/embeddings/rapidocr/models
+  HOME: /app/.cache/embeddings/home
+  HF_HOME: /app/.cache/embeddings/hf_home
+  HF_HUB_CACHE: /app/.cache/embeddings/huggingface_hub
+  HUGGINGFACE_HUB_CACHE: /app/.cache/embeddings/huggingface_hub
+  TRANSFORMERS_CACHE: /app/.cache/embeddings/transformers
+  HF_MODULES_CACHE: /app/.cache/embeddings/hf_modules
+  HF_ASSETS_CACHE: /app/.cache/embeddings/hf_assets
+  SENTENCE_TRANSFORMERS_HOME: /app/.cache/embeddings/sentence_transformers
+  TORCH_HOME: /app/.cache/embeddings/torch
+  XDG_CACHE_HOME: /app/.cache/embeddings/xdg
+  XDG_DATA_HOME: /app/.cache/embeddings/xdg_data
+  XDG_CONFIG_HOME: /app/.cache/embeddings/xdg_config
+  REDIS_URL: redis://redis:6379/0
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-medigenius}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis/redis-stack-server:7.4.0-v3
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      args:
+        INSTALL_EXTRAS: ""
+        APP_UID: ${LOCAL_UID:-1000}
+        APP_GID: ${LOCAL_GID:-1000}
+    env_file:
+      - .env
+    environment: *app-env
+    volumes:
+      - ./data:/app/data:ro
+      - ./.cache/embeddings:/app/.cache/embeddings
+    ports:
+      - '8000:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  eval:
+    profiles: ["eval"]
+    build:
+      context: .
+      args:
+        INSTALL_EXTRAS: eval,ingest
+        APP_UID: ${LOCAL_UID:-1000}
+        APP_GID: ${LOCAL_GID:-1000}
+    env_file:
+      - .env
+    environment: *app-env
+    command: ["sleep", "infinity"]
+    volumes:
+      - ./data:/app/data:ro
+      - ./.cache/embeddings:/app/.cache/embeddings
+      - ./eval/golden:/app/eval/golden
+      - ./eval/ragas_snapshots:/app/eval/ragas_snapshots
+      - ./eval/retrieval_snapshots:/app/eval/retrieval_snapshots
+      - ./eval/workflow_snapshots:/app/eval/workflow_snapshots
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  ingest:
+    profiles: ["ingest"]
+    build:
+      context: .
+      args:
+        INSTALL_EXTRAS: ingest
+        APP_UID: ${LOCAL_UID:-1000}
+        APP_GID: ${LOCAL_GID:-1000}
+    env_file:
+      - .env
+    environment: *app-env
+    command: ["sleep", "infinity"]
+    volumes:
+      - ./data:/app/data:ro
+      - ./.cache/embeddings:/app/.cache/embeddings
+    mem_limit: 8g
+    cpus: 2.0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - app
+
+  grafana:
+    image: grafana/grafana:10.4.1
+    ports:
+      - '3000:3000'
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GF_ADMIN_USER:?set GF_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:?set GF_ADMIN_PASSWORD}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
+  redis_data:
+  grafana_data:

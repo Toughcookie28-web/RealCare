@@ -1,0 +1,74 @@
+{
+  "vector": [
+    "What are the symptoms of iron deficiency anemia?",
+    "How is appendicitis diagnosed?",
+    "What causes peptic ulcers?",
+    "How do beta blockers lower blood pressure?",
+    "What complications can untreated hypothyroidism cause?",
+    "How is bacterial meningitis treated?",
+    "What is the difference between Crohn's disease and ulcerative colitis?",
+    "What are the warning signs of a stroke?",
+    "How does chronic kidney failure affect the body?",
+    "What are the contraindications to thrombolytic therapy?"
+  ],
+  "chitchat": [
+    "Hello there",
+    "Good morning",
+    "Thanks, that was really helpful",
+    "How are you doing today?",
+    "What kinds of things can you help me with?",
+    "Nice to meet you",
+    "Can you introduce yourself?",
+    "That makes sense, thank you",
+    "You have been very helpful",
+    "That's all for now, bye"
+  ],
+  "web": [
+    "What are the latest ADA guidelines for diabetes management in 2026?",
+    "What new FDA-approved weight loss drugs came out this year?",
+    "What are today's CDC recommendations for influenza vaccination?",
+    "What are the newest treatment guidelines for long COVID?",
+    "Summarize recent news on bird flu in humans",
+    "What changed in the latest hypertension guidelines?",
+    "Are there any new FDA safety warnings about semaglutide?",
+    "What are the current WHO recommendations for dengue prevention?",
+    "What happened in medical news today about Alzheimer's drugs?",
+    "What do recent 2026 updates say about RSV vaccination for adults?"
+  ],
+  "memory": [
+    "What did we decide earlier about my blood pressure question?",
+    "Can you remind me what you said about my allergies?",
+    "Earlier you mentioned a medication interaction, which drugs were involved?",
+    "What symptoms did I tell you about before?",
+    "Go back to the plan we discussed a moment ago",
+    "What was the dosage you mentioned earlier?",
+    "Can you repeat what you told me about diabetes last time?",
+    "What did I say my family history was?",
+    "You already explained this once, summarize your earlier answer",
+    "What were the red flags you listed in our previous message?"
+  ],
+  "literature": [
+    "Find randomized trials on GLP-1 agonists for obesity",
+    "Search PubMed for systematic reviews on acupuncture for migraine",
+    "What meta-analyses compare SSRIs and SNRIs for major depression?",
+    "Find cohort studies on long-term outcomes after bariatric surgery",
+    "Are there review articles on CRISPR therapies for sickle cell disease?",
+    "Show me recent peer-reviewed papers on intermittent fasting and insulin sensitivity",
+    "Search for clinical trials on CAR-T therapy in multiple myeloma",
+    "What does the research literature say about ketogenic diets for epilepsy?",
+    "Find umbrella reviews on vitamin D supplementation and fracture prevention",
+    "Are there any meta-analyses on probiotics for irritable bowel syndrome?"
+  ],
+  "future_clinical_db": [
+    "What was this patient's most recent HbA1c?",
+    "Show me the latest creatinine and eGFR in the chart",
+    "What medications is this patient currently taking?",
+    "When was the patient's last emergency department visit?",
+    "Has this patient ever had a penicillin allergy recorded?",
+    "Pull the last three blood pressure readings from the chart",
+    "What did the discharge summary say after the recent admission?",
+    "Does the chart show prior myocardial infarction or stroke?",
+    "What was the hemoglobin on the most recent CBC?",
+    "Which clinicians has this patient seen for diabetes care?"
+  ]
+}

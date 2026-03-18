@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install ".[dev]"
+      - name: Lint check
+        run: ruff check .
+      - name: Format check
+        run: ruff format --check .
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install pip-audit
+      - run: python3 -m pip install .
+      - name: Dependency audit
+        run: pip-audit
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build container image
+        run: docker build -t medigenius:ci .
+
+  test-and-eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test tooling
+        run: python3 -m pip install ".[dev]"
+      - name: Install RAG and eval dependencies
+        run: python3 -m pip install ".[eval,ingest]"
+      - name: Schema contract smoke test
+        run: python3 -m pytest tests/smoke/test_schema_contract.py -v
+      - name: Frozen RAG and eval regression suite
+        run: python3 -m pytest tests/eval tests/rag tests/smoke -v
+
+  live-runtime-smoke:
+    runs-on: ubuntu-latest
+    needs:
+      - docker-build
+      - test-and-eval
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare runtime env
+        run: |
+          cp .env.example .env
+          mkdir -p .cache/embeddings eval/retrieval_snapshots eval/workflow_snapshots eval/chunking_snapshots
+      - name: Run live runtime smoke
+        run: python3 scripts/run_live_runtime_smoke.py
+
+  live-rag-shadow:
+    runs-on: ubuntu-latest
+    needs:
+      - live-runtime-smoke
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare runtime env
+        run: |
+          cp .env.example .env
+          mkdir -p .cache/embeddings eval/retrieval_snapshots eval/workflow_snapshots eval/chunking_snapshots
+      - name: Run non-blocking live rag shadow
+        run: python3 scripts/run_live_rag_shadow.py
+      - name: Upload live shadow artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-rag-shadow
+          path: |
+            eval/retrieval_snapshots/
+            eval/chunking_snapshots/

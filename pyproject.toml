@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "RealCare"
+version = "2.0.0"
+description = "Agentic medical assistant with FastAPI, PostgreSQL/pgvector, and LangGraph."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "Jiachen ZHANG", email = "e1520372@u.nus.edu"},
+]
+classifiers = [
+    "Intended Audience :: Healthcare Industry",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "gunicorn",
+    "python-multipart",
+    "jinja2",
+    "itsdangerous",
+    "pydantic",
+    "pydantic-settings",
+    "sqlalchemy",
+    "psycopg[binary]",
+    "pgvector",
+    "alembic",
+    "langchain-core",
+    "langchain-community",
+    "langchain-groq",
+    "langchain-openai",
+    "langchain-tavily",
+    "langgraph",
+    "sentence-transformers",
+    "transformers",
+    "torch",
+    "tiktoken",
+    "pypdf",
+    "wikipedia",
+    "cohere",
+    "redis[hiredis]",
+    "requests",
+    "prometheus-client",
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "opentelemetry-exporter-otlp-proto-grpc",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+    "pip-audit",
+]
+eval = [
+    "ragas>=0.2,<0.4",
+    "datasets>=2,<4",
+    "rapidfuzz",
+]
+ingest = [
+    "docling>=2.0,<3",
+    "docling-core[chunking]>=2.0,<3",
+]
+
+[tool.setuptools.packages.find]
+namespaces = true
+exclude = ["tests", "tests.*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

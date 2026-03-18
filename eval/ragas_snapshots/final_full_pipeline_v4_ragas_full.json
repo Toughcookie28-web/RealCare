@@ -1,0 +1,1802 @@
+{
+  "scope": "ragas_llm_judge",
+  "mode": "full_pipeline",
+  "judge_model": "gpt-4o-mini",
+  "sample_count": 39,
+  "fetch_k": 20,
+  "top_k": 5,
+  "faithfulness": 0.8255,
+  "faithfulness_scored_count": 39,
+  "answer_relevancy": 0.845,
+  "answer_relevancy_scored_count": 39,
+  "context_precision": 0.9464,
+  "context_precision_scored_count": 39,
+  "context_recall": 0.9615,
+  "context_recall_scored_count": 39,
+  "latency_ms_mean": 2866.89,
+  "slices": {
+    "difficulty:multi_context": {
+      "sample_count": 26,
+      "faithfulness": 0.8132,
+      "answer_relevancy": 0.8816,
+      "context_precision": 0.9695,
+      "context_recall": 0.9423
+    },
+    "difficulty:reasoning": {
+      "sample_count": 9,
+      "faithfulness": 0.8389,
+      "answer_relevancy": 0.7941,
+      "context_precision": 0.9241,
+      "context_recall": 1.0
+    },
+    "difficulty:simple": {
+      "sample_count": 4,
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.7219,
+      "context_precision": 0.8472,
+      "context_recall": 1.0
+    }
+  },
+  "results": [
+    {
+      "id": "MANUAL-T3-002",
+      "question": "What is the best way to prevent Campylobacter infection?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "The context does not specify measures uniquely aimed at preventing Campylobacter infection; therefore, the best way to prevent it cannot be determined from the provided information.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 12479.19,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec58-p20-t000",
+          "page": 20,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3952-p624-t000",
+          "page": 624,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4770-p742-t000",
+          "page": 742,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3720-p593-t000",
+          "page": 593,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3240-p515-t000",
+          "page": 515,
+          "section": "Prevention",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.8056,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-004",
+      "question": "What is the most accurate test for identifying cardiac tamponade?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "The most accurate test for identifying cardiac tamponade is an echocardiogram.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2625.27,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec265-p50-t000",
+          "page": 50,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec264-p50-t000",
+          "page": 50,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p320-t002",
+          "page": 320,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec262-p49-t000",
+          "page": 49,
+          "section": "Definition",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0,
+      "context_precision": 0.75,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-006",
+      "question": "What is the only treatment option when cataracts interfere with daily life?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "Cataract surgery is the only treatment option when cataracts interfere with vision enough to affect daily life.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2406.91,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec357-p63-t000",
+          "page": 63,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec340-p60-t000",
+          "page": 60,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec339-p60-t000",
+          "page": 60,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec357-p63-t001",
+          "page": 63,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec356-p63-t000",
+          "page": 63,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.967,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-007",
+      "question": "What diagnostic method can confirm congenital heart disease in utero after 20 weeks of pregnancy?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "Fetal echocardiography can confirm congenital heart disease in utero after 20 weeks of pregnancy.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2655.44,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1725-p290-t000",
+          "page": 290,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1727-p291-t000",
+          "page": 291,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1730-p291-t000",
+          "page": 291,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9205,
+      "context_precision": 0.8333,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-013",
+      "question": "How is cardiac tamponade diagnosed when it is suspected?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "Cardiac tamponade is most accurately diagnosed with an echocardiogram, which uses sound waves to create an image of the heart and its surrounding sac, allowing visualization of any fluid that has collected inside the sac.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2540.39,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec265-p50-t000",
+          "page": 50,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec264-p50-t000",
+          "page": 50,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec262-p49-t000",
+          "page": 49,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1707-p287-t000",
+          "page": 287,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9719,
+      "context_precision": 0.7,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-021",
+      "question": "How can cardiac tamponade be recognized clinically and then confirmed diagnostically?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "**Clinical recognition**  \n- **History & symptoms**: shortness of breath, chest tightness, weight gain, fluid retention, or (after trauma) faint heart sounds and falling arterial pressure with rising venous pressure.  \n- **Physical signs**: jugular-venous distension, hypotension, and (in trauma cases) muffled heart tones; fever, splenomegaly, or murmur may also be present.  \n\n**Diagnostic confirmation**  \n- **Echocardiogram** (cardiac ultrasound) is the most accurate test; it directly visualises",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2590.68,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec265-p50-t000",
+          "page": 50,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec264-p50-t000",
+          "page": 50,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec262-p49-t000",
+          "page": 49,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9113,
+      "context_precision": 0.8667,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-025",
+      "question": "How can Campylobacter infection be confirmed and then prevented?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Confirmation  \nCulture of freshly obtained diarrhea fluid is the only way to be certain of a Campylobacter infection (“Culture … of freshly obtained diarrhea fluid is the only way to be certain of the diagnosis”).\n\nPrevention  \nBecause “improper or incomplete food preparation is the most common way the disease is spread,” prevention centers on safe food-handling and sanitation measures:\n\n- Keep hot foods hot and cold foods cold.  \n- Cook meat to the recommended internal temperature (use a meat t",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2283.64,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec55-p20-t000",
+          "page": 20,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4770-p742-t000",
+          "page": 742,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec53-p19-t000",
+          "page": 19,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3733-p595-t000",
+          "page": 595,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec57-p20-t000",
+          "page": 20,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9488,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-026",
+      "question": "How can prenatal testing identify DiGeorge syndrome and why is genetic counseling recommended for affected families?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Prenatal testing can identify DiGeorge syndrome in two main ways:  \n1. **Ultrasound examination** around the 18th week of pregnancy can detect abnormalities in heart or palate development.  \n2. **Fluorescence in situ hybridization (FISH)** performed on cells obtained by amniocentesis as early as the 14th week can confirm the chromosome 22 deletion with ~95% accuracy.\n\nGenetic counseling is recommended because, although most affected children have a new (not inherited) deletion, they still have a",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2597.99,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2880-p460-t000",
+          "page": 460,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2873-p459-t000",
+          "page": 459,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2871-p459-t000",
+          "page": 459,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2884-p461-t000",
+          "page": 461,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.8571,
+      "answer_relevancy": 0.9553,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-003",
+      "question": "If several people in a confined, fuel-burning space develop headache, nausea, dizziness, and fatigue, what poisoning should be suspected and what test confirms it?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "Carbon-monoxide (CO) poisoning should be suspected.  \nThe diagnosis is confirmed by a carboxyhemoglobin test.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2375.01,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec201-p41-t000",
+          "page": 41,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec200-p41-t000",
+          "page": 41,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4765-p741-t000",
+          "page": 741,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3544-p565-t000",
+          "page": 565,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3080-p494-t000",
+          "page": 494,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8716,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-004",
+      "question": "How does the book escalate management for carbon monoxide poisoning when the exposure is severe or the patient is pregnant or has heart or lung disease?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The book escalates management in three clear steps:\n\n1. Immediate care – remove from the source, start CPR if needed, and give 100 % oxygen by tight-fitting mask.  \n2. Hospital admission – triggered by COHb thresholds that are lower for “special” populations: > 10 % in pregnant women, > 15 % in patients with heart or lung disease, > 25 % in healthy adults. In hospital, fluids and electrolytes are corrected.  \n3. Hyperbaric oxygen – reserved for “severe cases” (and implicitly for the same high-ri",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2680.11,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec202-p41-t000",
+          "page": 41,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec198-p40-t000",
+          "page": 40,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec199-p40-t000",
+          "page": 40,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec203-p41-t000",
+          "page": 41,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec201-p41-t000",
+          "page": 41,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.8,
+      "answer_relevancy": 0.9194,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-006",
+      "question": "How does the book distinguish treatment of allergic conjunctivitis from treatment of viral conjunctivitis?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The book distinguishes the treatments as follows:\n\n- **Allergic conjunctivitis**:  \n  - Remove the allergen if possible.  \n  - Apply **cool compresses** to the eyes.  \n  - Use **antihistamine eye drops** (e.g., diphenhydramine hydrochloride/Benadryl) four to six times daily for four days.  \n\n- **Viral conjunctivitis**:  \n  - Apply **warm compresses** to the eyes.  \n  - Use **topical antibiotic ointments** to prevent secondary bacterial infections.  \n  - If caused by **herpes simplex**, refer to ",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2331.83,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1738-p293-t000",
+          "page": 293,
+          "section": "Alternative treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1737-p292-t000",
+          "page": 292,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1739-p293-t000",
+          "page": 293,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1737-p293-t001",
+          "page": 293,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1736-p292-t000",
+          "page": 292,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9282,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-008",
+      "question": "An infant has cyanosis, poor feeding, recurrent respiratory infections, and stunted growth. What imaging studies are used to confirm congenital heart disease?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "Echocardiography and cardiac magnetic resonance imaging (MRI) are used to confirm congenital heart disease.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2883.62,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1725-p290-t000",
+          "page": 290,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1723-p289-t000",
+          "page": 289,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec244-p47-t000",
+          "page": 47,
+          "section": "Abnormal results",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.9335,
+      "context_precision": 0.75,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-012",
+      "question": "If a patient with type I diabetes also develops anemia or malabsorption, why should celiac disease stay on the differential and how is it confirmed?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Celiac disease should remain on the differential because insulin-dependent (type I) diabetics have a much higher incidence of celiac disease—estimated at 1 in 20—and anemia or malabsorption are classic consequences of untreated celiac disease.\n\nConfirmation follows the standard diagnostic sequence:  \n1. Blood tests for anti-gluten antibodies (antigliadin, anti-endomysium, antireticulin) and for nutritional deficiencies (e.g., iron, fat in stool).  \n2. If these are suspicious, a small-intestinal ",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2394.19,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec408-p71-t000",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec408-p71-t001",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec407-p71-t001",
+          "page": 71,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec407-p71-t002",
+          "page": 71,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec405-p70-t000",
+          "page": 70,
+          "section": "Definition",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8789,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-013",
+      "question": "When Crohn's disease causes fistulas and has not responded well to other therapy, which newer drug does the book highlight and what is its major tradeoff?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The book highlights **infliximab (Remicade)** as a powerful newer drug for Crohn's disease, especially for patients who have not responded well to other treatments and for treating **fistulas**. Its major tradeoff is that it can only be used on a **short-term basis** because interfering with TNF-α activity can **predispose patients to serious infection**.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2724.27,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2109-p347-t000",
+          "page": 347,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2109-p348-t001",
+          "page": 348,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2106-p345-t000",
+          "page": 345,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2105-p345-t000",
+          "page": 345,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2108-p347-t000",
+          "page": 347,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8671,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-014",
+      "question": "How does the CFTR defect in cystic fibrosis lead to both repeated lung infections and malnutrition?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The CFTR defect causes two parallel problems:\n\n1. **Repeated lung infections**  \n   - The defective CFTR protein cannot export chloride ions from mucus-producing cells, so water does not follow and the mucus becomes thick and sticky.  \n   - This thickened mucus cannot be swept out by the “mucociliary escalator,” so it plugs the airways and becomes a nutrient-rich medium for bacteria.  \n   - Stagnant mucus plus bacterial overgrowth produces frequent bronchitis, bronchiolitis, and pneumonia.\n\n2. *",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2282.76,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2313-p373-t001",
+          "page": 373,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2313-p373-t000",
+          "page": 373,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p375-t002",
+          "page": 375,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p374-t000",
+          "page": 374,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2311-p373-t000",
+          "page": 373,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.9444,
+      "answer_relevancy": 0.8926,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-015",
+      "question": "If a newborn screen for cystic fibrosis is positive, what confirmatory test usually follows, and why does a negative gene test not completely exclude CF?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "If the newborn screen (IRT test) is positive, the usual confirmatory sequence is:\n\n1. A second IRT test is repeated several weeks later to reduce false-positives from the initial screen.  \n2. If that second IRT is again positive, a sweat test is performed; it is “both the easiest and most accurate test for CF,” giving a reliable chloride result within an hour.\n\nA negative gene test does not completely exclude cystic fibrosis because “testing for all [>500] mutations would be too expensive and ti",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 3005.47,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2320-p377-t000",
+          "page": 377,
+          "section": "Newborn screening",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2319-p376-t000",
+          "page": 376,
+          "section": "Genetic testing",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2318-p376-t000",
+          "page": 376,
+          "section": "Sweat test",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2313-p373-t000",
+          "page": 373,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2317-p376-t000",
+          "page": 376,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.8889,
+      "answer_relevancy": 0.9213,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-017",
+      "question": "Why does early diagnosis matter in cystic fibrosis, and what two long-term management areas does the book emphasize once the diagnosis is made?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Early diagnosis matters because it prevents malnutrition and infection from weakening the young child (context: “Early diagnosis is important to prevent malnutrition and infection from weakening the young child”). Once the diagnosis is made, the two long-term management areas emphasized are close attention to and prompt treatment of respiratory and digestive complications (context: “Close attention to and prompt treatment of respiratory and digestive complications have dramatically increased the",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2436.79,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2321-p377-t000",
+          "page": 377,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2317-p376-t000",
+          "page": 376,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p374-t000",
+          "page": 374,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2311-p373-t000",
+          "page": 373,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2316-p376-t000",
+          "page": 376,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.4286,
+      "answer_relevancy": 0.8656,
+      "context_precision": 0.8056,
+      "context_recall": 0.5
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-021",
+      "question": "If a patient has fever, severe headache or intense back pain, stiff neck, and a nearby ear or sinus infection, what two-part treatment does the book recommend for suspected CNS infection?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The book recommends a two-part treatment:  \n1. Begin antibiotic therapy against a range of potential infectious bacteria.  \n2. Perform surgery to drain the infected site, which provides immediate relief of pressure and allows collection of material to identify the specific bacterium.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2836.81,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec463-p79-t000",
+          "page": 79,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec462-p79-t000",
+          "page": 79,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec461-p79-t000",
+          "page": 79,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec465-p79-t000",
+          "page": 79,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec460-p79-t000",
+          "page": 79,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.8,
+      "answer_relevancy": 0.8639,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-023",
+      "question": "If warning signs like one-sided eye symptoms or a localized headache make cerebral aneurysm a concern, what imaging test is used first, why is MRI not preferred for subarachnoid blood, and when is CT most useful?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "A CT scan of the head is the first imaging test ordered when cerebral aneurysm is suspected.  \nMRI is not preferred because it “is not as sensitive as CT for detecting subarachnoid blood.”  \nCT is most useful when it is performed within 72 hours of the rupture.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2481.39,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec507-p88-t000",
+          "page": 88,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec505-p87-t000",
+          "page": 87,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec497-p85-t000",
+          "page": 85,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec512-p89-t000",
+          "page": 89,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec506-p88-t000",
+          "page": 88,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.879,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-028",
+      "question": "In prenatal counseling for Down syndrome, how does the book distinguish risk screening from definitive fetal testing, especially as maternal age rises?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The book distinguishes risk screening from definitive fetal testing in two ways:\n\n1. **Nature and accuracy of the tests**  \n   - **Screening tests** (e.g., AFP or triple-marker screening) only estimate the chance the fetus has Down syndrome; they “are only correct about 60% of the time.”  \n   - **Definitive tests**—amniocentesis or chorionic villus sampling—examine the baby’s own karyotype and establish the presence or absence of Down syndrome “with about 98-99% accuracy.”\n\n2. **How maternal age",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2610.58,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3048-p488-t000",
+          "page": 488,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3043-p486-t001",
+          "page": 486,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1103-p187-t000",
+          "page": 187,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1107-p189-t000",
+          "page": 189,
+          "section": "Alternate procedures",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3049-p489-t000",
+          "page": 489,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.9,
+      "answer_relevancy": 0.9141,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-002",
+      "question": "What chronic filtering-organ failure does the book tie to a cluster that includes puffy eyes or limbs, foamy or bloody urine, an ammonia taste, and fragile bones, and what disrupted vitamin-mineral role explains why the skeleton appears in that picture?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The book ties these symptoms to chronic kidney failure.  \nThe disrupted role is the kidneys’ failure to produce active vitamin D, which impairs calcium absorption and leads to fragile bones.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2562.14,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1149-p195-t001",
+          "page": 195,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1148-p195-t000",
+          "page": 195,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4325-p676-t000",
+          "page": 676,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1150-p196-t000",
+          "page": 196,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4322-p676-t000",
+          "page": 676,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.25,
+      "answer_relevancy": 0.8847,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-003",
+      "question": "After several people become ill around the same meal, what shortcut does the chapter warn against when trying to identify the culprit, and what laboratory finding turns that situation from suspicion into confirmation?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The chapter warns against assuming that the most recently eaten food is the cause; because symptoms take time to develop, “it is not necessarily the most recent food one has eaten that is the cause of the symptoms.”  \nSuspicion becomes confirmation when “the suspected bacteria is found in a stool culture or a fecal smear from the person.”",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2993.02,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4765-p741-t000",
+          "page": 741,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4757-p739-t000",
+          "page": 739,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4772-p742-t000",
+          "page": 742,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4769-p742-t000",
+          "page": 742,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4762-p740-t000",
+          "page": 740,
+          "section": "Campylobacter jejuni (C. jejuni)",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.8667,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-004",
+      "question": "Once the bleeding-and-shock priorities of a broken limb have been handled, what mechanical objective does the next phase protect, and which injuries make the book move from outside support or closed realignment to operative repair?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The next mechanical objective is to realign and immobilize the fracture as soon as possible (ideally within six hours) so the bone ends will heal in correct position.  \nThe book moves from closed realignment to operative repair when the fracture involves a joint surface (because these almost always lead to arthritis and need exact reduction) or when an open fracture is accompanied by serious soft-tissue damage that cannot be managed with external support alone.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2647.87,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4828-p750-t000",
+          "page": 750,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4818-p748-t000",
+          "page": 748,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2967-p473-t000",
+          "page": 473,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4832-p751-t000",
+          "page": 751,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4813-p747-t000",
+          "page": 747,
+          "section": "Normal results",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.625,
+      "answer_relevancy": 0.8861,
+      "context_precision": 0.7,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-006",
+      "question": "When an abdominal and lower-back exam points to a lower-tract process instead of a normally sterile system, what specimen comes next, and which two findings turn that fluid into evidence of infection?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "Next specimen: a midstream urine sample (≈200 ml).\n\nTwo findings that make it evidence of infection:\n- In men: a bacterial count >100,000 CFU/ml  \n- In women: a bacterial count >10⁴ CFU/ml",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2602.04,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2357-p382-t000",
+          "page": 382,
+          "section": "Males",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2356-p382-t000",
+          "page": 382,
+          "section": "Females",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3681-p587-t000",
+          "page": 587,
+          "section": "Aftercare",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec460-p79-t000",
+          "page": 79,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3533-p563-t000",
+          "page": 563,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8415,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-001",
+      "question": "An antibody screen points toward a malabsorption disorder that can masquerade as IBS or Crohn's. What actually locks the diagnosis in, and what later change tells the book the original call held up?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The diagnosis is locked in by a small-intestinal biopsy that shows the characteristic tissue damage of celiac disease.  \nLater, a repeat biopsy after months on a strict gluten-free diet shows intestinal healing, confirming the original diagnosis was correct.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2939.1,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec408-p71-t001",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec408-p71-t000",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2107-p346-t000",
+          "page": 346,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2108-p347-t000",
+          "page": 347,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3175-p507-t000",
+          "page": 507,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.4,
+      "answer_relevancy": 0.8283,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-002",
+      "question": "When fever plus severe headache or back pain raises concern for a bacterial collection somewhere in the brain or spine, which imaging study is the most sensitive locator, and what two-part treatment strategy follows once the site is found?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The most sensitive imaging study is MRI.  \nOnce the site is identified, the two-part treatment strategy is:  \n1. Begin broad-spectrum antibiotic therapy.  \n2. Perform surgery to drain the infected site.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2573.64,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec462-p79-t000",
+          "page": 79,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec463-p79-t000",
+          "page": 79,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec460-p79-t000",
+          "page": 79,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec468-p80-t000",
+          "page": 80,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec461-p79-t000",
+          "page": 79,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.8662,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-003",
+      "question": "Delayed milestones may raise concern for a nonprogressive motor disorder, but what later course makes the book back away from that diagnosis, and what bedside or imaging clues still keep it in play?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "**Later course that argues *against* cerebral palsy**  \n- **Loss of milestones already achieved** – CP is defined as a *non-progressive* (static) encephalopathy; if the child starts to *lose* previously mastered skills, look for a different, progressive disorder.  \n\n**Bedside or imaging clues that keep CP in play**  \n- **Persistent infantile reflexes, abnormal muscle tone or involuntary movements** (spasticity, athetosis, ataxia).  \n- **Hand/leg preference before 12–18 mo** or consistent asymmet",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2713.1,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec526-p93-t000",
+          "page": 93,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec526-p94-t001",
+          "page": 94,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec525-p93-t001",
+          "page": 93,
+          "section": "Postnatal causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec520-p90-t000",
+          "page": 90,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec893-p153-t000",
+          "page": 153,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.8213,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-005",
+      "question": "When recurrent infection suggests a broken complement pathway rather than a one-off illness, which screening pair tells the clinician where the defect family sits, and what does management focus on when the pathway itself cannot be repaired?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The screening pair that tells the clinician which family of complement components is defective is **CH50 and APH50** (\"The two most common screening tests, CH50 and APH50, tell the physician which group of complement components have a defect\").\n\nBecause the complement pathway itself cannot be repaired, management focuses on **preventing and treating infections** with **antibiotics** and **vaccinations** (\"There is no way to treat the actual complement deficiency. However, antibiotics are used to",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2451.52,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1540-p263-t000",
+          "page": 263,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1541-p263-t000",
+          "page": 263,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1538-p263-t000",
+          "page": 263,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1539-p263-t000",
+          "page": 263,
+          "section": "Cause and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1536-p262-t000",
+          "page": 262,
+          "section": "Definition",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8989,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-006",
+      "question": "Without a specialty lab, how does the chapter sort the newborn form, the bird-linked form, and the mild community form of this pneumonia, and which drug choice goes with each pattern?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The chapter sorts the three forms of chlamydial pneumonia by clinical–epidemiologic pattern rather than by laboratory test:\n\n- **Newborn form** (Chlamydia trachomatis): suspected when the mother is known to have an active chlamydial STD; no specific drug is mentioned in the text.  \n- **Bird-linked form** (Chlamydia psittaci): suggested by a history of exposure to birds; again, no antibiotic is specified for humans, only that “sick birds can be treated with an antibiotic in their feed.”  \n- **Mil",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2618.95,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec926-p160-t000",
+          "page": 160,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec925-p160-t000",
+          "page": 160,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec930-p161-t000",
+          "page": 161,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec933-p161-t000",
+          "page": 161,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3789-p603-t000",
+          "page": 603,
+          "section": "Treatment",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.8829,
+      "context_precision": 1.0,
+      "context_recall": 0.6667
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-007",
+      "question": "Before anyone can name the ingested agent, what clues does the book use to infer an overdose early, and why is it unsafe to wait for dramatic symptoms before taking it seriously?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The text stresses that “the drug may do extensive damage to the body before significant symptoms develop,” so waiting for dramatic signs is dangerous.  \nEarly clues that an overdose might be occurring—even before the agent is known—are drawn from:\n\n- Physical signs listed for major drug classes:  \n  – **Pinpoint pupils** (opiates)  \n  – **Dry, flushed skin and dilated pupils** (anticholinergics)  \n  – **Sweating, drooling, diarrhea** (cholinergics)  \n  – **Rapid heart beat and fast breathing** (",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2555.49,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3072-p493-t000",
+          "page": 493,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3074-p493-t000",
+          "page": 493,
+          "section": "Immediate care",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3071-p492-t001",
+          "page": 492,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3075-p493-t000",
+          "page": 493,
+          "section": "Emergency care",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3071-p492-t000",
+          "page": 492,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.896,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-009",
+      "question": "After the immediate emergency priorities of a broken limb are addressed, what mechanical target must the next phase preserve, and which injury pattern moves care away from closed methods into operative repair?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "After life-threatening issues are stabilized, the next mechanical goal is to hold the broken bone “firmly in the correct position” so that normal alignment and function will be restored.  \nOperative repair is required when the fracture is severe and near the first circular skin crease, because closed treatment risks “irregularity of the joint surface, which can cause difficulty with movement.”",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2964.9,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4828-p750-t000",
+          "page": 750,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4619-p719-t000",
+          "page": 719,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4807-p746-t000",
+          "page": 746,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2467-p396-t000",
+          "page": 396,
+          "section": "Risks",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4623-p720-t000",
+          "page": 720,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.8333,
+      "answer_relevancy": 0.8692,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-010",
+      "question": "In the monitoring chapter, what tracing behavior counts as reassuring before labor becomes critical, and what later contraction-linked pattern forces operative delivery if birth is still not near?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Reassuring pattern before labor becomes critical  \n- A healthy baby’s heart rate should rise whenever the baby moves (non-stress test).\n\nContraction-linked pattern that forces operative delivery if birth is still remote  \n- Repetitive late decelerations—a drop in the baby’s heart rate after each contraction that recovers between contractions—indicates the baby is not receiving enough oxygen between contractions and, if delivery is still many hours away, a cesarean section is necessary.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2584.85,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3457-p549-t000",
+          "page": 549,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3462-p549-t000",
+          "page": 549,
+          "section": "Abnormal results",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec873-p148-t000",
+          "page": 148,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec865-p146-t000",
+          "page": 146,
+          "section": "First stage of labor",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3464-p550-t000",
+          "page": 550,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8423,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-011",
+      "question": "Before lab speciation arrives in this endocardial process, what immediate inpatient antimicrobial move begins anyway, and what sonographic clue shows the clinicians have targeted the correct valve problem?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Before the blood-culture speciation is back, doctors immediately start broad-spectrum antibiotics chosen for the most likely organism.  \nThe sonographic clue that they have targeted the correct valve is the presence of a vegetation seen on echocardiography.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2711.27,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3574-p571-t000",
+          "page": 571,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3577-p572-t000",
+          "page": 572,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3571-p570-t001",
+          "page": 570,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3575-p572-t000",
+          "page": 572,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.8191,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-012",
+      "question": "When routine studies still leave the cause of brain inflammation unresolved after treatment has already failed, what invasive step does the book reserve for a definitive answer, and which common sporadic U.S. cause is singled out as responsive to acyclovir?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The book reserves **brain biopsy**—“surgical gathering of a small tissue sample”—as the invasive step when prior treatment has failed and the cause remains unclear.  \nThe common sporadic U.S. cause cited as responsive to acyclovir is **herpes simplex virus**.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2498.17,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3546-p566-t000",
+          "page": 566,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3545-p565-t000",
+          "page": 565,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3543-p565-t001",
+          "page": 565,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3541-p564-t000",
+          "page": 564,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3540-p564-t000",
+          "page": 564,
+          "section": "Definition",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.8282,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-013",
+      "question": "Within this family of moving-vessel blockages, which form does the chapter call most common, what usual source explains most cases, and what treatment is saved for the severest presentation?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "- Most common form: pulmonary emboli (“Pulmonary emboli are the most common.”)  \n- Usual source: blood clots (“The emboli are usually formed from blood clots…”)  \n- Treatment reserved for the severest presentation: immediate emergency medical care (“They can be life-threatening and require immediate emergency medical care.”)",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2920.84,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3497-p556-t000",
+          "page": 556,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3498-p556-t000",
+          "page": 556,
+          "section": "Arterial embolism",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1918-p320-t000",
+          "page": 320,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1913-p318-t000",
+          "page": 318,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1719-p289-t000",
+          "page": 289,
+          "section": "Obstruction defects",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.8595,
+      "context_precision": 1.0,
+      "context_recall": 0.3333
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-015",
+      "question": "For the trisomy syndrome in this chapter, which prenatal signal is only a probability estimate, and which two procedures obtain fetal material for a definitive chromosome count?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "- **Probability-estimate (screening) signal:** Maternal serum analyte screening / triple-marker screening (AFP, hCG, estriol) – gives only a risk estimate, not a diagnosis.  \n- **Two procedures that obtain fetal material for a definitive chromosome count:** Amniocentesis and chorionic villus sampling (CVS).",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2336.3,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3048-p488-t000",
+          "page": 488,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3295-p523-t000",
+          "page": 523,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1107-p189-t000",
+          "page": 189,
+          "section": "Alternate procedures",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3297-p524-t000",
+          "page": 524,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3302-p524-t000",
+          "page": 524,
+          "section": "ORGANIZATIONS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.8,
+      "answer_relevancy": 0.8827,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-016",
+      "question": "What judgment does the chapter make about the cognition-enhancing drug sometimes marketed online for the extra-chromosome syndrome discussed here?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The chapter states that the drug piracetam—marketed online as a “smart drug” for Down syndrome—has **not been proven to increase intellectual ability** and is **not recommended** by the National Down Syndrome Society or the National Down Syndrome Congress.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2548.12,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3046-p488-t000",
+          "page": 488,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3052-p489-t000",
+          "page": 489,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3292-p523-t000",
+          "page": 523,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3293-p523-t000",
+          "page": 523,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3043-p486-t000",
+          "page": 486,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8654,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-017",
+      "question": "Once maternal antibodies are already present, what findings tell the book that fetal injury is severe enough to move from watching to induction or transfusion?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context states that when maternal antibodies are already present, the pregnancy is monitored closely. If antibody levels increase, the following findings indicate that fetal injury is severe enough to move from observation to intervention (induction or transfusion):\n\n- **High levels of bilirubin in the amniotic fluid or the baby’s blood**  \n- **Ultrasound evidence of hydrops fetalis**  \n\nIf these signs are present and the pregnancy is at least 32–34 weeks, labor is induced. If under 32 weeks",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2365.58,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3897-p616-t000",
+          "page": 616,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3896-p616-t000",
+          "page": 616,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3895-p616-t000",
+          "page": 616,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3892-p614-t000",
+          "page": 614,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3898-p617-t000",
+          "page": 617,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9183,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-020",
+      "question": "One illness in the foodborne chapter stands apart because it produces a descending neurologic picture rather than the usual gut upset. What early pattern does the book describe, and what time-limited therapy applies only to adults?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The illness is adult botululism.  \nEarly pattern described: “Initially a person … feels weakness and dizziness followed by double vision. Symptoms progress to difficulty speaking and swallowing. Paralysis moves down the body …”  \nTime-limited therapy that applies only to adults: botulism antitoxin, which must be given within 72 hours after symptoms first appear.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 2999.36,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4764-p740-t000",
+          "page": 740,
+          "section": "Clostridium botulinum (C. botulinum)",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4767-p742-t000",
+          "page": 742,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4769-p742-t000",
+          "page": 742,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4760-p740-t000",
+          "page": 740,
+          "section": "Staphylococcus aureus",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec52-p19-t000",
+          "page": 19,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8545,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    }
+  ],
+  "snapshot_meta": {
+    "git_commit": "04f2faa",
+    "timestamp": "2026-03-16T07:13:08.428466",
+    "note": ""
+  }
+}

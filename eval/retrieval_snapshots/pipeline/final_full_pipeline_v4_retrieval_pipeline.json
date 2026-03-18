@@ -1,0 +1,4531 @@
+{
+  "scope": "retrieval_only",
+  "mode": "pipeline",
+  "sample_count": 39,
+  "fetch_k": 20,
+  "latency_ms_mean": 9621.71,
+  "latency_ms_median": 3444.36,
+  "latency_ms_p95": 68961.85,
+  "hit_rate@1": 0.6923,
+  "recall@1": 0.5385,
+  "precision@1": 0.8974,
+  "max_precision@1": 1.0,
+  "mrr@1": 0.6923,
+  "map@1": 0.8974,
+  "ndcg@1": 0.8462,
+  "section_diversity@1": 1.0,
+  "hit_rate@3": 0.9231,
+  "recall@3": 0.7308,
+  "precision@3": 0.5214,
+  "max_precision@3": 0.8462,
+  "mrr@3": 0.8034,
+  "map@3": 0.9209,
+  "ndcg@3": 0.6904,
+  "section_diversity@3": 0.8974,
+  "hit_rate@5": 0.9231,
+  "recall@5": 0.7821,
+  "precision@5": 0.3385,
+  "max_precision@5": 0.5179,
+  "mrr@5": 0.8034,
+  "map@5": 0.9091,
+  "ndcg@5": 0.6917,
+  "section_diversity@5": 0.8308,
+  "hit_rate@10": 0.9487,
+  "recall@10": 0.8205,
+  "precision@10": 0.1846,
+  "max_precision@10": 0.259,
+  "mrr@10": 0.8071,
+  "map@10": 0.8751,
+  "ndcg@10": 0.7181,
+  "section_diversity@10": 0.7333,
+  "slices": {
+    "content:text": {
+      "sample_count": 39,
+      "latency_ms_mean": 9621.71,
+      "latency_ms_median": 3444.36,
+      "latency_ms_p95": 68961.85,
+      "hit_rate@1": 0.6923,
+      "recall@1": 0.5385,
+      "precision@1": 0.8974,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.6923,
+      "map@1": 0.8974,
+      "ndcg@1": 0.8462,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 0.9231,
+      "recall@3": 0.7308,
+      "precision@3": 0.5214,
+      "max_precision@3": 0.8462,
+      "mrr@3": 0.8034,
+      "map@3": 0.9209,
+      "ndcg@3": 0.6904,
+      "section_diversity@3": 0.8974,
+      "hit_rate@5": 0.9231,
+      "recall@5": 0.7821,
+      "precision@5": 0.3385,
+      "max_precision@5": 0.5179,
+      "mrr@5": 0.8034,
+      "map@5": 0.9091,
+      "ndcg@5": 0.6917,
+      "section_diversity@5": 0.8308,
+      "hit_rate@10": 0.9487,
+      "recall@10": 0.8205,
+      "precision@10": 0.1846,
+      "max_precision@10": 0.259,
+      "mrr@10": 0.8071,
+      "map@10": 0.8751,
+      "ndcg@10": 0.7181,
+      "section_diversity@10": 0.7333
+    },
+    "difficulty:multi_context": {
+      "sample_count": 26,
+      "latency_ms_mean": 8461.93,
+      "latency_ms_median": 3427.23,
+      "latency_ms_p95": 68961.85,
+      "hit_rate@1": 0.6154,
+      "recall@1": 0.4231,
+      "precision@1": 0.8846,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.6154,
+      "map@1": 0.8846,
+      "ndcg@1": 0.8205,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 0.9615,
+      "recall@3": 0.6923,
+      "precision@3": 0.5769,
+      "max_precision@3": 0.8974,
+      "mrr@3": 0.7821,
+      "map@3": 0.9263,
+      "ndcg@3": 0.7112,
+      "section_diversity@3": 0.8974,
+      "hit_rate@5": 0.9615,
+      "recall@5": 0.7692,
+      "precision@5": 0.3769,
+      "max_precision@5": 0.5538,
+      "mrr@5": 0.7821,
+      "map@5": 0.9182,
+      "ndcg@5": 0.7124,
+      "section_diversity@5": 0.8615,
+      "hit_rate@10": 0.9615,
+      "recall@10": 0.7885,
+      "precision@10": 0.1962,
+      "max_precision@10": 0.2769,
+      "mrr@10": 0.7821,
+      "map@10": 0.9108,
+      "ndcg@10": 0.7297,
+      "section_diversity@10": 0.7615
+    },
+    "difficulty:reasoning": {
+      "sample_count": 9,
+      "latency_ms_mean": 10822.95,
+      "latency_ms_median": 3507.22,
+      "latency_ms_p95": 68694.44,
+      "hit_rate@1": 0.7778,
+      "recall@1": 0.6667,
+      "precision@1": 0.8889,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.7778,
+      "map@1": 0.8889,
+      "ndcg@1": 0.8519,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 0.7778,
+      "recall@3": 0.7222,
+      "precision@3": 0.4444,
+      "max_precision@3": 0.7778,
+      "mrr@3": 0.7778,
+      "map@3": 0.8704,
+      "ndcg@3": 0.6425,
+      "section_diversity@3": 0.963,
+      "hit_rate@5": 0.7778,
+      "recall@5": 0.7222,
+      "precision@5": 0.2667,
+      "max_precision@5": 0.4667,
+      "mrr@5": 0.7778,
+      "map@5": 0.8704,
+      "ndcg@5": 0.6243,
+      "section_diversity@5": 0.8444,
+      "hit_rate@10": 0.8889,
+      "recall@10": 0.8333,
+      "precision@10": 0.1556,
+      "max_precision@10": 0.2333,
+      "mrr@10": 0.7937,
+      "map@10": 0.8208,
+      "ndcg@10": 0.6566,
+      "section_diversity@10": 0.7111
+    },
+    "difficulty:simple": {
+      "sample_count": 4,
+      "latency_ms_mean": 14457.53,
+      "latency_ms_median": 3307.74,
+      "latency_ms_p95": 48250.29,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.6631,
+      "section_diversity@3": 0.75,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.25,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 0.9375,
+      "ndcg@5": 0.7084,
+      "section_diversity@5": 0.6,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.175,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 0.7649,
+      "ndcg@10": 0.7807,
+      "section_diversity@10": 0.6
+    }
+  },
+  "results": [
+    {
+      "id": "MANUAL-T3-002",
+      "question": "What is the best way to prevent Campylobacter infection?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "latency_ms": 48250.29,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.63,
+      "section_diversity@3": 0.3333,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.63,
+      "section_diversity@5": 0.2,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 0.6429,
+      "ndcg@10": 0.77,
+      "section_diversity@10": 0.3,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec58-p20-t000",
+          "doc_id": "medical_book",
+          "page": 20,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3952-p624-t000",
+          "doc_id": "medical_book",
+          "page": 624,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4770-p742-t000",
+          "doc_id": "medical_book",
+          "page": 742,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3720-p593-t000",
+          "doc_id": "medical_book",
+          "page": 593,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3240-p515-t000",
+          "doc_id": "medical_book",
+          "page": 515,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3733-p595-t000",
+          "doc_id": "medical_book",
+          "page": 595,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec53-p19-t000",
+          "doc_id": "medical_book",
+          "page": 19,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3764-p600-t000",
+          "doc_id": "medical_book",
+          "page": 600,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2845-p456-t000",
+          "doc_id": "medical_book",
+          "page": 456,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec57-p20-t000",
+          "doc_id": "medical_book",
+          "page": 20,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-T3-004",
+      "question": "What is the most accurate test for identifying cardiac tamponade?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "latency_ms": 2964.34,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.7625,
+      "section_diversity@3": 0.6667,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.7625,
+      "section_diversity@5": 0.6,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.1,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.7625,
+      "section_diversity@10": 0.6,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec265-p50-t000",
+          "doc_id": "medical_book",
+          "page": 50,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec264-p50-t000",
+          "doc_id": "medical_book",
+          "page": 50,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p320-t002",
+          "doc_id": "medical_book",
+          "page": 320,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "doc_id": "medical_book",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec262-p49-t000",
+          "doc_id": "medical_book",
+          "page": 49,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2504-p401-t000",
+          "doc_id": "medical_book",
+          "page": 401,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "doc_id": "medical_book",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3504-p557-t000",
+          "doc_id": "medical_book",
+          "page": 557,
+          "section": "Diagnosing a pulmonary embolism",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2318-p376-t000",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "Sweat test",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec225-p44-t000",
+          "doc_id": "medical_book",
+          "page": 44,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-T3-006",
+      "question": "What is the only treatment option when cataracts interfere with daily life?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "latency_ms": 3510.3,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.63,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 0.75,
+      "ndcg@5": 0.8109,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 0.75,
+      "ndcg@10": 0.8109,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec357-p63-t000",
+          "doc_id": "medical_book",
+          "page": 63,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec340-p60-t000",
+          "doc_id": "medical_book",
+          "page": 60,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec339-p60-t000",
+          "doc_id": "medical_book",
+          "page": 60,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec357-p63-t001",
+          "doc_id": "medical_book",
+          "page": 63,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec356-p63-t000",
+          "doc_id": "medical_book",
+          "page": 63,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec343-p60-t000",
+          "doc_id": "medical_book",
+          "page": 60,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec341-p60-t000",
+          "doc_id": "medical_book",
+          "page": 60,
+          "section": "Precautions",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec346-p61-t000",
+          "doc_id": "medical_book",
+          "page": 61,
+          "section": "Risks",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec347-p61-t000",
+          "doc_id": "medical_book",
+          "page": 61,
+          "section": "Normal results",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec353-p62-t000",
+          "doc_id": "medical_book",
+          "page": 62,
+          "section": "Definition",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-T3-007",
+      "question": "What diagnostic method can confirm congenital heart disease in utero after 20 weeks of pregnancy?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "latency_ms": 3105.19,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.63,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.63,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 0.6667,
+      "ndcg@10": 0.7796,
+      "section_diversity@10": 0.7,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1725-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1727-p291-t000",
+          "doc_id": "medical_book",
+          "page": 291,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1730-p291-t000",
+          "doc_id": "medical_book",
+          "page": 291,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "doc_id": "medical_book",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1723-p289-t000",
+          "doc_id": "medical_book",
+          "page": 289,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1658-p280-t000",
+          "doc_id": "medical_book",
+          "page": 280,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1716-p288-t000",
+          "doc_id": "medical_book",
+          "page": 288,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1726-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "doc_id": "medical_book",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-T3-013",
+      "question": "How is cardiac tamponade diagnosed when it is suspected?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 4957.47,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.895,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.895,
+      "section_diversity@5": 0.6,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.895,
+      "section_diversity@10": 0.5,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec265-p50-t000",
+          "doc_id": "medical_book",
+          "page": 50,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec264-p50-t000",
+          "doc_id": "medical_book",
+          "page": 50,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec262-p49-t000",
+          "doc_id": "medical_book",
+          "page": 49,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "doc_id": "medical_book",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1707-p287-t000",
+          "doc_id": "medical_book",
+          "page": 287,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "doc_id": "medical_book",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec241-p46-t000",
+          "doc_id": "medical_book",
+          "page": 46,
+          "section": "Risks",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3502-p557-t000",
+          "doc_id": "medical_book",
+          "page": 557,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3503-p557-t000",
+          "doc_id": "medical_book",
+          "page": 557,
+          "section": "Diagnosing an arterial embolism",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-T3-021",
+      "question": "How can cardiac tamponade be recognized clinically and then confirmed diagnostically?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3252.5,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 1.0,
+      "ndcg@1": 0.6667,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 0.6667,
+      "mrr@3": 0.5,
+      "map@3": 1.0,
+      "ndcg@3": 0.8175,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 0.5,
+      "map@5": 1.0,
+      "ndcg@5": 0.8175,
+      "section_diversity@5": 0.6,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 0.5,
+      "map@10": 1.0,
+      "ndcg@10": 0.8175,
+      "section_diversity@10": 0.5,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec265-p50-t000",
+          "doc_id": "medical_book",
+          "page": 50,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec264-p50-t000",
+          "doc_id": "medical_book",
+          "page": 50,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec262-p49-t000",
+          "doc_id": "medical_book",
+          "page": 49,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "doc_id": "medical_book",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "doc_id": "medical_book",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3248-p516-t000",
+          "doc_id": "medical_book",
+          "page": 516,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1707-p287-t000",
+          "doc_id": "medical_book",
+          "page": 287,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3502-p557-t000",
+          "doc_id": "medical_book",
+          "page": 557,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3503-p557-t000",
+          "doc_id": "medical_book",
+          "page": 557,
+          "section": "Diagnosing an arterial embolism",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-T3-025",
+      "question": "How can Campylobacter infection be confirmed and then prevented?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3556.24,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.63,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.63,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.1,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.6932,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec55-p20-t000",
+          "doc_id": "medical_book",
+          "page": 20,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4770-p742-t000",
+          "doc_id": "medical_book",
+          "page": 742,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec53-p19-t000",
+          "doc_id": "medical_book",
+          "page": 19,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3733-p595-t000",
+          "doc_id": "medical_book",
+          "page": 595,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec57-p20-t000",
+          "doc_id": "medical_book",
+          "page": 20,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec50-p18-t000",
+          "doc_id": "medical_book",
+          "page": 18,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4762-p740-t000",
+          "doc_id": "medical_book",
+          "page": 740,
+          "section": "Campylobacter jejuni (C. jejuni)",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec54-p19-t000",
+          "doc_id": "medical_book",
+          "page": 19,
+          "section": "Complications",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec52-p19-t000",
+          "doc_id": "medical_book",
+          "page": 19,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4648-p722-t000",
+          "doc_id": "medical_book",
+          "page": 722,
+          "section": "Prevention",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-T3-026",
+      "question": "How can prenatal testing identify DiGeorge syndrome and why is genetic counseling recommended for affected families?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3969.39,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 1.0,
+      "ndcg@1": 0.6667,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 0.6667,
+      "mrr@3": 0.5,
+      "map@3": 1.0,
+      "ndcg@3": 0.9225,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 0.5,
+      "map@5": 1.0,
+      "ndcg@5": 0.9225,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 0.5,
+      "map@10": 1.0,
+      "ndcg@10": 0.9225,
+      "section_diversity@10": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2880-p460-t000",
+          "doc_id": "medical_book",
+          "page": 460,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "doc_id": "medical_book",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2873-p459-t000",
+          "doc_id": "medical_book",
+          "page": 459,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2871-p459-t000",
+          "doc_id": "medical_book",
+          "page": 459,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2884-p461-t000",
+          "doc_id": "medical_book",
+          "page": 461,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2872-p459-t000",
+          "doc_id": "medical_book",
+          "page": 459,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2879-p460-t000",
+          "doc_id": "medical_book",
+          "page": 460,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3308-p526-t001",
+          "doc_id": "medical_book",
+          "page": 526,
+          "section": "Vascular type",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2882-p460-t000",
+          "doc_id": "medical_book",
+          "page": 460,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec716-p124-t000",
+          "doc_id": "medical_book",
+          "page": 124,
+          "section": "Prenatal diagnosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-003",
+      "question": "If several people in a confined, fuel-burning space develop headache, nausea, dizziness, and fatigue, what poisoning should be suspected and what test confirms it?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 3164.99,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.7625,
+      "section_diversity@3": 0.6667,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.7625,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.1,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.7625,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec201-p41-t000",
+          "doc_id": "medical_book",
+          "page": 41,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec200-p41-t000",
+          "doc_id": "medical_book",
+          "page": 41,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4765-p741-t000",
+          "doc_id": "medical_book",
+          "page": 741,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3544-p565-t000",
+          "doc_id": "medical_book",
+          "page": 565,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3080-p494-t000",
+          "doc_id": "medical_book",
+          "page": 494,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3075-p493-t000",
+          "doc_id": "medical_book",
+          "page": 493,
+          "section": "Emergency care",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2687-p430-t000",
+          "doc_id": "medical_book",
+          "page": 430,
+          "section": "Testing for toxic substances",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4767-p742-t000",
+          "doc_id": "medical_book",
+          "page": 742,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3446-p547-t000",
+          "doc_id": "medical_book",
+          "page": 547,
+          "section": "Preparation",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2562-p408-t000",
+          "doc_id": "medical_book",
+          "page": 408,
+          "section": "Causes",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-004",
+      "question": "How does the book escalate management for carbon monoxide poisoning when the exposure is severe or the patient is pregnant or has heart or lung disease?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3444.36,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 1.0,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 1.0,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 1.0,
+      "section_diversity@10": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec202-p41-t000",
+          "doc_id": "medical_book",
+          "page": 41,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec198-p40-t000",
+          "doc_id": "medical_book",
+          "page": 40,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec199-p40-t000",
+          "doc_id": "medical_book",
+          "page": 40,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec203-p41-t000",
+          "doc_id": "medical_book",
+          "page": 41,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec201-p41-t000",
+          "doc_id": "medical_book",
+          "page": 41,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec200-p41-t000",
+          "doc_id": "medical_book",
+          "page": 41,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec197-p40-t000",
+          "doc_id": "medical_book",
+          "page": 40,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec204-p42-t000",
+          "doc_id": "medical_book",
+          "page": 42,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3080-p494-t000",
+          "doc_id": "medical_book",
+          "page": 494,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4097-p643-t000",
+          "doc_id": "medical_book",
+          "page": 643,
+          "section": "Purpose",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-006",
+      "question": "How does the book distinguish treatment of allergic conjunctivitis from treatment of viral conjunctivitis?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 68961.85,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 0.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 0.0,
+      "ndcg@1": 0.3333,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.3333,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.5,
+      "map@3": 0.5,
+      "ndcg@3": 0.4909,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 0.5,
+      "map@5": 0.5,
+      "ndcg@5": 0.6618,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.3,
+      "max_precision@10": 0.3,
+      "mrr@10": 0.5,
+      "map@10": 0.5,
+      "ndcg@10": 0.7745,
+      "section_diversity@10": 0.9,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1738-p293-t000",
+          "doc_id": "medical_book",
+          "page": 293,
+          "section": "Alternative treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1737-p292-t000",
+          "doc_id": "medical_book",
+          "page": 292,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1739-p293-t000",
+          "doc_id": "medical_book",
+          "page": 293,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1737-p293-t001",
+          "doc_id": "medical_book",
+          "page": 293,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1736-p292-t000",
+          "doc_id": "medical_book",
+          "page": 292,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1735-p292-t000",
+          "doc_id": "medical_book",
+          "page": 292,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1744-p294-t000",
+          "doc_id": "medical_book",
+          "page": 294,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1734-p291-t000",
+          "doc_id": "medical_book",
+          "page": 291,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1733-p291-t000",
+          "doc_id": "medical_book",
+          "page": 291,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1743-p294-t000",
+          "doc_id": "medical_book",
+          "page": 294,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-008",
+      "question": "An infant has cyanosis, poor feeding, recurrent respiratory infections, and stunted growth. What imaging studies are used to confirm congenital heart disease?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 3695.56,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 0.8333,
+      "ndcg@3": 0.9725,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 0.8333,
+      "ndcg@5": 0.9725,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 0.8333,
+      "ndcg@10": 0.9725,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1725-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1723-p289-t000",
+          "doc_id": "medical_book",
+          "page": 289,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "doc_id": "medical_book",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec244-p47-t000",
+          "doc_id": "medical_book",
+          "page": 47,
+          "section": "Abnormal results",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1721-p289-t000",
+          "doc_id": "medical_book",
+          "page": 289,
+          "section": "Cyanotic defects",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1716-p288-t000",
+          "doc_id": "medical_book",
+          "page": 288,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1726-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1730-p291-t000",
+          "doc_id": "medical_book",
+          "page": 291,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1292-p219-t000",
+          "doc_id": "medical_book",
+          "page": 219,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-012",
+      "question": "If a patient with type I diabetes also develops anemia or malabsorption, why should celiac disease stay on the differential and how is it confirmed?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3228.81,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 0.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 0.0,
+      "ndcg@1": 0.3333,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.3333,
+      "map@3": 0.5833,
+      "ndcg@3": 0.6384,
+      "section_diversity@3": 0.6667,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.6,
+      "max_precision@5": 0.6,
+      "mrr@5": 0.3333,
+      "map@5": 0.6389,
+      "ndcg@5": 0.7992,
+      "section_diversity@5": 0.6,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.3,
+      "max_precision@10": 0.3,
+      "mrr@10": 0.3333,
+      "map@10": 0.6389,
+      "ndcg@10": 0.7992,
+      "section_diversity@10": 0.6,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec408-p71-t000",
+          "doc_id": "medical_book",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec408-p71-t001",
+          "doc_id": "medical_book",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec407-p71-t001",
+          "doc_id": "medical_book",
+          "page": 71,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec407-p71-t002",
+          "doc_id": "medical_book",
+          "page": 71,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec405-p70-t000",
+          "doc_id": "medical_book",
+          "page": 70,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec406-p70-t000",
+          "doc_id": "medical_book",
+          "page": 70,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec417-p73-t000",
+          "doc_id": "medical_book",
+          "page": 73,
+          "section": "OTHER",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec415-p72-t000",
+          "doc_id": "medical_book",
+          "page": 72,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec407-p70-t000",
+          "doc_id": "medical_book",
+          "page": 70,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2107-p346-t000",
+          "doc_id": "medical_book",
+          "page": 346,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-013",
+      "question": "When Crohn's disease causes fistulas and has not responded well to other therapy, which newer drug does the book highlight and what is its major tradeoff?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3892.1,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.63,
+      "section_diversity@3": 0.6667,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.7204,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.1,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.7204,
+      "section_diversity@10": 0.7,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2109-p347-t000",
+          "doc_id": "medical_book",
+          "page": 347,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2109-p348-t001",
+          "doc_id": "medical_book",
+          "page": 348,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2106-p345-t000",
+          "doc_id": "medical_book",
+          "page": 345,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2105-p345-t000",
+          "doc_id": "medical_book",
+          "page": 345,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2108-p347-t000",
+          "doc_id": "medical_book",
+          "page": 347,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2112-p348-t000",
+          "doc_id": "medical_book",
+          "page": 348,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2113-p348-t000",
+          "doc_id": "medical_book",
+          "page": 348,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4405-p688-t000",
+          "doc_id": "medical_book",
+          "page": 688,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1950-p324-t000",
+          "doc_id": "medical_book",
+          "page": 324,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec954-p164-t000",
+          "doc_id": "medical_book",
+          "page": 164,
+          "section": "Treatment",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-014",
+      "question": "How does the CFTR defect in cystic fibrosis lead to both repeated lung infections and malnutrition?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3168.54,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.895,
+      "section_diversity@3": 0.6667,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.9762,
+      "section_diversity@5": 0.6,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.9762,
+      "section_diversity@10": 0.6,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2313-p373-t001",
+          "doc_id": "medical_book",
+          "page": 373,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2313-p373-t000",
+          "doc_id": "medical_book",
+          "page": 373,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p375-t002",
+          "doc_id": "medical_book",
+          "page": 375,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p374-t000",
+          "doc_id": "medical_book",
+          "page": 374,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2311-p373-t000",
+          "doc_id": "medical_book",
+          "page": 373,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p376-t003",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p375-t001",
+          "doc_id": "medical_book",
+          "page": 375,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2322-p377-t000",
+          "doc_id": "medical_book",
+          "page": 377,
+          "section": "Nutrition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2310-p373-t000",
+          "doc_id": "medical_book",
+          "page": 373,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2317-p376-t000",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-015",
+      "question": "If a newborn screen for cystic fibrosis is positive, what confirmatory test usually follows, and why does a negative gene test not completely exclude CF?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3451.14,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 1.0,
+      "ndcg@1": 0.6667,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 1.0,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.5,
+      "map@3": 1.0,
+      "ndcg@3": 0.9152,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.6,
+      "max_precision@5": 0.6,
+      "mrr@5": 0.5,
+      "map@5": 1.0,
+      "ndcg@5": 0.8528,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.3,
+      "max_precision@10": 0.3,
+      "mrr@10": 0.5,
+      "map@10": 1.0,
+      "ndcg@10": 0.8528,
+      "section_diversity@10": 0.9,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2320-p377-t000",
+          "doc_id": "medical_book",
+          "page": 377,
+          "section": "Newborn screening",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2319-p376-t000",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "Genetic testing",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2318-p376-t000",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "Sweat test",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2313-p373-t000",
+          "doc_id": "medical_book",
+          "page": 373,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2317-p376-t000",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2316-p376-t000",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4415-p689-t000",
+          "doc_id": "medical_book",
+          "page": 689,
+          "section": "Results",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2314-p374-t000",
+          "doc_id": "medical_book",
+          "page": 374,
+          "section": "DOROTHY ANDERSEN, MD ( 1 9 0 1 - 1 9 6 3 )",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2326-p378-t000",
+          "doc_id": "medical_book",
+          "page": 378,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2314-p374-t001",
+          "doc_id": "medical_book",
+          "page": 374,
+          "section": "DOROTHY ANDERSEN, MD ( 1 9 0 1 - 1 9 6 3 )",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-017",
+      "question": "Why does early diagnosis matter in cystic fibrosis, and what two long-term management areas does the book emphasize once the diagnosis is made?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3019.04,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.3333,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.5091,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.2,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.4744,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.1,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.5308,
+      "section_diversity@10": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2321-p377-t000",
+          "doc_id": "medical_book",
+          "page": 377,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2317-p376-t000",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p374-t000",
+          "doc_id": "medical_book",
+          "page": 374,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2311-p373-t000",
+          "doc_id": "medical_book",
+          "page": 373,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2316-p376-t000",
+          "doc_id": "medical_book",
+          "page": 376,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2323-p378-t001",
+          "doc_id": "medical_book",
+          "page": 378,
+          "section": "Respiratory health",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2313-p373-t000",
+          "doc_id": "medical_book",
+          "page": 373,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2328-p379-t000",
+          "doc_id": "medical_book",
+          "page": 379,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2314-p374-t001",
+          "doc_id": "medical_book",
+          "page": 374,
+          "section": "DOROTHY ANDERSEN, MD ( 1 9 0 1 - 1 9 6 3 )",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2324-p378-t000",
+          "doc_id": "medical_book",
+          "page": 378,
+          "section": "Alternative treatment",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-021",
+      "question": "If a patient has fever, severe headache or intense back pain, stiff neck, and a nearby ear or sinus infection, what two-part treatment does the book recommend for suspected CNS infection?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3516.12,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 1.0,
+      "ndcg@1": 0.6667,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 1.0,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.5,
+      "map@3": 1.0,
+      "ndcg@3": 0.9152,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.6,
+      "max_precision@5": 0.6,
+      "mrr@5": 0.5,
+      "map@5": 1.0,
+      "ndcg@5": 0.9209,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.3,
+      "max_precision@10": 0.3,
+      "mrr@10": 0.5,
+      "map@10": 1.0,
+      "ndcg@10": 0.9209,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec463-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec462-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec461-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec465-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec460-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4497-p701-t000",
+          "doc_id": "medical_book",
+          "page": 701,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec464-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec467-p80-t000",
+          "doc_id": "medical_book",
+          "page": 80,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec543-p97-t000",
+          "doc_id": "medical_book",
+          "page": 97,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec459-p78-t000",
+          "doc_id": "medical_book",
+          "page": 78,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-023",
+      "question": "If warning signs like one-sided eye symptoms or a localized headache make cerebral aneurysm a concern, what imaging test is used first, why is MRI not preferred for subarachnoid blood, and when is CT most useful?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3301.99,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 1.0,
+      "section_diversity@3": 0.6667,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 1.0,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 1.0,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec507-p88-t000",
+          "doc_id": "medical_book",
+          "page": 88,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec505-p87-t000",
+          "doc_id": "medical_book",
+          "page": 87,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec497-p85-t000",
+          "doc_id": "medical_book",
+          "page": 85,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec512-p89-t000",
+          "doc_id": "medical_book",
+          "page": 89,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec506-p88-t000",
+          "doc_id": "medical_book",
+          "page": 88,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec504-p86-t000",
+          "doc_id": "medical_book",
+          "page": 86,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1552-p264-t000",
+          "doc_id": "medical_book",
+          "page": 264,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2037-p335-t000",
+          "doc_id": "medical_book",
+          "page": 335,
+          "section": "Precautions",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1569-p267-t000",
+          "doc_id": "medical_book",
+          "page": 267,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1566-p266-t000",
+          "doc_id": "medical_book",
+          "page": 266,
+          "section": "Brain studies",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-028",
+      "question": "In prenatal counseling for Down syndrome, how does the book distinguish risk screening from definitive fetal testing, especially as maternal age rises?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3212.38,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.895,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.895,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.895,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3048-p488-t000",
+          "doc_id": "medical_book",
+          "page": 488,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3043-p486-t001",
+          "doc_id": "medical_book",
+          "page": 486,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1103-p187-t000",
+          "doc_id": "medical_book",
+          "page": 187,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1107-p189-t000",
+          "doc_id": "medical_book",
+          "page": 189,
+          "section": "Alternate procedures",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3049-p489-t000",
+          "doc_id": "medical_book",
+          "page": 489,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4843-p753-t000",
+          "doc_id": "medical_book",
+          "page": 753,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3301-p524-t000",
+          "doc_id": "medical_book",
+          "page": 524,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3047-p488-t000",
+          "doc_id": "medical_book",
+          "page": 488,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4844-p754-t000",
+          "doc_id": "medical_book",
+          "page": 754,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3051-p489-t000",
+          "doc_id": "medical_book",
+          "page": 489,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-002",
+      "question": "What chronic filtering-organ failure does the book tie to a cluster that includes puffy eyes or limbs, foamy or bloody urine, an ammonia taste, and fragile bones, and what disrupted vitamin-mineral role explains why the skeleton appears in that picture?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 68694.44,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.7232,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.674,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.2,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.674,
+      "section_diversity@10": 0.6,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1149-p195-t001",
+          "doc_id": "medical_book",
+          "page": 195,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1148-p195-t000",
+          "doc_id": "medical_book",
+          "page": 195,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4325-p676-t000",
+          "doc_id": "medical_book",
+          "page": 676,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1150-p196-t000",
+          "doc_id": "medical_book",
+          "page": 196,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4322-p676-t000",
+          "doc_id": "medical_book",
+          "page": 676,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1160-p197-t000",
+          "doc_id": "medical_book",
+          "page": 197,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4331-p677-t000",
+          "doc_id": "medical_book",
+          "page": 677,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2803-p449-t000",
+          "doc_id": "medical_book",
+          "page": 449,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4710-p734-t000",
+          "doc_id": "medical_book",
+          "page": 734,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2342-p380-t000",
+          "doc_id": "medical_book",
+          "page": 380,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-003",
+      "question": "After several people become ill around the same meal, what shortcut does the chapter warn against when trying to identify the culprit, and what laboratory finding turns that situation from suspicion into confirmation?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 3507.22,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.8303,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.7291,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.7291,
+      "section_diversity@10": 0.9,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4765-p741-t000",
+          "doc_id": "medical_book",
+          "page": 741,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4757-p739-t000",
+          "doc_id": "medical_book",
+          "page": 739,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4772-p742-t000",
+          "doc_id": "medical_book",
+          "page": 742,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4769-p742-t000",
+          "doc_id": "medical_book",
+          "page": 742,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4762-p740-t000",
+          "doc_id": "medical_book",
+          "page": 740,
+          "section": "Campylobacter jejuni (C. jejuni)",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4766-p741-t000",
+          "doc_id": "medical_book",
+          "page": 741,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3851-p611-t000",
+          "doc_id": "medical_book",
+          "page": 611,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3958-p625-t000",
+          "doc_id": "medical_book",
+          "page": 625,
+          "section": "OTHER",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3952-p624-t000",
+          "doc_id": "medical_book",
+          "page": 624,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec60-p20-t000",
+          "doc_id": "medical_book",
+          "page": 20,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-004",
+      "question": "Once the bleeding-and-shock priorities of a broken limb have been handled, what mechanical objective does the next phase protect, and which injuries make the book move from outside support or closed realignment to operative repair?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3106.72,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.3333,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.5091,
+      "section_diversity@3": 0.6667,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.2,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.4471,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.1,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.4471,
+      "section_diversity@10": 0.6,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4828-p750-t000",
+          "doc_id": "medical_book",
+          "page": 750,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4818-p748-t000",
+          "doc_id": "medical_book",
+          "page": 748,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2967-p473-t000",
+          "doc_id": "medical_book",
+          "page": 473,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4832-p751-t000",
+          "doc_id": "medical_book",
+          "page": 751,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4813-p747-t000",
+          "doc_id": "medical_book",
+          "page": 747,
+          "section": "Normal results",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2467-p396-t000",
+          "doc_id": "medical_book",
+          "page": 396,
+          "section": "Risks",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4656-p723-t000",
+          "doc_id": "medical_book",
+          "page": 723,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4347-p678-t000",
+          "doc_id": "medical_book",
+          "page": 678,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4623-p720-t000",
+          "doc_id": "medical_book",
+          "page": 720,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1588-p269-t000",
+          "doc_id": "medical_book",
+          "page": 269,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-006",
+      "question": "When an abdominal and lower-back exam points to a lower-tract process instead of a normally sterile system, what specimen comes next, and which two findings turn that fluid into evidence of infection?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 3545.01,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 0.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 0.0,
+      "ndcg@1": 0.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 0.0,
+      "recall@3": 0.0,
+      "precision@3": 0.0,
+      "max_precision@3": 0.6667,
+      "mrr@3": 0.0,
+      "map@3": 0.0,
+      "ndcg@3": 0.0,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 0.0,
+      "recall@5": 0.0,
+      "precision@5": 0.0,
+      "max_precision@5": 0.4,
+      "mrr@5": 0.0,
+      "map@5": 0.0,
+      "ndcg@5": 0.0,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 0.0,
+      "recall@10": 0.0,
+      "precision@10": 0.0,
+      "max_precision@10": 0.2,
+      "mrr@10": 0.0,
+      "map@10": 0.0,
+      "ndcg@10": 0.0,
+      "section_diversity@10": 0.5,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2357-p382-t000",
+          "doc_id": "medical_book",
+          "page": 382,
+          "section": "Males",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2356-p382-t000",
+          "doc_id": "medical_book",
+          "page": 382,
+          "section": "Females",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3681-p587-t000",
+          "doc_id": "medical_book",
+          "page": 587,
+          "section": "Aftercare",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec460-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3533-p563-t000",
+          "doc_id": "medical_book",
+          "page": 563,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3175-p507-t000",
+          "doc_id": "medical_book",
+          "page": 507,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec543-p97-t000",
+          "doc_id": "medical_book",
+          "page": 97,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2108-p347-t000",
+          "doc_id": "medical_book",
+          "page": 347,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec543-p97-t001",
+          "doc_id": "medical_book",
+          "page": 97,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2285-p370-t000",
+          "doc_id": "medical_book",
+          "page": 370,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-001",
+      "question": "An antibody screen points toward a malabsorption disorder that can masquerade as IBS or Crohn's. What actually locks the diagnosis in, and what later change tells the book the original call held up?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3120.95,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.8303,
+      "section_diversity@3": 0.3333,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.7291,
+      "section_diversity@5": 0.4,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.2,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.7291,
+      "section_diversity@10": 0.5,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec408-p71-t001",
+          "doc_id": "medical_book",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec408-p71-t000",
+          "doc_id": "medical_book",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2107-p346-t000",
+          "doc_id": "medical_book",
+          "page": 346,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2108-p347-t000",
+          "doc_id": "medical_book",
+          "page": 347,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3175-p507-t000",
+          "doc_id": "medical_book",
+          "page": 507,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2105-p345-t000",
+          "doc_id": "medical_book",
+          "page": 345,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4729-p736-t000",
+          "doc_id": "medical_book",
+          "page": 736,
+          "section": "OTHER",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2109-p348-t001",
+          "doc_id": "medical_book",
+          "page": 348,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1452-p247-t000",
+          "doc_id": "medical_book",
+          "page": 247,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2285-p370-t000",
+          "doc_id": "medical_book",
+          "page": 370,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-002",
+      "question": "When fever plus severe headache or back pain raises concern for a bacterial collection somewhere in the brain or spine, which imaging study is the most sensitive locator, and what two-part treatment strategy follows once the site is found?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3847.68,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.8081,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.7673,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.2,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.7673,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec462-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec463-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec460-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec468-p80-t000",
+          "doc_id": "medical_book",
+          "page": 80,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec461-p79-t000",
+          "doc_id": "medical_book",
+          "page": 79,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3549-p566-t000",
+          "doc_id": "medical_book",
+          "page": 566,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec540-p95-t000",
+          "doc_id": "medical_book",
+          "page": 95,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec543-p97-t000",
+          "doc_id": "medical_book",
+          "page": 97,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2946-p469-t000",
+          "doc_id": "medical_book",
+          "page": 469,
+          "section": "Precautions",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec542-p96-t000",
+          "doc_id": "medical_book",
+          "page": 96,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-003",
+      "question": "Delayed milestones may raise concern for a nonprogressive motor disorder, but what later course makes the book back away from that diagnosis, and what bedside or imaging clues still keep it in play?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 4141.78,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.7232,
+      "section_diversity@3": 0.6667,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.6993,
+      "section_diversity@5": 0.6,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.2,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.6993,
+      "section_diversity@10": 0.5,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec526-p93-t000",
+          "doc_id": "medical_book",
+          "page": 93,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec526-p94-t001",
+          "doc_id": "medical_book",
+          "page": 94,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec525-p93-t001",
+          "doc_id": "medical_book",
+          "page": 93,
+          "section": "Postnatal causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec520-p90-t000",
+          "doc_id": "medical_book",
+          "page": 90,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec893-p153-t000",
+          "doc_id": "medical_book",
+          "page": 153,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec532-p94-t000",
+          "doc_id": "medical_book",
+          "page": 94,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec528-p94-t000",
+          "doc_id": "medical_book",
+          "page": 94,
+          "section": "Therapy",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1506-p257-t000",
+          "doc_id": "medical_book",
+          "page": 257,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4474-p697-t000",
+          "doc_id": "medical_book",
+          "page": 697,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec897-p154-t000",
+          "doc_id": "medical_book",
+          "page": 154,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-005",
+      "question": "When recurrent infection suggests a broken complement pathway rather than a one-off illness, which screening pair tells the clinician where the defect family sits, and what does management focus on when the pathway itself cannot be repaired?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3530.75,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.7232,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.6,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 0.8667,
+      "ndcg@5": 0.8081,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.3,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 0.8667,
+      "ndcg@10": 0.8081,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1540-p263-t000",
+          "doc_id": "medical_book",
+          "page": 263,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1541-p263-t000",
+          "doc_id": "medical_book",
+          "page": 263,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1538-p263-t000",
+          "doc_id": "medical_book",
+          "page": 263,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1539-p263-t000",
+          "doc_id": "medical_book",
+          "page": 263,
+          "section": "Cause and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1536-p262-t000",
+          "doc_id": "medical_book",
+          "page": 262,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1139-p194-t000",
+          "doc_id": "medical_book",
+          "page": 194,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1532-p262-t000",
+          "doc_id": "medical_book",
+          "page": 262,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1544-p263-t000",
+          "doc_id": "medical_book",
+          "page": 263,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1543-p263-t000",
+          "doc_id": "medical_book",
+          "page": 263,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1138-p194-t000",
+          "doc_id": "medical_book",
+          "page": 194,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-006",
+      "question": "Without a specialty lab, how does the chapter sort the newborn form, the bird-linked form, and the mild community form of this pneumonia, and which drug choice goes with each pattern?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3113.31,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.3333,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.6162,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.2,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.5411,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.1,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.5411,
+      "section_diversity@10": 0.7,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec926-p160-t000",
+          "doc_id": "medical_book",
+          "page": 160,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec925-p160-t000",
+          "doc_id": "medical_book",
+          "page": 160,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec930-p161-t000",
+          "doc_id": "medical_book",
+          "page": 161,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec933-p161-t000",
+          "doc_id": "medical_book",
+          "page": 161,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3789-p603-t000",
+          "doc_id": "medical_book",
+          "page": 603,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec924-p160-t000",
+          "doc_id": "medical_book",
+          "page": 160,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3788-p603-t000",
+          "doc_id": "medical_book",
+          "page": 603,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3785-p603-t000",
+          "doc_id": "medical_book",
+          "page": 603,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec929-p160-t000",
+          "doc_id": "medical_book",
+          "page": 160,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4517-p704-t000",
+          "doc_id": "medical_book",
+          "page": 704,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-007",
+      "question": "Before anyone can name the ingested agent, what clues does the book use to infer an overdose early, and why is it unsafe to wait for dramatic symptoms before taking it seriously?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 3411.58,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 1.0,
+      "ndcg@1": 0.6667,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 0.0,
+      "recall@3": 0.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.3394,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 0.0,
+      "recall@5": 0.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.6,
+      "mrr@5": 0.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.3557,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.3,
+      "max_precision@10": 0.3,
+      "mrr@10": 0.1429,
+      "map@10": 0.5536,
+      "ndcg@10": 0.6458,
+      "section_diversity@10": 0.9,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3072-p493-t000",
+          "doc_id": "medical_book",
+          "page": 493,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3074-p493-t000",
+          "doc_id": "medical_book",
+          "page": 493,
+          "section": "Immediate care",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3071-p492-t001",
+          "doc_id": "medical_book",
+          "page": 492,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3075-p493-t000",
+          "doc_id": "medical_book",
+          "page": 493,
+          "section": "Emergency care",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3071-p492-t000",
+          "doc_id": "medical_book",
+          "page": 492,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3076-p494-t000",
+          "doc_id": "medical_book",
+          "page": 494,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3069-p492-t000",
+          "doc_id": "medical_book",
+          "page": 492,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3070-p492-t000",
+          "doc_id": "medical_book",
+          "page": 492,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2890-p461-t000",
+          "doc_id": "medical_book",
+          "page": 461,
+          "section": "Precautions",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3082-p495-t000",
+          "doc_id": "medical_book",
+          "page": 495,
+          "section": "OTHER",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-009",
+      "question": "After the immediate emergency priorities of a broken limb are addressed, what mechanical target must the next phase preserve, and which injury pattern moves care away from closed methods into operative repair?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 69358.51,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.3333,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.5091,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.2,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.4471,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.1,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.4471,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4828-p750-t000",
+          "doc_id": "medical_book",
+          "page": 750,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4619-p719-t000",
+          "doc_id": "medical_book",
+          "page": 719,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4807-p746-t000",
+          "doc_id": "medical_book",
+          "page": 746,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2467-p396-t000",
+          "doc_id": "medical_book",
+          "page": 396,
+          "section": "Risks",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4623-p720-t000",
+          "doc_id": "medical_book",
+          "page": 720,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4811-p747-t000",
+          "doc_id": "medical_book",
+          "page": 747,
+          "section": "Aftercare",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4618-p719-t000",
+          "doc_id": "medical_book",
+          "page": 719,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4656-p723-t000",
+          "doc_id": "medical_book",
+          "page": 723,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1237-p210-t000",
+          "doc_id": "medical_book",
+          "page": 210,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1797-p302-t000",
+          "doc_id": "medical_book",
+          "page": 302,
+          "section": "Mechanical techniques",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-010",
+      "question": "In the monitoring chapter, what tracing behavior counts as reassuring before labor becomes critical, and what later contraction-linked pattern forces operative delivery if birth is still not near?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3412.14,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.7232,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.4,
+      "max_precision@5": 0.8,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.5968,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.2,
+      "max_precision@10": 0.4,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.6129,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3457-p549-t000",
+          "doc_id": "medical_book",
+          "page": 549,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3462-p549-t000",
+          "doc_id": "medical_book",
+          "page": 549,
+          "section": "Abnormal results",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec873-p148-t000",
+          "doc_id": "medical_book",
+          "page": 148,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec865-p146-t000",
+          "doc_id": "medical_book",
+          "page": 146,
+          "section": "First stage of labor",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3464-p550-t000",
+          "doc_id": "medical_book",
+          "page": 550,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3456-p548-t001",
+          "doc_id": "medical_book",
+          "page": 548,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3456-p548-t000",
+          "doc_id": "medical_book",
+          "page": 548,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec876-p149-t000",
+          "doc_id": "medical_book",
+          "page": 149,
+          "section": "Fetal monitoring",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec655-p114-t000",
+          "doc_id": "medical_book",
+          "page": 114,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec654-p113-t000",
+          "doc_id": "medical_book",
+          "page": 113,
+          "section": "Precautions",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-011",
+      "question": "Before lab speciation arrives in this endocardial process, what immediate inpatient antimicrobial move begins anyway, and what sonographic clue shows the clinicians have targeted the correct valve problem?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3083.98,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 1.0,
+      "ndcg@1": 0.6667,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.5,
+      "map@3": 1.0,
+      "ndcg@3": 0.6606,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 0.5,
+      "map@5": 1.0,
+      "ndcg@5": 0.6443,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.2,
+      "max_precision@10": 0.3,
+      "mrr@10": 0.5,
+      "map@10": 1.0,
+      "ndcg@10": 0.6443,
+      "section_diversity@10": 0.7,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3574-p571-t000",
+          "doc_id": "medical_book",
+          "page": 571,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "doc_id": "medical_book",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3577-p572-t000",
+          "doc_id": "medical_book",
+          "page": 572,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3571-p570-t001",
+          "doc_id": "medical_book",
+          "page": 570,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3575-p572-t000",
+          "doc_id": "medical_book",
+          "page": 572,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3571-p569-t000",
+          "doc_id": "medical_book",
+          "page": 569,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec237-p45-t000",
+          "doc_id": "medical_book",
+          "page": 45,
+          "section": "Precautions",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3248-p516-t000",
+          "doc_id": "medical_book",
+          "page": 516,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "doc_id": "medical_book",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "doc_id": "medical_book",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-012",
+      "question": "When routine studies still leave the cause of brain inflammation unresolved after treatment has already failed, what invasive step does the book reserve for a definitive answer, and which common sporadic U.S. cause is singled out as responsive to acyclovir?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3587.78,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 1.0,
+      "ndcg@1": 0.6667,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.5,
+      "map@3": 1.0,
+      "ndcg@3": 0.7455,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.6,
+      "max_precision@5": 0.6,
+      "mrr@5": 0.5,
+      "map@5": 0.8667,
+      "ndcg@5": 0.8918,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.3,
+      "max_precision@10": 0.3,
+      "mrr@10": 0.5,
+      "map@10": 0.8667,
+      "ndcg@10": 0.8918,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3546-p566-t000",
+          "doc_id": "medical_book",
+          "page": 566,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3545-p565-t000",
+          "doc_id": "medical_book",
+          "page": 565,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3543-p565-t001",
+          "doc_id": "medical_book",
+          "page": 565,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3541-p564-t000",
+          "doc_id": "medical_book",
+          "page": 564,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3540-p564-t000",
+          "doc_id": "medical_book",
+          "page": 564,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3547-p566-t000",
+          "doc_id": "medical_book",
+          "page": 566,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec838-p141-t000",
+          "doc_id": "medical_book",
+          "page": 141,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2162-p355-t000",
+          "doc_id": "medical_book",
+          "page": 355,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3549-p566-t000",
+          "doc_id": "medical_book",
+          "page": 566,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2165-p355-t000",
+          "doc_id": "medical_book",
+          "page": 355,
+          "section": "ORGANIZATIONS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-013",
+      "question": "Within this family of moving-vessel blockages, which form does the chapter call most common, what usual source explains most cases, and what treatment is saved for the severest presentation?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3067.68,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 0.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 0.0,
+      "ndcg@1": 0.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 0.0,
+      "recall@3": 0.0,
+      "precision@3": 0.0,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.0,
+      "map@3": 0.0,
+      "ndcg@3": 0.0,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 0.0,
+      "recall@5": 0.0,
+      "precision@5": 0.0,
+      "max_precision@5": 0.8,
+      "mrr@5": 0.0,
+      "map@5": 0.0,
+      "ndcg@5": 0.0,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 0.0,
+      "recall@10": 0.0,
+      "precision@10": 0.0,
+      "max_precision@10": 0.4,
+      "mrr@10": 0.0,
+      "map@10": 0.0,
+      "ndcg@10": 0.0,
+      "section_diversity@10": 0.7,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3497-p556-t000",
+          "doc_id": "medical_book",
+          "page": 556,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3498-p556-t000",
+          "doc_id": "medical_book",
+          "page": 556,
+          "section": "Arterial embolism",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1918-p320-t000",
+          "doc_id": "medical_book",
+          "page": 320,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1913-p318-t000",
+          "doc_id": "medical_book",
+          "page": 318,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1719-p289-t000",
+          "doc_id": "medical_book",
+          "page": 289,
+          "section": "Obstruction defects",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1897-p314-t000",
+          "doc_id": "medical_book",
+          "page": 314,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1919-p321-t001",
+          "doc_id": "medical_book",
+          "page": 321,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3510-p558-t000",
+          "doc_id": "medical_book",
+          "page": 558,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3557-p567-t000",
+          "doc_id": "medical_book",
+          "page": 567,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec506-p88-t000",
+          "doc_id": "medical_book",
+          "page": 88,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-015",
+      "question": "For the trisomy syndrome in this chapter, which prenatal signal is only a probability estimate, and which two procedures obtain fetal material for a definitive chromosome count?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 3460.09,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.63,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.5778,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.1,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.5778,
+      "section_diversity@10": 0.6,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3048-p488-t000",
+          "doc_id": "medical_book",
+          "page": 488,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3295-p523-t000",
+          "doc_id": "medical_book",
+          "page": 523,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1107-p189-t000",
+          "doc_id": "medical_book",
+          "page": 189,
+          "section": "Alternate procedures",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3297-p524-t000",
+          "doc_id": "medical_book",
+          "page": 524,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3302-p524-t000",
+          "doc_id": "medical_book",
+          "page": 524,
+          "section": "ORGANIZATIONS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4843-p753-t000",
+          "doc_id": "medical_book",
+          "page": 753,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1103-p187-t000",
+          "doc_id": "medical_book",
+          "page": 187,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1106-p189-t000",
+          "doc_id": "medical_book",
+          "page": 189,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1106-p189-t001",
+          "doc_id": "medical_book",
+          "page": 189,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2095-p344-t000",
+          "doc_id": "medical_book",
+          "page": 344,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-016",
+      "question": "What judgment does the chapter make about the cognition-enhancing drug sometimes marketed online for the extra-chromosome syndrome discussed here?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "latency_ms": 2970.21,
+      "hit_rate@1": 1.0,
+      "recall@1": 1.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 1.0,
+      "precision@3": 0.3333,
+      "max_precision@3": 0.6667,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.63,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 1.0,
+      "precision@5": 0.2,
+      "max_precision@5": 0.4,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.6523,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.1,
+      "max_precision@10": 0.2,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.6523,
+      "section_diversity@10": 0.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3046-p488-t000",
+          "doc_id": "medical_book",
+          "page": 488,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3052-p489-t000",
+          "doc_id": "medical_book",
+          "page": 489,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3292-p523-t000",
+          "doc_id": "medical_book",
+          "page": 523,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3293-p523-t000",
+          "doc_id": "medical_book",
+          "page": 523,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3043-p486-t000",
+          "doc_id": "medical_book",
+          "page": 486,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4851-p755-t000",
+          "doc_id": "medical_book",
+          "page": 755,
+          "section": "OTHER",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3049-p489-t000",
+          "doc_id": "medical_book",
+          "page": 489,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2094-p344-t000",
+          "doc_id": "medical_book",
+          "page": 344,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "doc_id": "medical_book",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3301-p524-t000",
+          "doc_id": "medical_book",
+          "page": 524,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-017",
+      "question": "Once maternal antibodies are already present, what findings tell the book that fetal injury is severe enough to move from watching to induction or transfusion?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3442.33,
+      "hit_rate@1": 0.0,
+      "recall@1": 0.0,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 0.0,
+      "map@1": 1.0,
+      "ndcg@1": 0.6667,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 0.5,
+      "map@3": 1.0,
+      "ndcg@3": 0.6606,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 0.5,
+      "map@5": 1.0,
+      "ndcg@5": 0.5801,
+      "section_diversity@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@10": 1.0,
+      "precision@10": 0.3,
+      "max_precision@10": 0.3,
+      "mrr@10": 0.5,
+      "map@10": 0.8095,
+      "ndcg@10": 0.7291,
+      "section_diversity@10": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3897-p616-t000",
+          "doc_id": "medical_book",
+          "page": 616,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3896-p616-t000",
+          "doc_id": "medical_book",
+          "page": 616,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3895-p616-t000",
+          "doc_id": "medical_book",
+          "page": 616,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3892-p614-t000",
+          "doc_id": "medical_book",
+          "page": 614,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3898-p617-t000",
+          "doc_id": "medical_book",
+          "page": 617,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3902-p617-t000",
+          "doc_id": "medical_book",
+          "page": 617,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3893-p615-t001",
+          "doc_id": "medical_book",
+          "page": 615,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3901-p617-t000",
+          "doc_id": "medical_book",
+          "page": 617,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3899-p617-t000",
+          "doc_id": "medical_book",
+          "page": 617,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec525-p92-t000",
+          "doc_id": "medical_book",
+          "page": 92,
+          "section": "Postnatal causes",
+          "content_type": "text_section"
+        }
+      ]
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-020",
+      "question": "One illness in the foodborne chapter stands apart because it produces a descending neurologic picture rather than the usual gut upset. What early pattern does the book describe, and what time-limited therapy applies only to adults?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "latency_ms": 3222.1,
+      "hit_rate@1": 1.0,
+      "recall@1": 0.5,
+      "precision@1": 1.0,
+      "max_precision@1": 1.0,
+      "mrr@1": 1.0,
+      "map@1": 1.0,
+      "ndcg@1": 1.0,
+      "section_diversity@1": 1.0,
+      "hit_rate@3": 1.0,
+      "recall@3": 0.5,
+      "precision@3": 0.6667,
+      "max_precision@3": 1.0,
+      "mrr@3": 1.0,
+      "map@3": 1.0,
+      "ndcg@3": 0.7232,
+      "section_diversity@3": 1.0,
+      "hit_rate@5": 1.0,
+      "recall@5": 0.5,
+      "precision@5": 0.4,
+      "max_precision@5": 0.6,
+      "mrr@5": 1.0,
+      "map@5": 1.0,
+      "ndcg@5": 0.6993,
+      "section_diversity@5": 0.8,
+      "hit_rate@10": 1.0,
+      "recall@10": 0.5,
+      "precision@10": 0.2,
+      "max_precision@10": 0.3,
+      "mrr@10": 1.0,
+      "map@10": 1.0,
+      "ndcg@10": 0.7524,
+      "section_diversity@10": 0.7,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4764-p740-t000",
+          "doc_id": "medical_book",
+          "page": 740,
+          "section": "Clostridium botulinum (C. botulinum)",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4767-p742-t000",
+          "doc_id": "medical_book",
+          "page": 742,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4769-p742-t000",
+          "doc_id": "medical_book",
+          "page": 742,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4760-p740-t000",
+          "doc_id": "medical_book",
+          "page": 740,
+          "section": "Staphylococcus aureus",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec52-p19-t000",
+          "doc_id": "medical_book",
+          "page": 19,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4761-p740-t000",
+          "doc_id": "medical_book",
+          "page": 740,
+          "section": "Escherichia coli (E. coli)",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3955-p624-t000",
+          "doc_id": "medical_book",
+          "page": 624,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec60-p20-t000",
+          "doc_id": "medical_book",
+          "page": 20,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4762-p740-t000",
+          "doc_id": "medical_book",
+          "page": 740,
+          "section": "Campylobacter jejuni (C. jejuni)",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2847-p456-t000",
+          "doc_id": "medical_book",
+          "page": 456,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ]
+    }
+  ],
+  "snapshot_meta": {
+    "git_commit": "04f2faa",
+    "timestamp": "2026-03-16T07:06:54.660600",
+    "note": ""
+  }
+}

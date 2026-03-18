@@ -1,0 +1,21 @@
+{
+  "version": "v1",
+  "generated_at": "2026-03-14T02:25:03.076262+00:00",
+  "total_samples": 172,
+  "tier_counts": {
+    "guardrail": 44,
+    "routing": 39,
+    "rag": 53,
+    "conversational": 18,
+    "robustness": 18
+  },
+  "file_hashes": {
+    "tier1_guardrail.jsonl": "c0c95a2d77ec3aee39727606642fd14ab80a6aad11c9fc3d19c5dd5639191570",
+    "tier2_routing.jsonl": "14f250bc2c1cbf964de81b2669d860442bcf76479cd4971f6a1ea127ef85ecc6",
+    "tier3_rag.jsonl": "7fc04eebd8e20f57b996f2c0a7d5042dc1846295a7d001eb52cd35ec87957697",
+    "tier4_conversation.jsonl": "0d50aa79e5724baacf0a3a449789fbd72239ff10f23843d720ebdb793c003b99",
+    "tier5_robustness.jsonl": "afac03f5a862e6db5445b7cbc5fa2e8b9ba9b17d73ac94faa51792772b58649e"
+  },
+  "schema_version": "schema_v1",
+  "all_gates_pass": false
+}

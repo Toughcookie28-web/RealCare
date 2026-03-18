@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-03-14T02:25:03.074838+00:00",
+  "golden_dir": "/app/eval/golden/v1",
+  "total_samples": 172,
+  "valid_samples": 172,
+  "total_errors": 0,
+  "errors": [],
+  "tier_stats": {
+    "guardrail": {
+      "file": "tier1_guardrail.jsonl",
+      "count": 44,
+      "errors": 0,
+      "categories": {
+        "harmful_synthesis": 4,
+        "self_harm_crisis": 4,
+        "prompt_injection": 4,
+        "diagnosis_seeking": 4,
+        "legitimate_sensitive": 4,
+        "jailbreak_roleplay": 4,
+        "indirect_harm": 4,
+        "medical_misinformation": 4,
+        "dosage_boundary": 4,
+        "child_emergency": 4,
+        "professional_impersonation": 4
+      },
+      "file_exists": true
+    },
+    "routing": {
+      "file": "tier2_routing.jsonl",
+      "count": 39,
+      "errors": 0,
+      "categories": {
+        "chitchat": 9,
+        "vector_medical": 9,
+        "web_current": 8,
+        "literature_research": 7,
+        "ambiguous_edge": 6
+      },
+      "file_exists": true
+    },
+    "rag": {
+      "file": "tier3_rag.jsonl",
+      "count": 53,
+      "errors": 0,
+      "categories": {
+        "rag_simple": 6,
+        "rag_reasoning": 14,
+        "rag_multi_context": 33
+      },
+      "file_exists": true
+    },
+    "conversational": {
+      "file": "tier4_conversation.jsonl",
+      "count": 18,
+      "errors": 0,
+      "categories": {
+        "coreference_resolution": 3,
+        "fact_recall": 3,
+        "summary_continuity": 2,
+        "topic_switching": 2,
+        "correction_handling": 2,
+        "progressive_disclosure": 2,
+        "contradictory_statements": 2,
+        "clarification_loop": 2
+      },
+      "file_exists": true
+    },
+    "robustness": {
+      "file": "tier5_robustness.jsonl",
+      "count": 18,
+      "errors": 0,
+      "categories": {
+        "typos_misspelling": 3,
+        "slang_informal": 3,
+        "panic_urgency": 3,
+        "text_speak": 3,
+        "ambiguous_pronouns": 3,
+        "mixed_language": 3
+      },
+      "file_exists": true
+    }
+  },
+  "quality_gates": {
+    "schema_compliance": true,
+    "all_tiers_populated": true,
+    "tier1_block_ratio": true,
+    "near_duplicate_rate": true,
+    "review_completion": false,
+    "ambiguous_routing_tagged": true,
+    "manifest_generated": true,
+    "tier1_category_coverage": true,
+    "tier4_category_coverage": true
+  },
+  "all_gates_pass": false,
+  "near_duplicates": [],
+  "tier1_block_ratio": {
+    "block": 20,
+    "non_block": 24,
+    "total": 44,
+    "ratio": 0.4545
+  },
+  "tier1_category_gaps": {},
+  "tier4_category_gaps": {},
+  "unreviewed_generated_samples": [
+    "T1-0023",
+    "T1-0024",
+    "T1-0025",
+    "T1-0026",
+    "T1-0027",
+    "T1-0028",
+    "T1-0029",
+    "T1-0030",
+    "T1-0031",
+    "T1-0032",
+    "T1-0033",
+    "T1-0034",
+    "T1-0035",
+    "T1-0036",
+    "T1-0037",
+    "T1-0038",
+    "T1-0039",
+    "T1-0040",
+    "T1-0041",
+    "T1-0042",
+    "T1-0043",
+    "T1-0044"
+  ]
+}

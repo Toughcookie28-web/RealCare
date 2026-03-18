@@ -1,0 +1,12 @@
+{"trace_id":"trace-review-001","failure_mode":"dependency_or_import_failure","review_status":"reviewed","scope":"runtime_preflight","notes":"Missing import blocks runtime before eval begins."}
+{"trace_id":"trace-review-002","failure_mode":"parser_artifact_permission_failure","review_status":"reviewed","scope":"pdf_parser","notes":"RapidOCR attempted to write models into a non-writable package path."}
+{"trace_id":"trace-review-003","failure_mode":"schema_mismatch","review_status":"reviewed","scope":"db_contract","notes":"Live document_chunks.embedding type did not match vector(768)."}
+{"trace_id":"trace-review-004","failure_mode":"runtime_fallback_masked_failure","review_status":"reviewed","scope":"persistence","notes":"In-memory fallback previously hid missing PostgreSQL state."}
+{"trace_id":"trace-review-005","failure_mode":"empty_or_partial_index","review_status":"reviewed","scope":"ingest_index","notes":"Reindex completed without the expected chunk count in the vector store."}
+{"trace_id":"trace-review-006","failure_mode":"table_retrieval_miss","review_status":"reviewed","scope":"retrieval","notes":"Table-grounded question did not surface any table chunks in top-k results."}
+{"trace_id":"trace-review-007","failure_mode":"wrong_chunk_priority","review_status":"reviewed","scope":"retrieval","notes":"Relevant chunk was present but ranked behind weaker context."}
+{"trace_id":"trace-review-008","failure_mode":"workflow_route_mismatch","review_status":"reviewed","scope":"workflow","notes":"Workflow selected the wrong route for a corpus-grounded question."}
+{"trace_id":"trace-review-009","failure_mode":"stale_semantic_cache_hit","review_status":"reviewed","scope":"semantic_cache","notes":"Cached answer survived a retrieval/prompt contract change during debugging."}
+{"trace_id":"trace-review-010","failure_mode":"generator_runtime_failure","review_status":"reviewed","scope":"tier3_offline_generation","notes":"Tier 3 utility failed before generating a reviewed draft dataset."}
+{"trace_id":"trace-review-011","failure_mode":"unreviewed_failure_mode","review_status":"reviewed","scope":"taxonomy_governance","notes":"New failure types must be reviewed before they influence eval decisions."}
+{"trace_id":"trace-review-012","failure_mode":"gate_contract_failure","review_status":"reviewed","scope":"ci_gate","notes":"Required regression gate must not depend on live generation or runtime diagnostics."}

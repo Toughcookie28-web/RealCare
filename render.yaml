@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: medi-genius
+    runtime: python
+    buildCommand: python3 -m pip install .
+    startCommand: gunicorn app:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    healthCheckPath: /health/live
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: medigenius-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: DEBUG
+        value: "false"
+      - key: ENV
+        value: "production"
+
+databases:
+  - name: medigenius-db
+    plan: starter
+    postgresMajorVersion: 16
+    ipAllowList: []

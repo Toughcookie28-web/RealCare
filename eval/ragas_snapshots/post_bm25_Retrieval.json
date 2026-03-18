@@ -1,0 +1,2427 @@
+{
+  "scope": "ragas_llm_judge",
+  "mode": "full_pipeline",
+  "judge_model": "gpt-4o-mini",
+  "sample_count": 53,
+  "fetch_k": 20,
+  "top_k": 5,
+  "faithfulness": 0.7581,
+  "faithfulness_scored_count": 53,
+  "answer_relevancy": 0.259,
+  "answer_relevancy_scored_count": 53,
+  "context_precision": 0.3693,
+  "context_precision_scored_count": 53,
+  "context_recall": 0.3679,
+  "context_recall_scored_count": 53,
+  "latency_ms_mean": 511.22,
+  "slices": {
+    "difficulty:multi_context": {
+      "sample_count": 33,
+      "faithfulness": 0.7654,
+      "answer_relevancy": 0.1925,
+      "context_precision": 0.3335,
+      "context_recall": 0.3182
+    },
+    "difficulty:reasoning": {
+      "sample_count": 14,
+      "faithfulness": 0.6849,
+      "answer_relevancy": 0.3949,
+      "context_precision": 0.3976,
+      "context_recall": 0.4286
+    },
+    "difficulty:simple": {
+      "sample_count": 6,
+      "faithfulness": 0.8889,
+      "answer_relevancy": 0.3078,
+      "context_precision": 0.5,
+      "context_recall": 0.5
+    }
+  },
+  "results": [
+    {
+      "id": "MANUAL-T3-001",
+      "question": "What is the only way to confirm the diagnosis of Campylobacter diarrhea?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "The provided context does not mention Campylobacter diarrhea or how its diagnosis is confirmed.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 9428.56,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3996-p630-t000",
+          "page": 630,
+          "section": "Esophageal pH monitoring",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3975-p627-t000",
+          "page": 627,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec408-p71-t000",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3690-p589-t000",
+          "page": 589,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec848-p142-t000",
+          "page": 142,
+          "section": "Prevalence of abuse",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-T3-002",
+      "question": "What is the best way to prevent Campylobacter infection?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "The context does not mention Campylobacter infection or how to prevent it.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 249.05,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec58-p20-t000",
+          "page": 20,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2175-p356-t000",
+          "page": 356,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1238-p210-t000",
+          "page": 210,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4582-p713-t000",
+          "page": 713,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1710-p288-t000",
+          "page": 288,
+          "section": "Prevention",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-004",
+      "question": "What is the most accurate test for identifying cardiac tamponade?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "The provided context does not contain information about tests for cardiac tamponade.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 240.9,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2687-p430-t001",
+          "page": 430,
+          "section": "Testing for toxic substances",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4413-p689-t000",
+          "page": 689,
+          "section": "Types of fecal occult blood tests",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1465-p249-t000",
+          "page": 249,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec77-p23-t001",
+          "page": 23,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2159-p354-t000",
+          "page": 354,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-T3-006",
+      "question": "What is the only treatment option when cataracts interfere with daily life?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "The provided context does not mention cataracts or their treatment options.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 263.45,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2787-p446-t000",
+          "page": 446,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4564-p711-t000",
+          "page": 711,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2120-p349-t000",
+          "page": 349,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2240-p365-t001",
+          "page": 365,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2792-p448-t000",
+          "page": 448,
+          "section": "Peritoneal dialysis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-T3-007",
+      "question": "What diagnostic method can confirm congenital heart disease in utero after 20 weeks of pregnancy?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "Fetal echocardiography can confirm congenital heart disease in utero after 20 weeks of pregnancy.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 261.38,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1727-p291-t000",
+          "page": 291,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1668-p281-t000",
+          "page": 281,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4503-p702-t000",
+          "page": 702,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3573-p571-t000",
+          "page": 571,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9205,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-008",
+      "question": "What laboratory technique confirms most prenatal cases of DiGeorge syndrome?",
+      "difficulty": "simple",
+      "category": "rag_simple",
+      "response": "Fluorescence in situ hybridization (FISH) using DNA probes from the DiGeorge region on chromosome 22 confirms about 95% of prenatal cases of DiGeorge syndrome.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 287.9,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4686-p729-t000",
+          "page": 729,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3306-p525-t000",
+          "page": 525,
+          "section": "Classical type",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec630-p110-t000",
+          "page": 110,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3309-p526-t000",
+          "page": 526,
+          "section": "Kyphoscoliosis type",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.3333,
+      "answer_relevancy": 0.926,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-013",
+      "question": "How is cardiac tamponade diagnosed when it is suspected?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "Cardiac tamponade is diagnosed with an echocardiogram, which uses sound waves to create an image of the heart and its surrounding sac, allowing visualization of any fluid that has collected inside the sac.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 250.25,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec265-p50-t000",
+          "page": 50,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec264-p50-t000",
+          "page": 50,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4765-p741-t000",
+          "page": 741,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec247-p48-t000",
+          "page": 48,
+          "section": "ORGANIZATIONS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1724-p290-t000",
+          "page": 290,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9812,
+      "context_precision": 0.7,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-017",
+      "question": "Why does inhaled carbon monoxide reduce oxygen delivery to body tissues?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "Inhaled carbon monoxide reduces oxygen delivery because hemoglobin binds CO more than 200 times more readily than it binds oxygen, forming carboxyhemoglobin (COHb). This blocks oxygen-binding sites on hemoglobin so fewer sites are available to carry oxygen, and the hemoglobin holds CO much more tightly, preventing oxygen release to the tissues.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 296.63,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec197-p40-t000",
+          "page": 40,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec199-p40-t000",
+          "page": 40,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec198-p40-t000",
+          "page": 40,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec204-p42-t000",
+          "page": 42,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1464-p249-t000",
+          "page": 249,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9495,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-T3-021",
+      "question": "How can cardiac tamponade be recognized clinically and then confirmed diagnostically?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "**Clinical recognition**  \n- **After trauma**: heart sounds become faint, arterial blood pressure falls, and venous pressure rises.  \n- **With slowly developing disease**: shortness of breath, chest tightness, distended neck (jugular) veins, weight gain, and fluid retention.  \n\n**Diagnostic confirmation**  \nThe context does not specify any confirmatory test (e.g., echocardiography, CT, or pericardiocentesis); it only lists the clinical features above.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 275.06,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec264-p50-t000",
+          "page": 50,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec247-p48-t000",
+          "page": 48,
+          "section": "ORGANIZATIONS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3466-p550-t000",
+          "page": 550,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3435-p545-t000",
+          "page": 545,
+          "section": "Positively charged electrolytes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec286-p54-t000",
+          "page": 54,
+          "section": "PERIODICALS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 0.5
+    },
+    {
+      "id": "MANUAL-T3-025",
+      "question": "How can Campylobacter infection be confirmed and then prevented?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not describe any specific laboratory test or clinical procedure used to confirm Campylobacter infection, nor does it mention any measures for preventing the infection.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 238.09,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3533-p563-t000",
+          "page": 563,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec54-p19-t000",
+          "page": 19,
+          "section": "Complications",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3763-p600-t000",
+          "page": 600,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4789-p744-t000",
+          "page": 744,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4503-p702-t000",
+          "page": 702,
+          "section": "Purpose",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.3333,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-T3-026",
+      "question": "How can prenatal testing identify DiGeorge syndrome and why is genetic counseling recommended for affected families?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Prenatal testing for DiGeorge syndrome can be done in two ways:\n\n1. **Ultrasound examination** around the 18th week of pregnancy can detect abnormalities in heart or palate development.  \n2. **Fluorescence in situ hybridization (FISH)** using DNA probes from the DiGeorge region on chromosome 22 can be performed on cells obtained by **amniocentesis as early as the 14th week** and confirms about 95% of cases.\n\nGenetic counseling is recommended because FISH testing can definitively confirm the chro",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 310.94,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3308-p526-t001",
+          "page": 526,
+          "section": "Vascular type",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4844-p754-t000",
+          "page": 754,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3309-p526-t000",
+          "page": 526,
+          "section": "Kyphoscoliosis type",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3306-p525-t000",
+          "page": 525,
+          "section": "Classical type",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.9249,
+      "context_precision": 0.8333,
+      "context_recall": 0.5
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-001",
+      "question": "After undercooked poultry exposure, a patient develops fever, muscle aches, then severe cramps and diarrhea. What test actually confirms Campylobacteriosis rather than just suspecting infectious diarrhea?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The provided context does not specify any laboratory or diagnostic test that confirms Campylobacteriosis.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 480.37,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec53-p19-t000",
+          "page": 19,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec407-p70-t000",
+          "page": 70,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4685-p729-t000",
+          "page": 729,
+          "section": "Paragonimiasis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2670-p427-t000",
+          "page": 427,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2666-p426-t000",
+          "page": 426,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-003",
+      "question": "If several people in a confined, fuel-burning space develop headache, nausea, dizziness, and fatigue, what poisoning should be suspected and what test confirms it?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The context provided does not mention any poisoning that presents with headache, nausea, dizziness, and fatigue in people exposed to a confined, fuel-burning space, nor does it list any confirmatory test for such a poisoning.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 344.51,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2776-p445-t000",
+          "page": 445,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec407-p70-t000",
+          "page": 70,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4351-p679-t000",
+          "page": 679,
+          "section": "Physiology of fasting",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2019-p333-t000",
+          "page": 333,
+          "section": "Side effects",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2075-p339-t000",
+          "page": 339,
+          "section": "Spongiform encephalopathies",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-004",
+      "question": "How does the book escalate management for carbon monoxide poisoning when the exposure is severe or the patient is pregnant or has heart or lung disease?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not contain any information about the management of carbon monoxide poisoning, including escalation strategies for severe exposure or special populations such as pregnant patients or those with heart or lung disease.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 294.41,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1930-p322-t000",
+          "page": 322,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2323-p377-t000",
+          "page": 377,
+          "section": "Respiratory health",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4509-p703-t001",
+          "page": 703,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec891-p152-t001",
+          "page": 152,
+          "section": "Emotional and social health",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2046-p337-t000",
+          "page": 337,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-006",
+      "question": "How does the book distinguish treatment of allergic conjunctivitis from treatment of viral conjunctivitis?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not contain any information about the treatment of allergic conjunctivitis or viral conjunctivitis.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 313.07,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3176-p507-t000",
+          "page": 507,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec770-p130-t000",
+          "page": 130,
+          "section": "Preparation",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4555-p708-t000",
+          "page": 708,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1063-p183-t000",
+          "page": 183,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4603-p717-t000",
+          "page": 717,
+          "section": "Treatment",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-008",
+      "question": "An infant has cyanosis, poor feeding, recurrent respiratory infections, and stunted growth. What imaging studies are used to confirm congenital heart disease?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The provided context does not specify which imaging studies are used to confirm congenital heart disease.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 327.52,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1292-p219-t000",
+          "page": 219,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3118-p498-t000",
+          "page": 498,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p20-t000",
+          "page": 20,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1225-p208-t000",
+          "page": 208,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4470-p696-t001",
+          "page": 696,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-011",
+      "question": "Why does celiac disease cause nutritional deficiency, and what treatment stops the injury?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Celiac disease causes nutritional deficiency because the immune reaction to gluten damages the lining of the small intestine, markedly reducing its ability to digest, absorb, and utilize food.  \nThe treatment that stops this injury is strict, lifelong avoidance of gluten-containing foods.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 286.07,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec407-p71-t001",
+          "page": 71,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec408-p71-t000",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1204-p204-t000",
+          "page": 204,
+          "section": "Types of cirrhosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2838-p453-t000",
+          "page": 453,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2837-p453-t000",
+          "page": 453,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.9507,
+      "context_precision": 0.8875,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-012",
+      "question": "If a patient with type I diabetes also develops anemia or malabsorption, why should celiac disease stay on the differential and how is it confirmed?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not mention celiac disease, anemia, malabsorption, or how celiac disease is diagnosed. Therefore, based solely on the given material, it is not possible to answer why celiac disease should remain in the differential or how it would be confirmed.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 364.69,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2726-p436-t001",
+          "page": 436,
+          "section": "Types of diabetes mellitus",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2729-p437-t000",
+          "page": 437,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2737-p439-t000",
+          "page": 439,
+          "section": "Insulin",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2728-p437-t000",
+          "page": 437,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2726-p436-t000",
+          "page": 436,
+          "section": "Types of diabetes mellitus",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-013",
+      "question": "When Crohn's disease causes fistulas and has not responded well to other therapy, which newer drug does the book highlight and what is its major tradeoff?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The book highlights infliximab (Remicade) as the newer drug for Crohn’s disease that has not responded to other therapy and is useful for treating fistulas. Its major tradeoff is that it can only be used short-term because blocking TNF-α activity increases the risk of serious infection.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 360.03,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2109-p347-t000",
+          "page": 347,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2105-p345-t000",
+          "page": 345,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2838-p453-t000",
+          "page": 453,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4402-p687-t000",
+          "page": 687,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec07-p5-t000",
+          "page": 5,
+          "section": "PLEASE READ-IMPORTANT INFORMATION",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8654,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-014",
+      "question": "How does the CFTR defect in cystic fibrosis lead to both repeated lung infections and malnutrition?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The CFTR defect causes the CFTR protein to be made incorrectly, so it cannot move chloride ions out of mucus-producing cells; water therefore fails to follow and the mucus becomes thick and sticky.  \n\n- In the lungs this thick mucus cannot be cleared by the mucociliary escalator, so it clogs the airways and creates an environment where bacteria are repeatedly trapped and grow, causing repeated lung infections.  \n\n- In the pancreas the same thick mucus blocks the ducts that normally deliver diges",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 450.21,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2313-p373-t000",
+          "page": 373,
+          "section": "Causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2317-p376-t000",
+          "page": 376,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3209-p511-t000",
+          "page": 511,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2311-p373-t000",
+          "page": 373,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2314-p374-t000",
+          "page": 374,
+          "section": "DOROTHY ANDERSEN, MD ( 1 9 0 1 - 1 9 6 3 )",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8837,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-015",
+      "question": "If a newborn screen for cystic fibrosis is positive, what confirmatory test usually follows, and why does a negative gene test not completely exclude CF?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "A positive newborn screen for cystic fibrosis is usually followed by a **sweat test** for confirmation.  \n\nA **negative gene test does not completely exclude CF** because the screening panels test only for the most common mutations; rare or unknown mutations can still produce clinical disease.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 308.11,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2404-p387-t000",
+          "page": 387,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2320-p377-t000",
+          "page": 377,
+          "section": "Newborn screening",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2317-p376-t000",
+          "page": 376,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2328-p379-t000",
+          "page": 379,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p374-t000",
+          "page": 374,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.25,
+      "answer_relevancy": 0.9229,
+      "context_precision": 0.5,
+      "context_recall": 0.5
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-017",
+      "question": "Why does early diagnosis matter in cystic fibrosis, and what two long-term management areas does the book emphasize once the diagnosis is made?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not mention cystic fibrosis at all; therefore it cannot answer why early diagnosis matters in cystic fibrosis or what two long-term management areas are emphasized once the diagnosis is made.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 341.32,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec715-p124-t000",
+          "page": 124,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2239-p365-t000",
+          "page": 365,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec86-p26-t000",
+          "page": 26,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1631-p276-t000",
+          "page": 276,
+          "section": "Treatment",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-018",
+      "question": "How does the book distinguish type I from type II diabetes in onset and baseline treatment?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not contain any information distinguishing type I from type II diabetes in onset or baseline treatment.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 260.21,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1390-p233-t000",
+          "page": 233,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2854-p457-t000",
+          "page": 457,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3318-p528-t000",
+          "page": 528,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4686-p729-t000",
+          "page": 729,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1462-p248-t000",
+          "page": 248,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-021",
+      "question": "If a patient has fever, severe headache or intense back pain, stiff neck, and a nearby ear or sinus infection, what two-part treatment does the book recommend for suspected CNS infection?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not specify a two-part treatment for a suspected central nervous system (CNS) infection in a patient presenting with fever, severe headache or intense back pain, stiff neck, and a nearby ear or sinus infection.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 415.25,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4497-p701-t000",
+          "page": 701,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2106-p345-t000",
+          "page": 345,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2608-p415-t000",
+          "page": 415,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3532-p563-t001",
+          "page": 563,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3759-p599-t001",
+          "page": 599,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.5714,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-023",
+      "question": "If warning signs like one-sided eye symptoms or a localized headache make cerebral aneurysm a concern, what imaging test is used first, why is MRI not preferred for subarachnoid blood, and when is CT most useful?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not mention any imaging tests (such as CT or MRI), nor does it discuss the relative merits of these modalities for detecting cerebral aneurysms or subarachnoid blood. Therefore, I cannot answer the question based on the given material.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 415.93,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec505-p87-t000",
+          "page": 87,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1259-p213-t000",
+          "page": 213,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4364-p681-t000",
+          "page": 681,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1735-p292-t000",
+          "page": 292,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec330-p59-t000",
+          "page": 59,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-024",
+      "question": "How does the book contrast management of an unruptured cerebral aneurysm with management after rupture?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not contain any information about the management of cerebral aneurysms—either unruptured or after rupture.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 322.16,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2046-p337-t000",
+          "page": 337,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1482-p252-t000",
+          "page": 252,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec532-p94-t000",
+          "page": 94,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4187-p657-t000",
+          "page": 657,
+          "section": "BOOKS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec891-p152-t001",
+          "page": 152,
+          "section": "Emotional and social health",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-CAND-T3-028",
+      "question": "In prenatal counseling for Down syndrome, how does the book distinguish risk screening from definitive fetal testing, especially as maternal age rises?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The book distinguishes risk screening from definitive fetal testing for Down syndrome in two ways:\n\n1. **Nature and accuracy of the tests**  \n   - **Screening tests** (e.g., maternal serum AFP with or without two other hormones, combined with maternal age) only estimate the chance that the baby has Down syndrome and are “only correct about 60% of the time.”  \n   - **Definitive tests**—amniocentesis or chorionic villus sampling—examine the baby’s own tissue/karyotype and establish the presence or",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 296.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3048-p488-t000",
+          "page": 488,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4844-p754-t000",
+          "page": 754,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1620-p275-t000",
+          "page": 275,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2880-p460-t000",
+          "page": 460,
+          "section": "Prevention",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2874-p460-t000",
+          "page": 460,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.9541,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-001",
+      "question": "When permanent failure of the body's blood-cleaning system forces clinicians to measure both chemical burden and function left, what studies does the book use to define the problem, and which three stand-ins take over once the native organs cannot do the work anymore?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not specify any particular “studies” (laboratory or clinical) that clinicians use to define the problem when permanent failure of the blood-cleaning (renal) system occurs.  \nIt also does not list “three stand-ins” that take over once the native kidneys can no longer function.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 404.74,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1149-p195-t000",
+          "page": 195,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3338-p530-t000",
+          "page": 530,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3283-p520-t000",
+          "page": 520,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3953-p624-t000",
+          "page": 624,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3571-p570-t001",
+          "page": 570,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-002",
+      "question": "What chronic filtering-organ failure does the book tie to a cluster that includes puffy eyes or limbs, foamy or bloody urine, an ammonia taste, and fragile bones, and what disrupted vitamin-mineral role explains why the skeleton appears in that picture?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The book ties these findings to chronic kidney failure (chronic renal failure).  \nThe disrupted vitamin-mineral role is the kidneys’ inability to activate vitamin D and to regulate calcium and phosphate; this mineralization defect produces renal osteodystrophy, so the skeleton is included in the picture.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 364.27,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1149-p195-t000",
+          "page": 195,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4275-p667-t000",
+          "page": 667,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1148-p195-t000",
+          "page": 195,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2791-p448-t000",
+          "page": 448,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3571-p570-t001",
+          "page": 570,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.8733,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-003",
+      "question": "After several people become ill around the same meal, what shortcut does the chapter warn against when trying to identify the culprit, and what laboratory finding turns that situation from suspicion into confirmation?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The provided context does not mention anything about people becoming ill after a shared meal, nor does it discuss any shortcut or laboratory finding related to identifying a food-related culprit.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 350.17,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1121-p191-t000",
+          "page": 191,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec328-p58-t000",
+          "page": 58,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2998-p476-t000",
+          "page": 476,
+          "section": "Precautions",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec135-p33-t000",
+          "page": 33,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec833-p139-t000",
+          "page": 139,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-004",
+      "question": "Once the bleeding-and-shock priorities of a broken limb have been handled, what mechanical objective does the next phase protect, and which injuries make the book move from outside support or closed realignment to operative repair?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not specify what mechanical objective the next phase after bleeding-and-shock control is meant to protect, nor does it list which injuries dictate a shift from external support/closed realignment to operative repair.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 385.74,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2623-p417-t000",
+          "page": 417,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4493-p699-t000",
+          "page": 699,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2621-p417-t000",
+          "page": 417,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4828-p750-t000",
+          "page": 750,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1110-p190-t000",
+          "page": 190,
+          "section": "Risks",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.25,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-005",
+      "question": "Which congenital defect does the chapter single out when a newborn can look stable only until the fetal bypass route closes and body circulation then collapses, and what prenatal study in the diagnosis section confirms this disease family before birth?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The chapter does not explicitly name a single congenital defect that causes a newborn to appear stable only until the fetal bypass route closes and body circulation collapses. Therefore, based strictly on the provided context, this specific defect is not identified.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 380.8,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1725-p290-t000",
+          "page": 290,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1727-p291-t000",
+          "page": 291,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1629-p276-t000",
+          "page": 276,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1722-p289-t000",
+          "page": 289,
+          "section": "Other defects",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p20-t000",
+          "page": 20,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 0.5
+    },
+    {
+      "id": "MANUAL-PDF-RH-RW-T3-006",
+      "question": "When an abdominal and lower-back exam points to a lower-tract process instead of a normally sterile system, what specimen comes next, and which two findings turn that fluid into evidence of infection?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "Next specimen: a urine sample.  \nTwo findings that indicate infection: the presence of bacteria or pus in the urine.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 354.42,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec669-p117-t000",
+          "page": 117,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2355-p381-t000",
+          "page": 381,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec543-p97-t000",
+          "page": 97,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1641-p277-t000",
+          "page": 277,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4493-p699-t000",
+          "page": 699,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8732,
+      "context_precision": 0.5,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-001",
+      "question": "An antibody screen points toward a malabsorption disorder that can masquerade as IBS or Crohn's. What actually locks the diagnosis in, and what later change tells the book the original call held up?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context states that an abnormal antibody screen (looking for antigliadin, anti-endomysium, and antireticulin antibodies) only “points towards celiac disease, but further tests are needed to confirm the diagnosis.”  \nIt does not specify which additional test(s) actually lock the diagnosis in, nor does it describe any later change that retrospectively validates the original call.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 366.74,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1506-p257-t000",
+          "page": 257,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec408-p71-t000",
+          "page": 71,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1602-p272-t000",
+          "page": 272,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec522-p91-t001",
+          "page": 91,
+          "section": "Prenatal causes",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2687-p430-t000",
+          "page": 430,
+          "section": "Testing for toxic substances",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.8,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.5,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-002",
+      "question": "When fever plus severe headache or back pain raises concern for a bacterial collection somewhere in the brain or spine, which imaging study is the most sensitive locator, and what two-part treatment strategy follows once the site is found?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The provided context does not specify which imaging study is the most sensitive locator for a bacterial collection in the brain or spine, nor does it outline the two-part treatment strategy once the site is found.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 381.19,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2608-p415-t000",
+          "page": 415,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3759-p599-t000",
+          "page": 599,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4603-p717-t000",
+          "page": 717,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec906-p156-t000",
+          "page": 156,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec461-p79-t000",
+          "page": 79,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-003",
+      "question": "Delayed milestones may raise concern for a nonprogressive motor disorder, but what later course makes the book back away from that diagnosis, and what bedside or imaging clues still keep it in play?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context states that cerebral palsy (CP) is nonprogressive.  \nTherefore, if the child begins to lose milestones already achieved, the clinician should “back away” from the CP diagnosis and look for a different, progressive disorder.\n\nBedside/imaging clues that can still keep CP in play are:\n- Persistence of early hand preference before 12–18 months  \n- Consistent asymmetry on examination (asymmetric crawling, favored leg on stairs, etc.)  \n- Neuro-imaging findings consistent with a static bra",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 382.35,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec210-p42-t000",
+          "page": 42,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec526-p93-t000",
+          "page": 93,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4470-p696-t001",
+          "page": 696,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3306-p525-t000",
+          "page": 525,
+          "section": "Classical type",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec839-p141-t001",
+          "page": 141,
+          "section": "Prevention",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.5714,
+      "answer_relevancy": 0.8511,
+      "context_precision": 0.5833,
+      "context_recall": 0.5
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-004",
+      "question": "For an ordinary viral upper-airway illness, what are clinic tests unable to identify directly, and what are those tests trying to uncover if they are ordered anyway?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "For an ordinary viral upper-airway illness, clinic tests are unable to identify directly the specific strain of virus causing the illness. If such tests are ordered anyway, they are intended to confirm that the infection is viral (and therefore does not require antibiotics).",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 325.53,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3759-p599-t000",
+          "page": 599,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2607-p415-t000",
+          "page": 415,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3760-p600-t000",
+          "page": 600,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1462-p248-t000",
+          "page": 248,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p20-t000",
+          "page": 20,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.926,
+      "context_precision": 0.3333,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-005",
+      "question": "When recurrent infection suggests a broken complement pathway rather than a one-off illness, which screening pair tells the clinician where the defect family sits, and what does management focus on when the pathway itself cannot be repaired?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "Based on the provided context, when recurrent infection suggests a broken complement pathway rather than a one-off illness, the screening pair that tells the clinician where the defect family sits is not explicitly stated. However, it can be inferred that the screening pair would involve tests to identify the specific complement deficiency, such as measuring the levels of different complement components.\n\nAs stated in the context, \"Without sufficient complement, the body is prone to frequent inf",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 350.28,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1538-p263-t000",
+          "page": 263,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1391-p233-t000",
+          "page": 233,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2315-p375-t002",
+          "page": 375,
+          "section": "Symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec950-p163-t000",
+          "page": 163,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1390-p233-t001",
+          "page": 233,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.5556,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-006",
+      "question": "Without a specialty lab, how does the chapter sort the newborn form, the bird-linked form, and the mild community form of this pneumonia, and which drug choice goes with each pattern?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer the question. The question mentions different forms of pneumonia (newborn form, bird-linked form, and mild community form) and asks how to sort them without a specialty lab and which drug choice goes with each pattern. However, the provided context does not discuss pneumonia or its different forms, nor does it provide information on how to diagnose or treat them. \n\nThe context only discusses fracture immobilization, carpal tunnel syndrome",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 332.74,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4829-p751-t000",
+          "page": 751,
+          "section": "Immobilization",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec319-p57-t000",
+          "page": 57,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1222-p207-t000",
+          "page": 207,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4493-p699-t000",
+          "page": 699,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4760-p740-t000",
+          "page": 740,
+          "section": "Staphylococcus aureus",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-007",
+      "question": "Before anyone can name the ingested agent, what clues does the book use to infer an overdose early, and why is it unsafe to wait for dramatic symptoms before taking it seriously?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The context does not contain enough information to answer the question. The provided text discusses various diseases and conditions, including erythema infectiosum, CFS, C. jejuni, cold sores, and pinworms, but it does not mention anything about an ingested agent, overdose, or dramatic symptoms. Therefore, it is not possible to infer any clues or determine why it is unsafe to wait for dramatic symptoms before taking it seriously based on the provided context.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 340.27,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4589-p714-t000",
+          "page": 714,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1120-p190-t000",
+          "page": 190,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4762-p740-t000",
+          "page": 740,
+          "section": "Campylobacter jejuni (C. jejuni)",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1390-p233-t000",
+          "page": 233,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3728-p594-t000",
+          "page": 594,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.375,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-008",
+      "question": "Once a fresh breast mass is filed under this catch-all noncancer label, what must clinicians rule out before reassurance, and what leftover doubt keeps aspiration or biopsy on the table?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "According to the context, once a fresh breast mass is identified, clinicians must rule out cancer before reassurance. The leftover doubt that keeps aspiration or biopsy on the table is the possibility that the mass may be malignant, despite initial findings suggesting it may be noncancerous. \n\nAs stated in the context, \"If a lump cannot be proven benign by mammography and ultrasound, a breast biopsy may be considered.\" This indicates that even if initial tests suggest a lump is noncancerous, fur",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 329.15,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4563-p710-t000",
+          "page": 710,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4561-p709-t001",
+          "page": 709,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p20-t000",
+          "page": 20,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec489-p82-t000",
+          "page": 82,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1421-p239-t000",
+          "page": 239,
+          "section": "Screening",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-009",
+      "question": "After the immediate emergency priorities of a broken limb are addressed, what mechanical target must the next phase preserve, and which injury pattern moves care away from closed methods into operative repair?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer the question. The provided context discusses various medical topics, including botulism, child abuse, soft tissue injuries, dental injuries, drug overdose, and choking, but it does not mention broken limbs or the next phase of treatment after immediate emergency priorities are addressed. Therefore, I cannot provide a specific answer to the question based on the given context.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 352.36,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4764-p740-t000",
+          "page": 740,
+          "section": "Clostridium botulinum (C. botulinum)",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec856-p145-t000",
+          "page": 145,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2623-p417-t000",
+          "page": 417,
+          "section": "Treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3074-p493-t000",
+          "page": 493,
+          "section": "Immediate care",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec940-p162-t000",
+          "page": 162,
+          "section": "Treatment",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-010",
+      "question": "In the monitoring chapter, what tracing behavior counts as reassuring before labor becomes critical, and what later contraction-linked pattern forces operative delivery if birth is still not near?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer the question. The provided context discusses different types of fetal monitoring, such as fetoscope, Doppler method, electronic fetal monitoring, internal monitoring, and telemetry monitoring, but it does not specify what tracing behavior counts as reassuring before labor becomes critical or what contraction-linked pattern forces operative delivery if birth is still not near. \n\nThe relevant part of the context is the section on fetal moni",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 327.32,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec876-p149-t000",
+          "page": 149,
+          "section": "Fetal monitoring",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1368-p229-t001",
+          "page": 229,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1368-p229-t000",
+          "page": 229,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1917-p319-t000",
+          "page": 319,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1369-p230-t000",
+          "page": 230,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 1.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-011",
+      "question": "Before lab speciation arrives in this endocardial process, what immediate inpatient antimicrobial move begins anyway, and what sonographic clue shows the clinicians have targeted the correct valve problem?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context provided does not contain enough information to answer the question. The question seems to be related to a medical procedure, possibly endocarditis, but the context does not mention this topic or provide relevant information about inpatient antimicrobial treatment or sonographic clues for valve problems. The context provided is about chorionic villus sampling, cervical cancer, cancer in general, and frostbite treatment. Therefore, I cannot provide a specific answer based on the given",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 374.83,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1106-p189-t001",
+          "page": 189,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec570-p100-t000",
+          "page": 100,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p20-t000",
+          "page": 20,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p21-t001",
+          "page": 21,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4874-p757-t000",
+          "page": 757,
+          "section": "Frostbite",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.7,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-012",
+      "question": "When routine studies still leave the cause of brain inflammation unresolved after treatment has already failed, what invasive step does the book reserve for a definitive answer, and which common sporadic U.S. cause is singled out as responsive to acyclovir?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer the question. The provided context discusses various medical topics, including Spiral CT, Chronic Fatigue Syndrome (CFS), herbal supplements, metabolism, CPR, and cyst treatment, but it does not mention brain inflammation, treatment failure, or the use of acyclovir. Therefore, I cannot provide a definitive answer based on the given context.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 407.01,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1559-p265-t000",
+          "page": 265,
+          "section": "Spiral CT",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1121-p191-t000",
+          "page": 191,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3060-p491-t000",
+          "page": 491,
+          "section": "Alternative treatment",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec278-p53-t000",
+          "page": 53,
+          "section": "New developments in CPR",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3239-p515-t000",
+          "page": 515,
+          "section": "Treatment",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.7143,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-013",
+      "question": "Within this family of moving-vessel blockages, which form does the chapter call most common, what usual source explains most cases, and what treatment is saved for the severest presentation?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer the question about \"moving-vessel blockages\" as this term is not mentioned in the provided context. The context discusses various medical topics such as cervical cancer, cholestasis, EDS, cancer, and endometrial cancer, but does not mention \"moving-vessel blockages\". \n\nHowever, it does discuss blockages in the context of cholestasis, which is caused by obstruction within the liver (intrahepatic) or outside the liver (extrahepatic). Accord",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 391.69,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec570-p100-t000",
+          "page": 100,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1005-p172-t000",
+          "page": 172,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3318-p528-t000",
+          "page": 528,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p20-t000",
+          "page": 20,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3598-p575-t000",
+          "page": 575,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-014",
+      "question": "In the chromosome-22 disorder discussed here, which DNA-probe study settles most prenatal cases after an anatomic scan raises concern, and what operating-room finding can reveal the diagnosis if that earlier work was missed?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The context does not contain enough information to answer the question. The context discusses cri du chat syndrome (related to chromosome 5), Down syndrome (related to chromosome 21), Ehlers-Danlos syndrome, and cancer, but it does not mention a chromosome-22 disorder. Therefore, it is not possible to provide a specific answer to the question based on the provided context.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 437.27,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2095-p344-t000",
+          "page": 344,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3043-p486-t000",
+          "page": 486,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3315-p527-t000",
+          "page": 527,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3045-p487-t000",
+          "page": 487,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p20-t000",
+          "page": 20,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.7143,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.8333,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-015",
+      "question": "For the trisomy syndrome in this chapter, which prenatal signal is only a probability estimate, and which two procedures obtain fetal material for a definitive chromosome count?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "For the trisomy syndrome in this chapter, maternal serum analysis or screening is only a probability estimate. \n\nThe two procedures that obtain fetal material for a definitive chromosome count are amniocentesis and chorionic villus sampling. \n\nThis is stated in the context: \"Potential tests include maternal serum analysis or screening, ultrasonography, amniocentesis, and chorionic villus sampling.\" and \"Karyotyping involves drawing the baby's blood or bone marrow for a microscopic examination of",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 362.37,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec4841-p752-t000",
+          "page": 752,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3049-p489-t000",
+          "page": 489,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3043-p486-t000",
+          "page": 486,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3292-p523-t000",
+          "page": 523,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3295-p523-t000",
+          "page": 523,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.9256,
+      "context_precision": 0.2,
+      "context_recall": 0.5
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-016",
+      "question": "What judgment does the chapter make about the cognition-enhancing drug sometimes marketed online for the extra-chromosome syndrome discussed here?",
+      "difficulty": "reasoning",
+      "category": "rag_reasoning",
+      "response": "The context does not contain enough information to answer the question. The chapter does not mention a cognition-enhancing drug or its judgment about such a drug. The context discusses various medical topics, including chromosomes, Down syndrome, CMT, enterostomy, episiotomy, and circumcision, but does not mention a cognition-enhancing drug.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 308.16,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3049-p489-t000",
+          "page": 489,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec713-p122-t000",
+          "page": 122,
+          "section": "Types of CMT",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3737-p596-t000",
+          "page": 596,
+          "section": "Definition",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3836-p608-t000",
+          "page": 608,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1189-p201-t000",
+          "page": 201,
+          "section": "Purpose",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.8333,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-017",
+      "question": "Once maternal antibodies are already present, what findings tell the book that fetal injury is severe enough to move from watching to induction or transfusion?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer this question. The provided text discusses various medical topics, including dengue fever, immunodeficiency disorders, erythroblastosis fetalis, and blood typing, but it does not specifically address the question of when to move from watching to induction or transfusion in the case of fetal injury due to maternal antibodies. \n\nThe closest relevant information is found in the section on erythroblastosis fetalis, which mentions that \"In cas",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 321.53,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec2609-p416-t000",
+          "page": 416,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1529-p262-t000",
+          "page": 262,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3896-p616-t000",
+          "page": 616,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3851-p611-t000",
+          "page": 611,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3893-p615-t000",
+          "page": 615,
+          "section": "Description",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.3333,
+      "context_recall": 0.5
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-018",
+      "question": "What pattern keeps the book from dismissing these recurrent attacks as ordinary infection, and what daily drug changes both attack frequency and later kidney risk if patients actually stay on it?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer the question. The question seems to be related to a specific medical condition and treatment, but the provided context does not mention a specific pattern or daily drug that keeps the book from dismissing recurrent attacks as ordinary infection, or that changes both attack frequency and later kidney risk. \n\nThe context provided discusses various topics such as cholesterol, FAS, peer pressure, cancer, and healthy diet, but it does not cont",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 320.94,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec1036-p178-t000",
+          "page": 178,
+          "section": "Purpose",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4470-p696-t000",
+          "page": 696,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec891-p152-t001",
+          "page": 152,
+          "section": "Emotional and social health",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec86-p26-t000",
+          "page": 26,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec1923-p321-t000",
+          "page": 321,
+          "section": "Eat right",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.4286,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-019",
+      "question": "Most cases of this slapped-cheek illness are called without lab work. Which groups still get maternal or fetal testing, and what gestational danger justifies that extra step?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer the question about the groups that still get maternal or fetal testing and the gestational danger that justifies that extra step for the slapped-cheek illness, also known as erythema infectiosum. The provided context only mentions that the disease is usually mild and that most cases are diagnosed based on characteristic symptoms, but it does not discuss maternal or fetal testing. \n\nHowever, it can be inferred from general medical knowledg",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 377.09,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3759-p599-t000",
+          "page": 599,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4629-p720-t000",
+          "page": 720,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec66-p20-t000",
+          "page": 20,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec4589-p714-t000",
+          "page": 714,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3760-p600-t000",
+          "page": 600,
+          "section": "Diagnosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.2,
+      "context_recall": 0.0
+    },
+    {
+      "id": "MANUAL-PDF-RH-V2-T3-020",
+      "question": "One illness in the foodborne chapter stands apart because it produces a descending neurologic picture rather than the usual gut upset. What early pattern does the book describe, and what time-limited therapy applies only to adults?",
+      "difficulty": "multi_context",
+      "category": "rag_multi_context",
+      "response": "The context does not contain enough information to answer the question. The provided context discusses Epstein-Barr virus, dengue fever, enteroviruses, genetic terms, and cancer, but it does not mention a foodborne chapter or a specific illness that produces a descending neurologic picture. Therefore, I cannot provide a relevant answer based on the given context.",
+      "retrieved_chunk_count": 5,
+      "latency_ms": 382.59,
+      "top_chunks": [
+        {
+          "chunk_id": "medical_book-sec3855-p611-t000",
+          "page": 611,
+          "section": "Normal results",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec2607-p415-t000",
+          "page": 415,
+          "section": "Description",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3759-p599-t000",
+          "page": 599,
+          "section": "Causes and symptoms",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec3049-p489-t000",
+          "page": 489,
+          "section": "KEY TERMS",
+          "content_type": "text_section"
+        },
+        {
+          "chunk_id": "medical_book-sec86-p26-t000",
+          "page": 26,
+          "section": "Prognosis",
+          "content_type": "text_section"
+        }
+      ],
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    }
+  ]
+}

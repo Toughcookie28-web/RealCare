@@ -1,0 +1,47 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Local tooling caches
+.claude/
+.ruff_cache/
+.mypy_cache/
+.cache/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local databases (dev artifacts)
+medical_db/
+chat_db/
+
+# Large artifacts
+biogpt-merged/
+demo.mp4
+*.safetensors
+
+# OS
+.DS_Store
+Thumbs.db
+.trees/
+worktrees/
+.git_commit
