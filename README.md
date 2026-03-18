@@ -57,156 +57,46 @@ It features **PostgreSQL-powered long-term memory** for persistent medical conve
 
 ---
 
-## **Installation and Runbook**
+## **Project Architecture**
 
-### Local Python install
+```mermaid
+graph TD
+    A[User Query] --> B[GuardrailAgent - Safety Filter]
+    B -->|Blocked| Z[Safety Refusal]
+    B -->|High Risk| HITL[HITL Review Queue]
+    B -->|Safe| C[MemoryAgent - Summary + Facts]
 
-Canonical install contract:
+    C --> D[QueryRewriterAgent - Coreference Resolution]
+    D --> E[PlannerAgent - Semantic Routing]
 
-- Runtime environments install from `pyproject.toml` with `python3 -m pip install .`
-- RAG/eval environments install the extra parser/eval toolchain with `python3 -m pip install ".[eval,ingest]"`
-- Compose services run the built image and mount only mutable data, cache, and eval output paths; they do not bind-mount source code into `/app`
+    E -->|chitchat| F[LLMAgent - General Knowledge]
+    E -->|vector| G[RetrieverAgent - Hybrid Search + Rerank]
+    E -->|web| H[TavilyAgent - Domain-Locked Search]
+    E -->|literature| I[LiteratureAgent - PubMed]
 
-Runtime only:
+    F --> J[ExecutorAgent - Answer Generation + Cache]
+    G --> J
+    H --> J
+    I --> J
 
-```bash
-python3 -m pip install .
+    J --> K[ReflectionAgent - Quality Gate]
+    K -->|Retry| D
+    K -->|Accept| L[ExplanationAgent - Citations]
+    L --> M[Final Response + Store to PostgreSQL]
+
+    style A fill:#ff9,stroke:#333
+    style B fill:#ffbdbd,stroke:#333
+    style C fill:#fdf6b2,stroke:#333
+    style E fill:#c9f,stroke:#333
+    style G fill:#a0e3a0,stroke:#333
+    style F fill:#9fd4ff,stroke:#333
+    style H fill:#ffe599,stroke:#333
+    style I fill:#b3f7f7,stroke:#333
+    style J fill:#f9f,stroke:#333
+    style K fill:#ffcc80,stroke:#333
+    style L fill:#d7aefb,stroke:#333
+    style M fill:#b3f7f7,stroke:#333
 ```
-
-Runtime + dev tooling:
-
-```bash
-python3 -m pip install ".[dev]"
-```
-
-Runtime + RAG/eval tooling:
-
-```bash
-python3 -m pip install ".[eval,ingest]"
-```
-
-Full local tooling:
-
-```bash
-python3 -m pip install ".[dev,eval,ingest]"
-```
-
-### Docker runtime stack
-
-Start the default runtime stack:
-
-```bash
-docker compose up -d
-```
-
-If your Docker installation uses the legacy binary, replace `docker compose` with `docker-compose`.
-
-### Schema contract
-
-- Alembic is the only schema authority. App startup, reindex, and eval preflight now refuse to run against an unmanaged or stale schema.
-- The `document_chunks.embedding` column contract is `vector(768)`.
-- `EMBEDDING_DIM` must remain `768`; conflicting values are rejected during settings load.
-
-Apply migrations before starting the app or any RAG/eval job:
-
-```bash
-python3 -m alembic -c alembic.ini upgrade head
-```
-
-From the Docker app container:
-
-```bash
-docker compose exec -T app python3 -m alembic -c /app/alembic.ini upgrade head
-```
-
-Reindex the medical PDF into PostgreSQL/pgvector:
-
-```bash
-docker compose exec -w /app app python3 scripts/reindex_pdf.py
-```
-
-Indexing is an explicit operation. API startup does not auto-ingest the corpus.
-The reindex command now prints explicit parse, chunk, embed, and index stage counts.
-After code changes, rebuild the image before running the stack again.
-If you apply the vector-dimension alignment migration to an existing database, reindex the corpus afterward so embeddings are regenerated at `vector(768)`.
-
-### Eval workflow
-
-Run the RAG runtime preflight before reindexing or live eval work:
-
-```bash
-python3 scripts/preflight_rag.py
-```
-
-The preflight now checks the live Alembic revision and the `document_chunks.embedding` vector type, not just package imports. It is a runtime diagnostic, not the frozen regression gate.
-The live smoke path also invokes Alembic with the explicit in-container config path `/app/alembic.ini`.
-The container runtime cache root is fixed to `/app/.cache/embeddings` inside compose services, even if your local `.env` uses a different host-side value for non-container runs.
-On the first Docling-based ingest against an empty cache, the parser now bootstraps Docling layout/table artifacts into `/app/.cache/embeddings/docling_artifacts` before conversion starts.
-If the installed Docling downloader stores the layout model in a nested snapshot directory, the bootstrap normalizes that snapshot into the root `docling_artifacts` directory that the runtime loader expects.
-
-Run the minimal live Docker/runtime smoke path:
-
-```bash
-python3 scripts/run_live_runtime_smoke.py --dry-run
-```
-
-If your machine only supports the legacy compose binary:
-
-```bash
-python3 scripts/run_live_runtime_smoke.py --compose-bin docker-compose --dry-run
-```
-
-Run the non-blocking extended live shadow path:
-
-```bash
-python3 scripts/run_live_rag_shadow.py --compose-bin docker-compose
-```
-
-Run the required frozen regression suite:
-
-```bash
-python3 -m pytest tests/eval tests/rag tests/smoke -v
-```
-
-Run validation from the profile-gated eval service:
-
-```bash
-docker compose --profile eval run --rm eval python3 -m eval.validate --strict
-```
-
-Run workflow evaluation with semantic cache disabled by default:
-
-```bash
-python3 -m eval.workflow_eval
-```
-
-If you intentionally want cache behavior included in workflow eval, opt in explicitly:
-
-```bash
-python3 -m eval.workflow_eval --semantic-cache
-```
-
-Tier 3 synthetic RAGAS generation has been retired from the active eval workflow.
-The curated benchmark now lives only at `eval/golden/v1/tier3_rag.jsonl`, and the
-supported Tier 3 authoring path is the manual-seed tooling:
-
-```text
-eval/tier3_manual_seed_pdf_authoring.py
-scripts/build_tier3_manual_seed_authoring_index.py
-eval/golden/v1/tier3_manual_seed_authoring_index.jsonl
-```
-
-The retired synthetic generator, raw checkpoint, and smoke runner are frozen under:
-
-```text
-bin/legacy_tier3_ragas/
-```
-
-They are kept for history only and must not be wired back into the active eval path.
-See [docs/evals/tier3-seed-control-audit.md](/home/tough/medical_chatbot/MediGenius/docs/evals/tier3-seed-control-audit.md)
-for the current Tier 3 benchmark boundary.
-
-Semantic cache is disabled by default in development/local/test/eval-style environments. To enable it outside production, set `SEMANTIC_CACHE_ENABLED=true` explicitly and bump `SEMANTIC_CACHE_VERSION` whenever you want to invalidate old cache entries after prompt or retrieval contract changes.
 
 ---
 
@@ -317,119 +207,102 @@ RealCare/
 
 ---
 
-## **Project Architecture**
+## **Installation**
 
-```mermaid
-graph TD
-    A[User Query] --> B[GuardrailAgent - Safety Filter]
-    B -->|Blocked| Z[Safety Refusal]
-    B -->|High Risk| HITL[HITL Review Queue]
-    B -->|Safe| C[MemoryAgent - Summary + Facts]
+### Quick start
 
-    C --> D[QueryRewriterAgent - Coreference Resolution]
-    D --> E[PlannerAgent - Semantic Routing]
+Install the project:
 
-    E -->|chitchat| F[LLMAgent - General Knowledge]
-    E -->|vector| G[RetrieverAgent - Hybrid Search + Rerank]
-    E -->|web| H[TavilyAgent - Domain-Locked Search]
-    E -->|literature| I[LiteratureAgent - PubMed]
-
-    F --> J[ExecutorAgent - Answer Generation + Cache]
-    G --> J
-    H --> J
-    I --> J
-
-    J --> K[ReflectionAgent - Quality Gate]
-    K -->|Retry| D
-    K -->|Accept| L[ExplanationAgent - Citations]
-    L --> M[Final Response + Store to PostgreSQL]
-
-    style A fill:#ff9,stroke:#333
-    style B fill:#ffbdbd,stroke:#333
-    style C fill:#fdf6b2,stroke:#333
-    style E fill:#c9f,stroke:#333
-    style G fill:#a0e3a0,stroke:#333
-    style F fill:#9fd4ff,stroke:#333
-    style H fill:#ffe599,stroke:#333
-    style I fill:#b3f7f7,stroke:#333
-    style J fill:#f9f,stroke:#333
-    style K fill:#ffcc80,stroke:#333
-    style L fill:#d7aefb,stroke:#333
-    style M fill:#b3f7f7,stroke:#333
+```bash
+python3 -m pip install .
 ```
+
+If you want local dev, eval, and ingest tooling too:
+
+```bash
+python3 -m pip install ".[dev,eval,ingest]"
+```
+
+Start the runtime stack:
+
+```bash
+docker compose up -d
+```
+
+Apply migrations:
+
+```bash
+python3 -m alembic -c alembic.ini upgrade head
+```
+
+Reindex the corpus:
+
+```bash
+docker compose exec -w /app app python3 scripts/reindex_pdf.py
+```
+
+Run the core regression suite:
+
+```bash
+python3 -m pytest tests/eval tests/rag tests/smoke -v
+```
+
+### Notes
+
+- Alembic is the only schema authority.
+- `document_chunks.embedding` must stay `vector(768)`.
+- API startup does not auto-ingest the corpus.
+- Semantic cache is disabled by default in dev/test/eval-style environments.
+- Tier 3 synthetic RAGAS generation is retired; use the manual-seed Tier 3 benchmark path instead.
+
+### Optional checks
+
+```bash
+python3 scripts/preflight_rag.py
+python3 scripts/run_live_runtime_smoke.py --dry-run
+python3 -m eval.workflow_eval
+docker compose --profile eval run --rm eval python3 -m eval.validate --strict
+```
+
+See [docs/evals/tier3-seed-control-audit.md](/home/tough/medical_chatbot/MediGenius/docs/evals/tier3-seed-control-audit.md)
+for the current Tier 3 benchmark boundary.
 
 ---
 
 ## **API Endpoints**
 
-## Base URL
-`http://localhost:8000`
+Base URL: `http://localhost:8000`
 
-## Endpoints
+### Core chat
 
-### POST /api/chat
-Process a medical question and return AI response.
+- `POST /api/chat` — standard chat request/response
+- `POST /api/chat/stream` — SSE streaming chat
 
-**Request:**
-```http
-POST /api/chat HTTP/1.1
-Content-Type: application/json
-Host: localhost:8000
+Example request:
 
+```json
 {
   "message": "What are diabetes symptoms?",
   "conversation_id": "optional_existing_id"
 }
 ```
 
-**Response:**
-```json
-{
-  "response": "Diabetes symptoms include increased thirst, frequent urination...",
-  "source": "Medical Literature Database",
-  "timestamp": "12:30 PM",
-  "success": true,
-  "trace_id": "uuid",
-  "route": "vector",
-  "citations": []
-}
-```
+### History and sessions
 
-### POST /api/chat/stream
-SSE streaming variant of the chat endpoint. Returns incremental agent status events followed by a final response event.
+- `GET /api/history` — current session history
+- `GET /api/sessions` — list saved sessions
+- `GET /api/session/{id}` — load one session
+- `DELETE /api/session/{id}` — delete one session
+- `POST /api/clear` — clear current conversation
+- `POST /api/new-chat` — create a new session
 
-### GET /api/history
-Get message history for the current session.
+### HITL and health
 
-### GET /api/sessions
-List all chat sessions with previews.
-
-### GET /api/session/{id}
-Load a specific session's messages.
-
-### DELETE /api/session/{id}
-Delete a session and all its messages.
-
-### POST /api/clear
-Clear the current conversation.
-
-### POST /api/new-chat
-Create a new chat session.
-
-### GET /api/hitl/pending
-List pending HITL reviews.
-
-### POST /api/hitl/decision
-Approve or reject a pending HITL review.
-
-### GET /health/live
-Liveness probe (always returns 200 if process is running).
-
-### GET /health/ready
-Readiness probe (checks database connectivity, returns 503 if degraded).
-
-### GET /metrics
-Prometheus-formatted metrics.
+- `GET /api/hitl/pending` — list pending HITL reviews
+- `POST /api/hitl/decision` — approve or reject a review
+- `GET /health/live` — liveness probe
+- `GET /health/ready` — readiness probe
+- `GET /metrics` — Prometheus metrics
 
 ---
 
