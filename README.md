@@ -1,46 +1,10 @@
-# **MediGenius: AI-Powered Multi-Agent Medical Assistant**
+# **RealCare: AI-Powered Multi-Agent Medical Assistant**
 
-**MediGenius** is a **production-ready, multi-agent medical AI system** built with **LangGraph orchestration** and a FastAPI + PostgreSQL/pgvector runtime.
+**RealCare** is a **production-ready, multi-agent medical AI system** built with **LangGraph orchestration** and a FastAPI + PostgreSQL/pgvector runtime.
 
 The system employs **Planner, Retriever, Answer Generator, Tool Router**, and **Fallback Handler Agents** that coordinate intelligently across diverse tools — combining, **medical RAG from verified PDFs**, and **fallback web searches** to ensure accuracy even when the LLM falters.
 
 It features **PostgreSQL-powered long-term memory** for persistent medical conversation history and **pgvector** for medical knowledge retrieval. The full-stack implementation includes a **FastAPI + frontend** architecture with **Dockerized deployment**, integrated observability (Prometheus/Grafana), and CI evaluation gates for continuous quality checks.
-
-
-[![Medical AI Assistant Demo](https://github.com/user-attachments/assets/73828ab1-67aa-42d4-828f-6b2e1c72e429)](https://github.com/user-attachments/assets/73828ab1-67aa-42d4-828f-6b2e1c72e429)
-
----
-
-## **Live Demo**
-
-You can interact with the live AI-powered medical assistant here:
--> [https://medigenius.onrender.com/](https://medigenius.onrender.com/)
-
----
-
-## **Performance Evaluation & Benchmarking**
-
-Previous benchmark numbers from the pre-upgrade architecture have been removed.
-Current evaluation is CI-driven via `tests/eval/` and should be re-baselined on this FastAPI + PostgreSQL/pgvector stack before publishing comparative metrics.
-
----
-
-## **Real-World Use Cases**
-
-1. **Rural Health Access**
-   Providing preliminary medical advice in rural or underserved areas where certified doctors may not be immediately available.
-
-2. **Mental Health First Aid**
-   Offering supportive conversations for users dealing with stress, anxiety, or medical confusion.
-
-3. **Patient Pre-screening**
-   Collecting and analyzing symptoms before a user visits a doctor, reducing clinical workload.
-
-4. **Home Care Guidance**
-   Guiding patients and caregivers on medication usage, symptoms, or recovery advice.
-
-5. **Educational Assistant**
-   Helping medical students or patients understand medical topics in simpler language.
 
 ---
 
@@ -249,7 +213,7 @@ Semantic cache is disabled by default in development/local/test/eval-style envir
 ## **Folder Structure**
 
 ```
-MediGenius/
+RealCare/
 ├── .github/
 │   └── workflows/
 │       └── eval.yml                 # CI: lint, security, Docker build, tests, eval
@@ -480,12 +444,8 @@ Prometheus-formatted metrics.
 
 ## **Developed By**
 
-**Md Emon Hasan**  
-**Email:** emon.mlengineer@gmail.com   
-**WhatsApp:** [+8801834363533](https://wa.me/8801834363533)  
-**GitHub:** [Md-Emon-Hasan](https://github.com/Md-Emon-Hasan)  
-**LinkedIn:** [Md Emon Hasan](https://www.linkedin.com/in/md-emon-hasan-695483237/)  
-**Facebook:** [Md Emon Hasan](https://www.facebook.com/mdemon.hasan2001/)
+**Jiachen ZHANG**  
+**Email:** e1520372@u.nus.edu
 
 ---
 
