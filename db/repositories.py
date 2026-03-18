@@ -13,7 +13,16 @@ from sqlalchemy import desc, func, select, text
 from sqlalchemy.orm import Session
 
 from core.settings import get_settings
-from db.models import ConversationSummaryModel, DocumentChunkModel, MessageModel, SessionModel, UserFactModel
+from db.models import (
+    ConversationSummaryModel,
+    DocumentChunkModel,
+    EvalRunMetricModel,
+    EvalRunModel,
+    EvalRunSliceModel,
+    MessageModel,
+    SessionModel,
+    UserFactModel,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -57,17 +66,21 @@ class ChatRepository:
         self.db.commit()
 
     def get_history(self, session_id: str) -> list[dict[str, Any]]:
-        rows = self.db.execute(
-            select(MessageModel)
-            .where(MessageModel.session_id == session_id)
-            .order_by(MessageModel.created_at.asc(), MessageModel.id.asc())
-        ).scalars().all()
+        rows = (
+            self.db.execute(
+                select(MessageModel)
+                .where(MessageModel.session_id == session_id)
+                .order_by(MessageModel.created_at.asc(), MessageModel.id.asc())
+            )
+            .scalars()
+            .all()
+        )
         return [
             {
-                'role': row.role,
-                'content': row.content,
-                'source': row.source,
-                'timestamp': row.created_at.isoformat() if row.created_at else None,
+                "role": row.role,
+                "content": row.content,
+                "source": row.source,
+                "timestamp": row.created_at.isoformat() if row.created_at else None,
             }
             for row in rows
         ]
@@ -78,11 +91,11 @@ class ChatRepository:
         for session in sessions:
             first_user = self.db.execute(
                 select(MessageModel.content)
-                .where(MessageModel.session_id == session.session_id, MessageModel.role == 'user')
+                .where(MessageModel.session_id == session.session_id, MessageModel.role == "user")
                 .order_by(MessageModel.created_at.asc())
                 .limit(1)
             ).scalar_one_or_none()
-            preview = (first_user[:50] + '...') if first_user and len(first_user) > 50 else first_user
+            preview = (first_user[:50] + "...") if first_user and len(first_user) > 50 else first_user
             previews.append(
                 SessionPreview(
                     session_id=session.session_id,
@@ -116,7 +129,7 @@ class ChatRepository:
 
     def get_summary(self, session_id: str) -> str:
         existing = self.db.get(ConversationSummaryModel, session_id)
-        return existing.summary if existing else ''
+        return existing.summary if existing else ""
 
     def upsert_fact(self, session_id: str, fact_key: str, fact_value: str, confidence: float = 0.8) -> None:
         existing = self.db.execute(
@@ -140,15 +153,69 @@ class ChatRepository:
         self.db.commit()
 
     def list_facts(self, session_id: str) -> list[dict[str, Any]]:
-        rows = self.db.execute(
-            select(UserFactModel)
-            .where(UserFactModel.session_id == session_id)
-            .order_by(desc(UserFactModel.created_at))
-        ).scalars().all()
-        return [
-            {'key': row.fact_key, 'value': row.fact_value, 'confidence': row.confidence}
-            for row in rows
-        ]
+        rows = (
+            self.db.execute(
+                select(UserFactModel)
+                .where(UserFactModel.session_id == session_id)
+                .order_by(desc(UserFactModel.created_at))
+            )
+            .scalars()
+            .all()
+        )
+        return [{"key": row.fact_key, "value": row.fact_value, "confidence": row.confidence} for row in rows]
+
+
+class EvalRunRepository:
+    def __init__(self, db: Session):
+        self.db = db
+
+    def record_run(
+        self,
+        *,
+        run_record: dict[str, Any],
+        metric_rows: list[dict[str, Any]],
+        slice_rows: list[dict[str, Any]],
+    ) -> str:
+        try:
+            self.db.add(
+                EvalRunModel(
+                    run_id=run_record["run_id"],
+                    eval_type=run_record["eval_type"],
+                    mode=run_record["mode"],
+                    split=run_record["split"],
+                    sample_count=run_record["sample_count"],
+                    git_sha=run_record["git_sha"],
+                    dataset_path=run_record["dataset_path"],
+                    snapshot_path=run_record["snapshot_path"],
+                    judge_model=run_record.get("judge_model"),
+                    metadata_json=run_record.get("metadata_json") or {},
+                )
+            )
+            if metric_rows:
+                self.db.add_all(
+                    EvalRunMetricModel(
+                        run_id=row["run_id"],
+                        metric_name=row["metric_name"],
+                        metric_value=row["metric_value"],
+                    )
+                    for row in metric_rows
+                )
+            if slice_rows:
+                self.db.add_all(
+                    EvalRunSliceModel(
+                        run_id=row["run_id"],
+                        slice_name=row["slice_name"],
+                        metric_name=row["metric_name"],
+                        metric_value=row["metric_value"],
+                        sample_count=row["sample_count"],
+                    )
+                    for row in slice_rows
+                )
+            self.db.commit()
+            return run_record["run_id"]
+        except Exception:
+            self.db.rollback()
+            raise
 
 
 class VectorRepository:
@@ -157,9 +224,11 @@ class VectorRepository:
 
     def purge_doc_chunks(self, doc_id: str) -> int:
         """Delete all chunks belonging to a doc_id. Returns the number of rows deleted."""
-        count = self.db.query(DocumentChunkModel).filter(
-            DocumentChunkModel.doc_id == doc_id
-        ).delete(synchronize_session='fetch')
+        count = (
+            self.db.query(DocumentChunkModel)
+            .filter(DocumentChunkModel.doc_id == doc_id)
+            .delete(synchronize_session="fetch")
+        )
         self.db.commit()
         return count
 
@@ -186,7 +255,7 @@ class VectorRepository:
                 section=section,
                 metadata_json=metadata,
             )
-            if hasattr(row, 'embedding'):
+            if hasattr(row, "embedding"):
                 row.embedding = embedding
             else:
                 row.embedding_json = embedding
@@ -197,7 +266,7 @@ class VectorRepository:
             row.page = page
             row.section = section
             row.metadata_json = metadata
-            if hasattr(row, 'embedding'):
+            if hasattr(row, "embedding"):
                 row.embedding = embedding
             else:
                 row.embedding_json = embedding
@@ -219,34 +288,34 @@ class VectorRepository:
         if not chunks:
             return 0
 
-        use_vector = hasattr(DocumentChunkModel, 'embedding') and not hasattr(DocumentChunkModel, 'embedding_json')
+        use_vector = hasattr(DocumentChunkModel, "embedding") and not hasattr(DocumentChunkModel, "embedding_json")
         try:
             if replace_doc_id:
-                self.db.query(DocumentChunkModel).filter(
-                    DocumentChunkModel.doc_id == replace_doc_id
-                ).delete(synchronize_session=False)
+                self.db.query(DocumentChunkModel).filter(DocumentChunkModel.doc_id == replace_doc_id).delete(
+                    synchronize_session=False
+                )
             else:
-                chunk_ids = [c['chunk_id'] for c in chunks]
-                self.db.query(DocumentChunkModel).filter(
-                    DocumentChunkModel.chunk_id.in_(chunk_ids)
-                ).delete(synchronize_session=False)
+                chunk_ids = [c["chunk_id"] for c in chunks]
+                self.db.query(DocumentChunkModel).filter(DocumentChunkModel.chunk_id.in_(chunk_ids)).delete(
+                    synchronize_session=False
+                )
 
             for start in range(0, len(chunks), batch_size):
-                batch = chunks[start:start + batch_size]
+                batch = chunks[start : start + batch_size]
                 rows = []
                 for c in batch:
                     row = DocumentChunkModel(
-                        chunk_id=c['chunk_id'],
-                        doc_id=c['doc_id'],
-                        content=c['content'],
-                        page=c.get('page'),
-                        section=c.get('section'),
-                        metadata_json=c.get('metadata') or {},
+                        chunk_id=c["chunk_id"],
+                        doc_id=c["doc_id"],
+                        content=c["content"],
+                        page=c.get("page"),
+                        section=c.get("section"),
+                        metadata_json=c.get("metadata") or {},
                     )
                     if use_vector:
-                        row.embedding = c['embedding']
+                        row.embedding = c["embedding"]
                     else:
-                        row.embedding_json = c['embedding']
+                        row.embedding_json = c["embedding"]
                         row.is_vector_ready = True
                     rows.append(row)
 
@@ -264,15 +333,21 @@ class VectorRepository:
         return self.db.execute(select(func.count(DocumentChunkModel.id))).scalar_one()
 
     def _similarity_search_scored(
-        self, query_embedding: list[float], k: int = 8,
+        self,
+        query_embedding: list[float],
+        k: int = 8,
     ) -> list[tuple[Document, float]]:
         """Return (doc, similarity_score) pairs sorted by descending similarity."""
-        if hasattr(DocumentChunkModel, 'embedding'):
-            rows = self.db.execute(
-                select(DocumentChunkModel)
-                .order_by(DocumentChunkModel.embedding.cosine_distance(query_embedding))
-                .limit(k)
-            ).scalars().all()
+        if hasattr(DocumentChunkModel, "embedding"):
+            rows = (
+                self.db.execute(
+                    select(DocumentChunkModel)
+                    .order_by(DocumentChunkModel.embedding.cosine_distance(query_embedding))
+                    .limit(k)
+                )
+                .scalars()
+                .all()
+            )
             results = []
             for row in rows:
                 dist = _cosine_distance(
@@ -284,10 +359,7 @@ class VectorRepository:
             return results
         else:
             rows = self.db.execute(select(DocumentChunkModel)).scalars().all()
-            scored = [
-                (r, 1.0 - _cosine_distance(r.embedding_json, query_embedding))
-                for r in rows
-            ]
+            scored = [(r, 1.0 - _cosine_distance(r.embedding_json, query_embedding)) for r in rows]
             scored.sort(key=lambda x: x[1], reverse=True)
             return [(_orm_row_to_doc(r), s) for r, s in scored[:k]]
 
@@ -295,10 +367,12 @@ class VectorRepository:
         return [doc for doc, _ in self._similarity_search_scored(query_embedding, k)]
 
     def _keyword_search_scored(
-        self, query: str, k: int = 8,
+        self,
+        query: str,
+        k: int = 8,
     ) -> list[tuple[Document, float]]:
         """Return (doc, bm25_score) pairs sorted by descending score."""
-        terms = [re.sub(r'[^a-z0-9]', '', t) for t in query.lower().split()]
+        terms = [re.sub(r"[^a-z0-9]", "", t) for t in query.lower().split()]
         terms = [t for t in terms if len(t) > 2]
         if not terms:
             return []
@@ -351,32 +425,30 @@ class VectorRepository:
             "AND (metadata_json->>'chunk_index')::int IN (:prev, :next) "
             "ORDER BY (metadata_json->>'chunk_index')::int ASC"
         )
-        rows = self.db.execute(
-            stmt, {'sec': section, 'prev': prev_idx, 'next': next_idx}
-        ).fetchall()
+        rows = self.db.execute(stmt, {"sec": section, "prev": prev_idx, "next": next_idx}).fetchall()
         return [
             Document(
                 page_content=row.content,
                 metadata={
-                    'chunk_id': row.chunk_id,
-                    'doc_id': row.doc_id,
-                    'page': row.page,
-                    'section': row.section,
+                    "chunk_id": row.chunk_id,
+                    "doc_id": row.doc_id,
+                    "page": row.page,
+                    "section": row.section,
                     **(row.metadata_json if row.metadata_json else {}),
                 },
             )
             for row in rows
         ]
 
-
     def get_chunks_by_ids(self, chunk_ids: list[str]) -> list[Document]:
         """Fetch chunks by their chunk_ids."""
         if not chunk_ids:
             return []
-        rows = self.db.execute(
-            select(DocumentChunkModel)
-            .where(DocumentChunkModel.chunk_id.in_(chunk_ids))
-        ).scalars().all()
+        rows = (
+            self.db.execute(select(DocumentChunkModel).where(DocumentChunkModel.chunk_id.in_(chunk_ids)))
+            .scalars()
+            .all()
+        )
         return [_orm_row_to_doc(row) for row in rows]
 
 
@@ -392,7 +464,7 @@ class InMemoryChatRepository:
     def add_message(self, session_id: str, role: str, content: str, source: str | None = None) -> None:
         self.ensure_session(session_id)
         self._messages[session_id].append(
-            {'role': role, 'content': content, 'source': source, 'timestamp': datetime.now(timezone.utc).isoformat()}
+            {"role": role, "content": content, "source": source, "timestamp": datetime.now(timezone.utc).isoformat()}
         )
 
     def get_history(self, session_id: str) -> list[dict[str, Any]]:
@@ -402,8 +474,8 @@ class InMemoryChatRepository:
         now = datetime.now(timezone.utc)
         out = []
         for session_id, messages in self._messages.items():
-            first_user = next((m['content'] for m in messages if m['role'] == 'user'), None)
-            preview = (first_user[:50] + '...') if first_user and len(first_user) > 50 else first_user
+            first_user = next((m["content"] for m in messages if m["role"] == "user"), None)
+            preview = (first_user[:50] + "...") if first_user and len(first_user) > 50 else first_user
             out.append(SessionPreview(session_id=session_id, created_at=now, last_active=now, preview=preview))
         return out
 
@@ -416,10 +488,10 @@ class InMemoryChatRepository:
         self._summaries[session_id] = summary
 
     def get_summary(self, session_id: str) -> str:
-        return self._summaries.get(session_id, '')
+        return self._summaries.get(session_id, "")
 
     def upsert_fact(self, session_id: str, fact_key: str, fact_value: str, confidence: float = 0.8) -> None:
-        self._facts[session_id][fact_key] = {'key': fact_key, 'value': fact_value, 'confidence': confidence}
+        self._facts[session_id][fact_key] = {"key": fact_key, "value": fact_value, "confidence": confidence}
 
     def list_facts(self, session_id: str) -> list[dict[str, Any]]:
         return list(self._facts.get(session_id, {}).values())
@@ -430,10 +502,10 @@ def _orm_row_to_doc(row: DocumentChunkModel) -> Document:
     return Document(
         page_content=row.content,
         metadata={
-            'chunk_id': row.chunk_id,
-            'doc_id': row.doc_id,
-            'page': row.page,
-            'section': row.section,
+            "chunk_id": row.chunk_id,
+            "doc_id": row.doc_id,
+            "page": row.page,
+            "section": row.section,
             **(row.metadata_json or {}),
         },
     )
@@ -459,7 +531,7 @@ def _merge_weighted(
     """Merge normalized scored docs into target dict with given weight."""
     normed = _normalize_scores(scored)
     for doc, norm_score in normed:
-        key = doc.metadata.get('chunk_id') or str(id(doc))
+        key = doc.metadata.get("chunk_id") or str(id(doc))
         existing = target.get(key, (doc, 0.0))[1]
         target[key] = (doc, existing + weight * norm_score)
 
@@ -494,7 +566,7 @@ class InMemoryVectorRepository:
         self._chunks: dict[str, dict[str, Any]] = {}
 
     def purge_doc_chunks(self, doc_id: str) -> int:
-        to_remove = [k for k, v in self._chunks.items() if v['doc_id'] == doc_id]
+        to_remove = [k for k, v in self._chunks.items() if v["doc_id"] == doc_id]
         for k in to_remove:
             del self._chunks[k]
         return len(to_remove)
@@ -510,13 +582,13 @@ class InMemoryVectorRepository:
         metadata: dict[str, Any] | None = None,
     ) -> None:
         self._chunks[chunk_id] = {
-            'chunk_id': chunk_id,
-            'doc_id': doc_id,
-            'content': content,
-            'embedding': embedding,
-            'page': page,
-            'section': section,
-            'metadata': metadata or {},
+            "chunk_id": chunk_id,
+            "doc_id": doc_id,
+            "content": content,
+            "embedding": embedding,
+            "page": page,
+            "section": section,
+            "metadata": metadata or {},
         }
 
     def upsert_chunks_batch(
@@ -528,14 +600,14 @@ class InMemoryVectorRepository:
         if replace_doc_id:
             self.purge_doc_chunks(replace_doc_id)
         for c in chunks:
-            self._chunks[c['chunk_id']] = {
-                'chunk_id': c['chunk_id'],
-                'doc_id': c['doc_id'],
-                'content': c['content'],
-                'embedding': c['embedding'],
-                'page': c.get('page'),
-                'section': c.get('section'),
-                'metadata': c.get('metadata') or {},
+            self._chunks[c["chunk_id"]] = {
+                "chunk_id": c["chunk_id"],
+                "doc_id": c["doc_id"],
+                "content": c["content"],
+                "embedding": c["embedding"],
+                "page": c.get("page"),
+                "section": c.get("section"),
+                "metadata": c.get("metadata") or {},
             }
         return len(chunks)
 
@@ -543,12 +615,11 @@ class InMemoryVectorRepository:
         return len(self._chunks)
 
     def _similarity_search_scored(
-        self, query_embedding: list[float], k: int = 8,
+        self,
+        query_embedding: list[float],
+        k: int = 8,
     ) -> list[tuple[Document, float]]:
-        scored = [
-            (row, 1.0 - _cosine_distance(row['embedding'], query_embedding))
-            for row in self._chunks.values()
-        ]
+        scored = [(row, 1.0 - _cosine_distance(row["embedding"], query_embedding)) for row in self._chunks.values()]
         scored.sort(key=lambda x: x[1], reverse=True)
         return [(_row_to_doc(row), s) for row, s in scored[:k]]
 
@@ -556,7 +627,9 @@ class InMemoryVectorRepository:
         return [doc for doc, _ in self._similarity_search_scored(query_embedding, k)]
 
     def _keyword_search_scored(
-        self, query: str, k: int = 8,
+        self,
+        query: str,
+        k: int = 8,
     ) -> list[tuple[Document, float]]:
         terms = [t for t in query.lower().split() if len(t) > 2]
         if not terms:
@@ -566,7 +639,7 @@ class InMemoryVectorRepository:
         tokenized: list[tuple[dict[str, Any], list[str]]] = []
         total_tokens = 0
         for row in self._chunks.values():
-            doc_tokens = [t for t in row['content'].lower().split() if len(t) > 2]
+            doc_tokens = [t for t in row["content"].lower().split() if len(t) > 2]
             tokenized.append((row, doc_tokens))
             total_tokens += len(doc_tokens)
         avg_dl = total_tokens / max(len(tokenized), 1)
@@ -602,12 +675,11 @@ class InMemoryVectorRepository:
         target_indices = {chunk_index - 1, chunk_index + 1}
         results = []
         for row in self._chunks.values():
-            meta = row.get('metadata') or {}
-            if meta.get('section') == section and meta.get('chunk_index') in target_indices:
+            meta = row.get("metadata") or {}
+            if meta.get("section") == section and meta.get("chunk_index") in target_indices:
                 results.append(_row_to_doc(row))
-        results.sort(key=lambda d: d.metadata.get('chunk_index', 0))
+        results.sort(key=lambda d: d.metadata.get("chunk_index", 0))
         return results
-
 
     def get_chunks_by_ids(self, chunk_ids: list[str]) -> list[Document]:
         """Fetch chunks by their chunk_ids."""
@@ -634,12 +706,12 @@ def _cosine_distance(v1: list[float], v2: list[float]) -> float:
 
 def _row_to_doc(row: dict[str, Any]) -> Document:
     return Document(
-        page_content=row['content'],
+        page_content=row["content"],
         metadata={
-            'chunk_id': row['chunk_id'],
-            'doc_id': row['doc_id'],
-            'page': row['page'],
-            'section': row['section'],
-            **(row.get('metadata') or {}),
+            "chunk_id": row["chunk_id"],
+            "doc_id": row["doc_id"],
+            "page": row["page"],
+            "section": row["section"],
+            **(row.get("metadata") or {}),
         },
     )

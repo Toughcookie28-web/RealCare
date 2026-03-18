@@ -12,6 +12,7 @@ Usage:
     python -m eval.workflow_eval --compare baseline_old
     python -m eval.workflow_eval --cases eval/workflow_cases.jsonl
 """
+
 from __future__ import annotations
 
 import argparse
@@ -24,6 +25,7 @@ from typing import overload
 from core.workflow_service import generate_trace_id, get_workflow_service
 from db.repositories import InMemoryChatRepository, VectorRepository
 from db.session import SessionLocal
+from eval.run_tracker import persist_saved_run
 from tools.cache import semantic_cache_override
 
 EVAL_DIR = Path(__file__).resolve().parent / "workflow_snapshots"
@@ -127,8 +129,7 @@ def _run_cases_with_runner(
             retrieved_tables = sum(
                 1
                 for doc in docs
-                if (doc.metadata or {}).get("is_table")
-                or (doc.metadata or {}).get("content_type") == "table"
+                if (doc.metadata or {}).get("is_table") or (doc.metadata or {}).get("content_type") == "table"
             )
             answer = result.get("generation", "")
 
@@ -145,11 +146,7 @@ def _run_cases_with_runner(
                     ),
                     "retrieved_doc_count": len(docs),
                     "retrieved_table_count": retrieved_tables,
-                    "table_hit_ok": (
-                        True
-                        if not case.get("expect_table_hit")
-                        else retrieved_tables > 0
-                    ),
+                    "table_hit_ok": (True if not case.get("expect_table_hit") else retrieved_tables > 0),
                     "top_chunks": [
                         {
                             "chunk_id": (doc.metadata or {}).get("chunk_id"),
@@ -223,9 +220,9 @@ def load_snapshot(name: str) -> dict | None:
 
 
 def compare_reports(current: dict, baseline: dict) -> None:
-    print(f"\n{'='*72}")
+    print(f"\n{'=' * 72}")
     print("  Workflow Evaluation Comparison")
-    print(f"{'='*72}")
+    print(f"{'=' * 72}")
     metrics = [
         ("Case count", "case_count"),
         ("Avg response keyword recall", "avg_response_keyword_recall"),
@@ -259,9 +256,9 @@ def main():
     cases = _load_cases(args.cases)
     report = run_cases(cases, use_semantic_cache=args.semantic_cache)
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("  Workflow Evaluation")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"  Cases:                    {report['case_count']}")
     print(f"  Avg response recall:      {report['avg_response_keyword_recall']}")
     print(f"  Table hit rate:           {report['table_hit_rate']}")
@@ -269,11 +266,25 @@ def main():
     print()
 
     for item in report["results"]:
-        print(f"- {item['id']}: route={item['route']} source={item['source']} recall={item['response_keyword_recall']} table_hit={item['table_hit_ok']}")
+        print(
+            f"- {item['id']}: route={item['route']} source={item['source']} "
+            f"recall={item['response_keyword_recall']} table_hit={item['table_hit_ok']}"
+        )
 
     if args.save:
         path = save_snapshot(args.save, report)
         print(f"\nSaved snapshot: {path}")
+        try:
+            persist_saved_run(
+                eval_type="workflow",
+                report=report,
+                split="adhoc",
+                dataset_path=args.cases or "<builtin-default-cases>",
+                snapshot_path=str(path),
+                session_factory=SessionLocal,
+            )
+        except Exception as exc:
+            print(f"Warning: benchmark run tracking failed: {exc}")
 
     if args.compare:
         baseline = load_snapshot(args.compare)

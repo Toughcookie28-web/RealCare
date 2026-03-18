@@ -1230,3 +1230,13 @@ Must stay true:
 **Tradeoff:** ~1 extra DB read + 1 pgvector query per turn for known users. Embedding latency is async (BackgroundTask). Anonymous users (no `X-User-Token`) and disabled-feature users degrade gracefully with zero overhead.
 
 **Must remain true:** `LONG_TERM_MEMORY_ENABLED=false` by default. `user_id=None` → all paths skip silently. Confidence-gated upsert (higher confidence wins). Long-term memory write failures must never fail the user response.
+
+## 2026-03-19 — Restore benchmark run tracking and Grafana benchmark datasource
+
+**What changed:** Restored the missing benchmark tracking slice. Added `eval/run_tracker.py` to normalize saved retrieval, RAGAS, and workflow reports into compact run rows plus metric/slice rows. Added `EvalRunModel`, `EvalRunMetricModel`, and `EvalRunSliceModel` in `db/models.py`, plus `EvalRunRepository.record_run()` in `db/repositories.py`. Added Alembic migration `alembic/versions/0005_add_eval_run_tracking.py` for `eval_runs`, `eval_run_metrics`, and `eval_run_slices`. Wired `eval/ragas_eval.py`, `eval/retrieval_eval.py`, and `eval/workflow_eval.py` to save snapshots first and then best-effort persist run summaries. Added the Grafana `Postgres Benchmark` datasource and passed Postgres env vars into the Grafana service. Updated the stale executor prompt regression to match the current `query_context` / `session_intent` prompt contract.
+
+**Why:** CI contracts and the accepted benchmark observability design expected saved eval snapshots to also produce queryable benchmark history in PostgreSQL and Grafana. The repo still had the tests, dashboard queries, and ADR, but the implementation slice was missing.
+
+**Tradeoff:** Saved evals now have an extra Postgres persistence path, but it is explicitly best-effort so tracking failures do not block the main eval artifact. The new migration file name follows the existing test contract even though its Alembic revision is chained after the current `0005` head.
+
+**Must remain true:** Snapshot save remains the artifact of record and happens before DB tracking. Tracking failures must never fail the main eval run. Grafana benchmark panels must use PostgreSQL, not Prometheus labels, for benchmark truth.

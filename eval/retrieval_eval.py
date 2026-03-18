@@ -25,6 +25,7 @@ Metrics:
 - latency mean / median / p95
 - difficulty/content-type slices
 """
+
 from __future__ import annotations
 
 import argparse
@@ -42,6 +43,7 @@ from agents.retriever_agent import (
 )
 from db.repositories import InMemoryVectorRepository, VectorRepository
 from db.session import SessionLocal
+from eval.run_tracker import persist_saved_run
 from tools.embedding_client import embed_query
 
 DEFAULT_TIER3_PATH = Path(__file__).resolve().parent / "golden" / "v1" / "tier3_rag.jsonl"
@@ -148,9 +150,9 @@ def _rewrite_query(question: str) -> dict[str, Any]:
     """
     try:
         from agents.query_rewriter_agent import (
-            RewriteResult,
             _REWRITER_PROMPT,
             _REWRITER_SYSTEM,
+            RewriteResult,
         )
         from tools.llm_client import invoke_json
 
@@ -202,7 +204,6 @@ def _retrieve_pipeline(
     rewrite = _rewrite_query(question)
     query = rewrite["optimized_query"]
     stepback = rewrite["stepback_query"]
-    slots = rewrite["slots"]
 
     # Step 2: Primary hybrid search with optimized query
     query_embedding = query_embedder(query)
@@ -284,11 +285,7 @@ def _score_ranked_docs(
     required_count = max(len(required_ids), 1)
 
     # Build ideal gains for nDCG: all required (3) first, then supporting (2), then hard_neg (1)
-    all_ideal_gains = (
-        [3] * len(required_ids)
-        + [2] * len(supporting_ids)
-        + [1] * len(hard_negative_ids)
-    )
+    all_ideal_gains = [3] * len(required_ids) + [2] * len(supporting_ids) + [1] * len(hard_negative_ids)
     all_ideal_gains.sort(reverse=True)
 
     for k in ks:
@@ -448,10 +445,7 @@ def _run_retrieval_eval_against_repo(
         "sample_count": len(per_sample),
         "fetch_k": fetch_k,
         **_aggregate_sample_metrics(per_sample, ks),
-        "slices": {
-            name: _aggregate_sample_metrics(items, ks)
-            for name, items in sorted(slices.items())
-        },
+        "slices": {name: _aggregate_sample_metrics(items, ks) for name, items in sorted(slices.items())},
         "results": per_sample,
     }
 
@@ -504,11 +498,16 @@ def _git_commit_short() -> str:
     """Return short git commit hash, or 'unknown' if not in a repo."""
     try:
         import subprocess
-        return subprocess.check_output(
-            ["git", "rev-parse", "--short", "HEAD"],
-            stderr=subprocess.DEVNULL,
-            cwd=Path(__file__).resolve().parent.parent,
-        ).decode().strip()
+
+        return (
+            subprocess.check_output(
+                ["git", "rev-parse", "--short", "HEAD"],
+                stderr=subprocess.DEVNULL,
+                cwd=Path(__file__).resolve().parent.parent,
+            )
+            .decode()
+            .strip()
+        )
     except Exception:
         # Inside container: .git not mounted. Try reading from a build-time stamp.
         stamp = Path(__file__).resolve().parent.parent / ".git_commit"
@@ -551,7 +550,16 @@ def compare_reports(current: dict[str, Any], baseline: dict[str, Any], ks: tuple
     summary_keys = ["latency_ms_mean", "latency_ms_median", "latency_ms_p95"]
     for k in ks:
         summary_keys.extend(
-            [f"hit_rate@{k}", f"recall@{k}", f"precision@{k}", f"max_precision@{k}", f"mrr@{k}", f"map@{k}", f"ndcg@{k}", f"section_diversity@{k}"]
+            [
+                f"hit_rate@{k}",
+                f"recall@{k}",
+                f"precision@{k}",
+                f"max_precision@{k}",
+                f"mrr@{k}",
+                f"map@{k}",
+                f"ndcg@{k}",
+                f"section_diversity@{k}",
+            ]
         )
 
     for key in summary_keys:
@@ -643,8 +651,8 @@ def main():
     print(f"  Samples:              {len(samples)}")
 
     if args.mode == "pipeline":
-        print(f"  NOTE: pipeline mode runs the LLM query rewriter before retrieval.")
-        print(f"        This measures rewriter + step-back + metadata boost + rerank combined.")
+        print("  NOTE: pipeline mode runs the LLM query rewriter before retrieval.")
+        print("        This measures rewriter + step-back + metadata boost + rerank combined.")
 
     if args.mode == "all":
         print("  NOTE: 'all' excludes pipeline mode (LLM calls). Run --mode pipeline separately.")
@@ -693,6 +701,18 @@ def main():
     if args.save:
         path = save_snapshot(args.save, report, note=args.note)
         print(f"\nSaved snapshot: {path}")
+        if args.mode != "all":
+            try:
+                persist_saved_run(
+                    eval_type="retrieval",
+                    report=report,
+                    split=args.split,
+                    dataset_path=args.dataset,
+                    snapshot_path=str(path),
+                    session_factory=SessionLocal,
+                )
+            except Exception as exc:
+                print(f"Warning: benchmark run tracking failed: {exc}")
 
     if args.compare:
         baseline = load_snapshot(args.compare, mode=args.mode)

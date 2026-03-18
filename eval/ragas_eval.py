@@ -20,6 +20,7 @@ Usage:
     python -m eval.ragas_eval --judge-model gpt-4o-mini  # cheaper judge
     python -m eval.ragas_eval --retrieval-only          # skip LLM generation, eval retrieval only
 """
+
 from __future__ import annotations
 
 import argparse
@@ -30,16 +31,14 @@ from pathlib import Path
 from statistics import mean
 from typing import Any
 
-# Load .env before any client that reads OPENAI_API_KEY
 from dotenv import load_dotenv
-load_dotenv(Path(__file__).resolve().parents[1] / ".env")
-
 from ragas import EvaluationDataset, SingleTurnSample, evaluate
 from ragas.metrics import answer_relevancy, context_precision, context_recall, faithfulness
 
 from agents.retriever_agent import rerank
 from db.repositories import VectorRepository
 from db.session import SessionLocal
+from eval.run_tracker import persist_saved_run
 from tools.embedding_client import embed_query
 
 DEFAULT_TIER3_PATH = Path(__file__).resolve().parent / "golden" / "v1" / "tier3_rag.jsonl"
@@ -50,6 +49,10 @@ SUPPORTED_SPLITS = ("dev", "test", "all")
 RETRIEVAL_METRICS = [context_precision, context_recall]
 # Full pipeline metrics (need LLM generation)
 FULL_METRICS = [faithfulness, answer_relevancy, context_precision, context_recall]
+
+
+def _load_env() -> None:
+    load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 
 def _load_tier3_samples(path: Path, split: str = "test") -> list[dict[str, Any]]:
@@ -105,11 +108,7 @@ def _generate_answer(query: str, contexts: list[str]) -> str:
     from tools.llm_client import invoke_llm
 
     context_block = "\n\n---\n\n".join(contexts)
-    prompt = (
-        f"Context:\n{context_block}\n\n"
-        f"Question: {query}\n\n"
-        "Answer:"
-    )
+    prompt = f"Context:\n{context_block}\n\nQuestion: {query}\n\nAnswer:"
     system = (
         "You are a medical education assistant. Answer the question based strictly "
         "on the provided context. If the context does not contain enough information, "
@@ -127,6 +126,7 @@ def run_ragas_eval(
     top_k: int = 5,
 ) -> dict[str, Any]:
     """Run RAGAS evaluation on Tier 3 samples against the live DB."""
+    _load_env()
     db = SessionLocal()
     try:
         repo = VectorRepository(db)
@@ -141,11 +141,14 @@ def run_ragas_eval(
             ground_truth = sample.get("ground_truth", "")
             reference_contexts = sample.get("ground_truth_contexts", [])
 
-            print(f"  [{i+1}/{len(samples)}] {sample['id']}: {question[:60]}...")
+            print(f"  [{i + 1}/{len(samples)}] {sample['id']}: {question[:60]}...")
 
             # Retrieve
             retrieved_contexts, chunk_meta, latency_ms = _retrieve_for_query(
-                repo, question, fetch_k=fetch_k, top_k=top_k,
+                repo,
+                question,
+                fetch_k=fetch_k,
+                top_k=top_k,
             )
 
             # Generate answer (skip if retrieval-only)
@@ -167,24 +170,26 @@ def run_ragas_eval(
             )
             ragas_samples.append(ragas_sample)
 
-            per_sample_results.append({
-                "id": sample["id"],
-                "question": question,
-                "difficulty": sample.get("difficulty"),
-                "category": sample.get("category"),
-                "response": response[:500] if not retrieval_only else "[retrieval_only]",
-                "retrieved_chunk_count": len(retrieved_contexts),
-                "latency_ms": round(latency_ms, 2),
-                "top_chunks": chunk_meta,
-            })
+            per_sample_results.append(
+                {
+                    "id": sample["id"],
+                    "question": question,
+                    "difficulty": sample.get("difficulty"),
+                    "category": sample.get("category"),
+                    "response": response[:500] if not retrieval_only else "[retrieval_only]",
+                    "retrieved_chunk_count": len(retrieved_contexts),
+                    "latency_ms": round(latency_ms, 2),
+                    "top_chunks": chunk_meta,
+                }
+            )
 
         # Run RAGAS evaluation
         metrics = RETRIEVAL_METRICS if retrieval_only else FULL_METRICS
         dataset = EvaluationDataset(samples=ragas_samples)
 
         print(f"\n  Running RAGAS evaluation with {judge_model}...")
-        from ragas.llms import LangchainLLMWrapper
         from langchain_openai import ChatOpenAI
+        from ragas.llms import LangchainLLMWrapper
 
         # Clear empty OPENAI_BASE_URL which confuses the client
         if not os.environ.get("OPENAI_BASE_URL"):
@@ -214,10 +219,7 @@ def run_ragas_eval(
         # Aggregate scores
         aggregate = {}
         for metric_name in metric_names:
-            values = [
-                r[metric_name] for r in per_sample_results
-                if r.get(metric_name) is not None
-            ]
+            values = [r[metric_name] for r in per_sample_results if r.get(metric_name) is not None]
             aggregate[metric_name] = round(mean(values), 4) if values else None
             aggregate[f"{metric_name}_scored_count"] = len(values)
 
@@ -258,11 +260,16 @@ def run_ragas_eval(
 def _git_commit_short() -> str:
     try:
         import subprocess
-        return subprocess.check_output(
-            ["git", "rev-parse", "--short", "HEAD"],
-            stderr=subprocess.DEVNULL,
-            cwd=Path(__file__).resolve().parent.parent,
-        ).decode().strip()
+
+        return (
+            subprocess.check_output(
+                ["git", "rev-parse", "--short", "HEAD"],
+                stderr=subprocess.DEVNULL,
+                cwd=Path(__file__).resolve().parent.parent,
+            )
+            .decode()
+            .strip()
+        )
     except Exception:
         stamp = Path(__file__).resolve().parent.parent / ".git_commit"
         if stamp.exists():
@@ -338,7 +345,7 @@ def main():
 
     samples = _load_tier3_samples(Path(args.dataset), split=args.split)
     if args.limit:
-        samples = samples[:args.limit]
+        samples = samples[: args.limit]
 
     print(f"\n{'=' * 60}")
     print("  RAGAS Evaluation")
@@ -373,7 +380,7 @@ def main():
         print(f"  {metric_name:<24} {val_str:<10} ({scored}/{report['sample_count']} scored)")
     print(f"  {'latency_ms_mean':<24} {report['latency_ms_mean']:.2f}")
 
-    print(f"\n  Slices:")
+    print("\n  Slices:")
     for name, slice_report in sorted(report.get("slices", {}).items()):
         parts = [f"n={slice_report['sample_count']}"]
         for mn in metric_names:
@@ -382,7 +389,7 @@ def main():
         print(f"    {name:<28} {' '.join(parts)}")
 
     # Per-sample detail
-    print(f"\n  Per-sample:")
+    print("\n  Per-sample:")
     for r in report["results"]:
         scores = " ".join(
             f"{mn}={r.get(mn, 'N/A')}" if not isinstance(r.get(mn), float) else f"{mn}={r[mn]:.3f}"
@@ -393,6 +400,18 @@ def main():
     if args.save:
         path = save_snapshot(args.save, report, note=args.note)
         print(f"\n  Saved snapshot: {path}")
+        try:
+            persist_saved_run(
+                eval_type="ragas",
+                report=report,
+                split=args.split,
+                dataset_path=args.dataset,
+                snapshot_path=str(path),
+                session_factory=SessionLocal,
+                judge_model=args.judge_model,
+            )
+        except Exception as exc:
+            print(f"  Warning: benchmark run tracking failed: {exc}")
 
     if args.compare:
         baseline = load_snapshot(args.compare)
