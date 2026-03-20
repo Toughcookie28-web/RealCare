@@ -21,6 +21,9 @@ class RewriteResult(BaseModel):
     slots: dict[str, str] = {}
     query_context: str = ""
     reasoning: str = ""
+    intent_confidence: float = 1.0
+    needs_clarification: bool = False
+    clarification_question: str = ""
 
     @field_validator('optimized_query', 'stepback_query', 'route',
                      'session_intent', 'turn_intent', 'query_context',
@@ -39,6 +42,26 @@ class RewriteResult(BaseModel):
         if isinstance(v, dict):
             return {str(k): str(val) for k, val in v.items()}
         return {}
+
+    @field_validator('intent_confidence', mode='before')
+    @classmethod
+    def coerce_intent_confidence(cls, v):
+        try:
+            return max(0.0, min(1.0, float(v)))
+        except (TypeError, ValueError):
+            return 1.0
+
+    @field_validator('needs_clarification', mode='before')
+    @classmethod
+    def coerce_needs_clarification(cls, v):
+        if isinstance(v, str):
+            return v.strip().lower() in ('true', '1', 'yes')
+        return bool(v)
+
+    @field_validator('clarification_question', mode='before')
+    @classmethod
+    def coerce_clarification_question(cls, v):
+        return str(v or '').strip()
 
 
 _REWRITER_SYSTEM = (
@@ -80,9 +103,18 @@ Follow these rules:
 5. TURN INTENT: What this specific message asks for (e.g., "dosage_lookup", "drug_comparison", "definition", "side_effects", "mechanism_of_action", "greeting").
 6. SLOTS: Structured medical entities. Keys: drug, condition, population, aspect, timeframe, comparison_target. Add others if relevant.
 7. QUERY CONTEXT: 1-2 sentence description of what the user needs, for the downstream answer generator.
+8. INTENT CONFIDENCE: 0.0-1.0. How confident are you in your route/intent classification?
+   - <0.4: ambiguous — user message could plausibly mean multiple very different things
+   - 0.4-0.7: reasonable confidence but some ambiguity
+   - >0.7: clear intent
+9. NEEDS CLARIFICATION: true only if intent_confidence < 0.4 AND you cannot reasonably guess
+   the correct route from context. Do NOT set true for follow-up questions where prior
+   conversation provides enough context.
+10. CLARIFICATION QUESTION: If needs_clarification is true, write a short, friendly question
+    that would resolve the ambiguity. Leave empty otherwise.
 
 STEP 3 - Return JSON as final OUTPUT:
-{{"reasoning": "...", "optimized_query": "...", "stepback_query": "...", "route": "...", "session_intent": "...", "turn_intent": "...", "slots": {{}}, "query_context": "..."}}
+{{"reasoning": "...", "optimized_query": "...", "stepback_query": "...", "route": "...", "session_intent": "...", "turn_intent": "...", "slots": {{}}, "query_context": "...", "intent_confidence": 0.9, "needs_clarification": false, "clarification_question": ""}}
 
 Final output examples:
 - "what does aspirin do for heart attacks?" → {{"reasoning": "User asks about aspirin's role in heart attacks. Expand to include synonym myocardial infarction. This is a mechanism question, so generate a step-back query about the broader drug class.", "optimized_query": "aspirin mechanism of action for myocardial infarction (heart attack)", "stepback_query": "pharmacology of antiplatelet agents in cardiovascular disease", "route": "vector", "session_intent": "", "turn_intent": "mechanism_of_action", "slots": {{"drug": "aspirin", "condition": "myocardial infarction", "aspect": "mechanism"}}, "query_context": "User wants to understand how aspirin works in treating heart attacks"}}
@@ -160,6 +192,9 @@ def QueryRewriterAgent(state: AgentStateV2) -> AgentStateV2:
     state['turn_intent'] = result.turn_intent
     state['slots'] = result.slots
     state['query_context'] = result.query_context
+    state['intent_confidence'] = result.intent_confidence
+    state['needs_clarification'] = result.needs_clarification
+    state['clarification_question'] = result.clarification_question
     logger.info(
         "query_rewrite_complete",
         extra={
