@@ -133,11 +133,15 @@ Important distinction:
 
 ### Reflection and retry flow
 1. After executor generates an answer, the reflection agent judges quality using structured criteria.
-2. The judge returns: `failure_category` (none/irrelevant/hallucination/incomplete/unsafe), `suggested_focus` (targeted retrieval hint), `confidence` (0.0–1.0), and `feedback`.
-3. If `failure_category != 'none'` and attempts < 2, the workflow retries.
-4. On retry, the retriever uses `suggested_focus` as the search query instead of the original `optimized_query` (ReAct pattern: observe feedback, act on it).
-5. The step-back query is skipped on retry since it was generated for the original question, not the focused retry.
-6. Maximum 2 reflection attempts, then finalize regardless.
+2. The agent builds a condensed chunk context (top-5 docs, max 2000 chars) from `state['documents']` and passes it into the judge prompt alongside the question and answer.
+3. The judge returns: `failure_category` (none/irrelevant/hallucination/incomplete/unsafe), `suggested_focus` (targeted retrieval hint), `confidence` (0.0–1.0), `grounding_score` (0.0–1.0, fraction of answer claims traceable to source chunks), and `feedback`.
+4. `grounding_score` is stored in `AgentStateV2['grounding_score']`. Answers with ungrounded claims produce `failure_category='hallucination'` from the judge.
+5. If `failure_category != 'none'` and attempts < 2, the workflow retries.
+6. On retry, the retriever uses `suggested_focus` as the search query instead of the original `optimized_query` (ReAct pattern: observe feedback, act on it).
+7. The step-back query is skipped on retry since it was generated for the original question, not the focused retry.
+8. Maximum 2 reflection attempts, then finalize regardless.
+
+ReflectionAgent now receives condensed source chunks and judges `grounding_score` (0–1). Answers with ungrounded claims trigger `hallucination` failure_category and retry. Controlled by `REFLECTION_GROUNDING_ENABLED=true` (default).
 
 ### Plan-and-Execute (stubbed)
 - `DecomposerAgent` can detect multi-part questions and split them into sub-questions.

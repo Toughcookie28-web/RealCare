@@ -10,6 +10,18 @@ For each entry, capture:
 
 ---
 
+## 2026-03-20 — Hallucination detection via chunk grounding
+
+**What changed:** `ReflectionAgent` now receives the top-5 retrieved chunks (condensed to 2000 chars) alongside the answer. Prompt asks judge to assess what fraction of answer claims are traceable to source chunks (`grounding_score` 0–1). Ungrounded answers set `failure_category='hallucination'` and trigger retry.
+
+**Why:** Reflection agent was judging general medical quality without access to the actual source material, missing fabrications that contradicted or went beyond the retrieved chunks.
+
+**Tradeoff:** Slightly more tokens per reflection call (chunk context). Low cost since reflection is already an LLM call.
+
+**Must remain true:** `grounding_score` defaults to `1.0` (safe default — don't retry if score is missing). `chunk_context` always present in prompt (empty = "(no source chunks...)").
+
+---
+
 ## 2026-03-16 — Fix semantic cache Redis namespace filter boot regression
 
 What changed:
