@@ -99,7 +99,6 @@ class Settings(BaseSettings):
     routing_rag_confidence_threshold: float = Field(default=0.12, alias='ROUTING_RAG_CONFIDENCE_THRESHOLD')
     auto_ingest_on_startup: bool = Field(default=False, alias='AUTO_INGEST_ON_STARTUP')
 
-    enable_hitl_interrupts: bool = Field(default=True, alias='ENABLE_HITL_INTERRUPTS')
     enable_query_decomposition: bool = Field(default=False, alias='ENABLE_QUERY_DECOMPOSITION')
 
     long_term_memory_enabled: bool = Field(default=False, alias='LONG_TERM_MEMORY_ENABLED')

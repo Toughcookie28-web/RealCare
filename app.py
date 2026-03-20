@@ -12,7 +12,6 @@ from starlette.middleware.sessions import SessionMiddleware
 from api.routes.chat import router as chat_router
 from api.routes.health import router as health_router
 from api.routes.history import router as history_router
-from api.routes.hitl import router as hitl_router
 from core.settings import get_settings
 from db.session import init_database
 from observability.logging import configure_logging
@@ -49,7 +48,6 @@ def create_app() -> FastAPI:
 
     app.include_router(chat_router)
     app.include_router(history_router)
-    app.include_router(hitl_router)
     app.include_router(health_router)
 
     @app.get('/', response_class=HTMLResponse)
