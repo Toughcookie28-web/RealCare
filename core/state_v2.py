@@ -34,6 +34,7 @@ class AgentStateV2(TypedDict):
     reflection_suggested_focus: str
     reflection_confidence: float
     reflection_failure_category: str
+    grounding_score: float
     session_intent: str
     turn_intent: str
     slots: dict[str, str]
@@ -79,6 +80,7 @@ def initialize_state(session_id: str, trace_id: str) -> AgentStateV2:
         'reflection_suggested_focus': '',
         'reflection_confidence': 0.0,
         'reflection_failure_category': '',
+        'grounding_score': 0.0,
         'session_intent': '',
         'turn_intent': '',
         'slots': {},
@@ -121,6 +123,7 @@ def reset_query_state(state: AgentStateV2, question: str) -> AgentStateV2:
             'reflection_suggested_focus': '',
             'reflection_confidence': 0.0,
             'reflection_failure_category': '',
+            'grounding_score': 0.0,
             'session_intent': '',
             'turn_intent': '',
             'slots': {},
