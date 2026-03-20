@@ -72,6 +72,8 @@ def route_after_guardrail(state: AgentStateV2) -> str:
 
 def route_after_planner(state: AgentStateV2) -> str:
     route = state.get('route', 'vector')
+    if route == 'clarify':
+        return 'executor'
     if route == 'chitchat':
         return 'chitchat'
     if route == 'memory':
@@ -131,6 +133,7 @@ def create_workflow():
         'planner',
         route_after_planner,
         {
+            'executor': 'executor',
             'chitchat': 'llm',
             'memory': 'executor',
             'retriever': 'retriever',

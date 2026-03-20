@@ -284,6 +284,16 @@ def ExecutorAgent(state: AgentStateV2) -> AgentStateV2:
         state['semantic_cache_hit'] = True
         return state
 
+    # Clarify route: return clarification question directly, no retrieval or LLM generation
+    if state.get('route') == 'clarify':
+        clarification_q = state.get('clarification_question', '')
+        state['generation'] = clarification_q if clarification_q else (
+            "Could you clarify what you're looking for? "
+            "Your question could be interpreted in a few different ways."
+        )
+        state['source'] = 'Clarification Request'
+        return state
+
     question = state.get('question', '')
     summary = state.get('summary', '')
     facts = ', '.join([f"{f.get('key')}={f.get('value')}" for f in state.get('facts', [])])
