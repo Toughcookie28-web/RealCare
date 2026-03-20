@@ -107,6 +107,9 @@ class Settings(BaseSettings):
 
     enable_query_decomposition: bool = Field(default=False, alias='ENABLE_QUERY_DECOMPOSITION')
 
+    hitl_clarification_enabled: bool = Field(default=True, alias='HITL_CLARIFICATION_ENABLED')
+    hitl_clarification_confidence_threshold: float = Field(default=0.4, alias='HITL_CLARIFICATION_CONFIDENCE_THRESHOLD')
+
     long_term_memory_enabled: bool = Field(default=False, alias='LONG_TERM_MEMORY_ENABLED')
     long_term_memory_recall_k: int = Field(default=3, alias='LONG_TERM_MEMORY_RECALL_K')
     long_term_memory_min_confidence: float = Field(default=0.6, alias='LONG_TERM_MEMORY_MIN_CONFIDENCE')

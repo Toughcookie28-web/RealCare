@@ -49,3 +49,10 @@ def test_grounding_settings_have_correct_defaults():
     s = Settings(_env_file=None)
     assert s.reflection_grounding_enabled is True
     assert s.reflection_grounding_threshold == 0.5
+
+
+def test_clarification_settings_have_correct_defaults():
+    from core.settings import Settings
+    s = Settings(_env_file=None)
+    assert s.hitl_clarification_enabled is True
+    assert s.hitl_clarification_confidence_threshold == 0.4
