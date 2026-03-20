@@ -111,3 +111,55 @@ def test_reflection_agent_triggers_retry_with_focus():
     assert result["needs_retry"] is True
     assert result["reflection_suggested_focus"] == "pediatric aspirin dosing guidelines"
     assert result["reflection_failure_category"] == "incomplete"
+
+
+def test_reflection_agent_sets_grounding_score(monkeypatch):
+    from agents.reflection_agent import ReflectionAgent
+    from core.state_v2 import initialize_state
+
+    monkeypatch.setattr(
+        "agents.reflection_agent.invoke_json",
+        lambda *a, **kw: {
+            "is_relevant": True,
+            "has_hallucinations": False,
+            "failure_category": "none",
+            "suggested_focus": "",
+            "confidence": 0.85,
+            "grounding_score": 0.9,
+            "feedback": "well grounded",
+        },
+    )
+    state = initialize_state("s1", "t1")
+    state["question"] = "what is aspirin?"
+    state["generation"] = "Aspirin inhibits COX-1 and COX-2."
+    state["documents"] = []
+
+    result = ReflectionAgent(state)
+    assert result["grounding_score"] == 0.9
+
+
+def test_reflection_agent_detects_hallucination_via_grounding(monkeypatch):
+    from agents.reflection_agent import ReflectionAgent
+    from core.state_v2 import initialize_state
+
+    monkeypatch.setattr(
+        "agents.reflection_agent.invoke_json",
+        lambda *a, **kw: {
+            "is_relevant": True,
+            "has_hallucinations": True,
+            "failure_category": "hallucination",
+            "suggested_focus": "aspirin mechanism COX inhibition",
+            "confidence": 0.3,
+            "grounding_score": 0.2,
+            "feedback": "answer claims not found in chunks",
+        },
+    )
+    state = initialize_state("s1", "t1")
+    state["question"] = "what is aspirin?"
+    state["generation"] = "Aspirin cures cancer."
+    state["documents"] = []
+
+    result = ReflectionAgent(state)
+    assert result["grounding_score"] == 0.2
+    assert result["reflection_failure_category"] == "hallucination"
+    assert result["needs_retry"] is True

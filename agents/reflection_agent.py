@@ -11,23 +11,27 @@ logger = logging.getLogger(__name__)
 
 _REFLECTION_SYSTEM = "You are a strict medical QA reviewer. Evaluate answer quality and safety."
 
-_REFLECTION_PROMPT = """Evaluate this medical Q&A pair.
+_REFLECTION_PROMPT = """Evaluate this medical Q&A pair with access to the source chunks used to generate the answer.
 
 Question: {question}
 Answer: {answer}
 
+Source chunks used for this answer:
+{chunk_context}
+
 Judge the response on these criteria:
 1. Is the answer relevant to the question?
-2. Does it contain hallucinations (claims not supported by typical medical knowledge)?
+2. Does it contain hallucinations? Specifically: are there claims in the answer that CANNOT be traced to any of the source chunks above?
 3. Is it complete enough to be useful?
 4. Is it safe (no dangerous unsupported medical advice)?
 
 Return JSON ONLY with these keys:
 - "is_relevant": boolean
-- "has_hallucinations": boolean
+- "has_hallucinations": boolean — true if any answer claim is absent from the source chunks
 - "failure_category": one of "none", "irrelevant", "hallucination", "incomplete", "unsafe"
 - "suggested_focus": if the answer is incomplete or irrelevant, write a specific search query that would find the missing information. Otherwise empty string.
 - "confidence": 0.0-1.0 score for overall answer quality
+- "grounding_score": 0.0-1.0 — what fraction of the answer's key claims are supported by the source chunks (1.0 = fully grounded, 0.0 = no grounding)
 - "feedback": brief explanation of your judgment
 """
 
@@ -39,6 +43,7 @@ class ReflectionResult(BaseModel):
     failure_category: str = "none"
     suggested_focus: str = ""
     confidence: float = 0.0
+    grounding_score: float = 1.0
     feedback: str = ""
 
     @field_validator('failure_category', mode='before')
@@ -55,6 +60,14 @@ class ReflectionResult(BaseModel):
             return max(0.0, min(1.0, float(v)))
         except (TypeError, ValueError):
             return 0.0
+
+    @field_validator('grounding_score', mode='before')
+    @classmethod
+    def coerce_grounding_score(cls, v):
+        try:
+            return max(0.0, min(1.0, float(v)))
+        except (TypeError, ValueError):
+            return 1.0
 
     @field_validator('is_relevant', 'has_hallucinations', mode='before')
     @classmethod
@@ -94,11 +107,30 @@ def _parse_reflection_response(raw: dict) -> ReflectionResult:
         return ReflectionResult()
 
 
+def _build_chunk_context(docs: list, max_chars: int = 2000) -> str:
+    """Build a condensed view of retrieved chunks for the reflection judge."""
+    if not docs:
+        return "(no source chunks — answer was generated from memory or cache)"
+    parts = []
+    total = 0
+    for i, doc in enumerate(docs[:5]):
+        snippet = doc.page_content[:400].strip()
+        section = doc.metadata.get("section", "unknown")
+        part = f"[Chunk {i+1} — {section}]\n{snippet}"
+        if total + len(part) > max_chars:
+            break
+        parts.append(part)
+        total += len(part)
+    return "\n\n".join(parts)
+
+
 def ReflectionAgent(state: AgentStateV2) -> AgentStateV2:
     question = state.get('question', '')
     answer = state.get('generation', '')
+    docs = state.get('documents', [])
 
-    judge_prompt = _REFLECTION_PROMPT.format(question=question, answer=answer)
+    chunk_context = _build_chunk_context(docs)
+    judge_prompt = _REFLECTION_PROMPT.format(question=question, answer=answer, chunk_context=chunk_context)
     raw = invoke_json(judge_prompt, system=_REFLECTION_SYSTEM)
     result = _parse_reflection_response(raw)
 
@@ -112,12 +144,14 @@ def ReflectionAgent(state: AgentStateV2) -> AgentStateV2:
     state['reflection_suggested_focus'] = result.suggested_focus
     state['reflection_confidence'] = result.confidence
     state['reflection_failure_category'] = result.failure_category
+    state['grounding_score'] = result.grounding_score
 
     logger.info(
         "reflection_complete",
         extra={
             "failure_category": result.failure_category,
             "confidence": result.confidence,
+            "grounding_score": result.grounding_score,
             "needs_retry": needs_retry,
             "suggested_focus": result.suggested_focus[:80] if result.suggested_focus else "",
             "attempt": attempts['reflection'],
