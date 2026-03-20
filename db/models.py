@@ -56,19 +56,6 @@ class UserFactModel(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
-class HitlReviewModel(Base):
-    __tablename__ = "hitl_reviews"
-
-    approval_id: Mapped[str] = mapped_column(String(64), primary_key=True)
-    session_id: Mapped[str] = mapped_column(String(64), index=True)
-    trace_id: Mapped[str] = mapped_column(String(64))
-    question: Mapped[str] = mapped_column(Text)
-    status: Mapped[str] = mapped_column(String(16), default="pending", index=True)
-    reviewer_note: Mapped[str | None] = mapped_column(Text, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
-    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-
-
 class DocumentChunkModel(Base):
     __tablename__ = "document_chunks"
 
