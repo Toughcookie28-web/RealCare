@@ -451,6 +451,20 @@ class VectorRepository:
         )
         return [_orm_row_to_doc(row) for row in rows]
 
+    def get_embeddings_for_chunk_ids(self, chunk_ids: list[str]) -> dict:
+        """Return {chunk_id: raw_embedding_array} for the requested chunk_ids."""
+        if not chunk_ids:
+            return {}
+        import numpy as np
+        rows = (
+            self.db.execute(
+                select(DocumentChunkModel.chunk_id, DocumentChunkModel.embedding)
+                .where(DocumentChunkModel.chunk_id.in_(chunk_ids))
+            )
+            .all()
+        )
+        return {row.chunk_id: np.array(row.embedding) for row in rows if row.embedding is not None}
+
 
 class InMemoryChatRepository:
     def __init__(self):
@@ -691,6 +705,18 @@ class InMemoryVectorRepository:
             if row is not None:
                 results.append(_row_to_doc(row))
         return results
+
+    def get_embeddings_for_chunk_ids(self, chunk_ids: list[str]) -> dict:
+        """Return {chunk_id: embedding_array} for the requested chunk_ids."""
+        import numpy as np
+        result = {}
+        for cid in chunk_ids:
+            row = self._chunks.get(cid)
+            if row is not None:
+                emb = row.get("embedding")
+                if emb is not None:
+                    result[cid] = np.array(emb)
+        return result
 
 
 def _cosine_distance(v1: list[float], v2: list[float]) -> float:
