@@ -1,7 +1,7 @@
 """drop hitl_reviews table
 
-Revision ID: 0004_drop_hitl_reviews
-Revises: 0003_vec_contract
+Revision ID: 0007_drop_hitl_reviews
+Revises: 0006_eval_run_tracking
 Create Date: 2026-03-20
 """
 
@@ -9,8 +9,8 @@ from alembic import op
 import sqlalchemy as sa
 
 
-revision = '0004_drop_hitl_reviews'
-down_revision = '0003_vec_contract'
+revision = '0007_drop_hitl_reviews'
+down_revision = '0006_eval_run_tracking'
 branch_labels = None
 depends_on = None
 
