@@ -86,6 +86,10 @@ class Settings(BaseSettings):
     bm25_b: float = Field(default=0.75, alias='BM25_B')
     hybrid_dense_weight: float = Field(default=0.7, alias='HYBRID_DENSE_WEIGHT')
 
+    diversity_mmr_enabled: bool = Field(default=True, alias='DIVERSITY_MMR_ENABLED')
+    diversity_mmr_lambda: float = Field(default=0.7, alias='DIVERSITY_MMR_LAMBDA')
+    diversity_max_per_section: int = Field(default=2, alias='DIVERSITY_MAX_PER_SECTION')
+
     chunk_text_target: int = Field(default=400, alias='CHUNK_TEXT_TARGET')
     chunk_text_max: int = Field(default=500, alias='CHUNK_TEXT_MAX')
     chunk_text_overlap: int = Field(default=50, alias='CHUNK_TEXT_OVERLAP')
