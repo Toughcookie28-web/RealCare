@@ -5,6 +5,7 @@ import logging
 import re
 from typing import Any
 
+import numpy as np
 from langchain_core.documents import Document
 
 from core.settings import get_settings
@@ -16,6 +17,86 @@ from tools.redis_client import ExactCache
 logger = logging.getLogger(__name__)
 
 _cohere_cache = ExactCache(prefix="cohere_rerank", ttl=3600)
+
+
+def _cosine_sim(a: "np.ndarray", b: "np.ndarray") -> float:
+    na, nb = np.linalg.norm(a), np.linalg.norm(b)
+    if na == 0 or nb == 0:
+        return 0.0
+    return float(np.dot(a, b) / (na * nb))
+
+
+def _section_quota_filter(docs: list, k: int, max_per_section: int = 2) -> list:
+    """Fallback: cap how many chunks from the same section make it to top-k."""
+    seen: dict = {}
+    result = []
+    for doc in docs:
+        section = doc.metadata.get("section", "_unknown")
+        count = seen.get(section, 0)
+        if count < max_per_section:
+            result.append(doc)
+            seen[section] = count + 1
+        if len(result) == k:
+            break
+    return result
+
+
+def _mmr_filter(
+    docs: list,
+    emb_map: dict,
+    query_emb: "np.ndarray",
+    k: int = 5,
+    lambda_: float = 0.7,
+) -> list:
+    """
+    Maximal Marginal Relevance filter.
+    Selects k docs that balance relevance to query and diversity from each other.
+    Falls back to section-based quota when embeddings are missing.
+    """
+    if not docs:
+        return docs
+
+    have_embs = [d for d in docs if d.metadata.get("chunk_id") in emb_map]
+    if len(have_embs) < len(docs) // 2:
+        return _section_quota_filter(docs, k)
+
+    selected: list = []
+    remaining = list(docs)
+
+    while remaining and len(selected) < k:
+        if not selected:
+            best = max(
+                remaining,
+                key=lambda d: _cosine_sim(
+                    emb_map.get(d.metadata.get("chunk_id", ""), query_emb),
+                    query_emb,
+                ),
+            )
+        else:
+            selected_embs = [
+                emb_map[d.metadata["chunk_id"]]
+                for d in selected
+                if d.metadata.get("chunk_id") in emb_map
+            ]
+            best = max(
+                remaining,
+                key=lambda d: (
+                    lambda_ * _cosine_sim(
+                        emb_map.get(d.metadata.get("chunk_id", ""), query_emb),
+                        query_emb,
+                    )
+                    - (1 - lambda_) * (
+                        max((_cosine_sim(
+                            emb_map.get(d.metadata.get("chunk_id", ""), query_emb),
+                            s,
+                        ) for s in selected_embs), default=0.0)
+                    )
+                ),
+            )
+        selected.append(best)
+        remaining.remove(best)
+
+    return selected
 
 
 def _merge_and_deduplicate(
@@ -101,8 +182,18 @@ def RetrieverAgent(state: AgentStateV2) -> AgentStateV2:
 
     ranked, scores = rerank(query, docs)
 
+    # Apply MMR diversity filter to top-k selection
+    settings = get_settings()
+    top_k = 5
+    if settings.diversity_mmr_enabled:
+        chunk_ids = [d.metadata.get("chunk_id", "") for d in ranked[:20]]
+        emb_map = repo.get_embeddings_for_chunk_ids(chunk_ids) if repo is not None else {}
+        query_emb_arr = np.array(query_embedding) if query_embedding is not None else np.zeros(1)
+        top_docs = _mmr_filter(ranked, emb_map, query_emb_arr, k=top_k, lambda_=settings.diversity_mmr_lambda)
+    else:
+        top_docs = ranked[:top_k]
+
     # Resolve parent chunks if parent-child chunking is active
-    top_docs = ranked[:5]
     if any(d.metadata.get("chunk_type") == "child" for d in top_docs):
         top_docs = _resolve_parent_chunks(top_docs, repo)
 
