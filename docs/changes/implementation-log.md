@@ -1240,3 +1240,13 @@ Must stay true:
 **Tradeoff:** Saved evals now have an extra Postgres persistence path, but it is explicitly best-effort so tracking failures do not block the main eval artifact. The new migration file name follows the existing test contract even though its Alembic revision is chained after the current `0005` head.
 
 **Must remain true:** Snapshot save remains the artifact of record and happens before DB tracking. Tracking failures must never fail the main eval run. Grafana benchmark panels must use PostgreSQL, not Prometheus labels, for benchmark truth.
+
+## 2026-03-20 — MMR diversity enforcement
+
+**What changed:** Added `_mmr_filter()` to `RetrieverAgent` applied after Cohere rerank. Selects top-K chunks maximising relevance–diversity trade-off using cosine similarity. Falls back to section quota when embeddings unavailable. Controlled by `DIVERSITY_MMR_ENABLED` (default=True). Added `get_embeddings_for_chunk_ids()` to both `InMemoryVectorRepository` and `VectorRepository`. Added `diversity_mmr_enabled`, `diversity_mmr_lambda`, and `diversity_max_per_section` to `core/settings.py`.
+
+**Why:** Reranker would return 5 near-identical chunks from the same section, wasting the executor's context window.
+
+**Tradeoff:** One extra DB call to fetch chunk embeddings per retrieval request. Cached per request within the function scope.
+
+**Must remain true:** Fallback to section quota when embeddings missing. `lambda_=0.7` keeps relevance dominant. `_mmr_filter([])` returns `[]`.
