@@ -10,6 +10,18 @@ For each entry, capture:
 
 ---
 
+## 2026-03-20 — HITL proactive clarification
+
+**What changed:** Added lightweight proactive clarification. `QueryRewriterAgent` now outputs `intent_confidence` (0–1) and `needs_clarification` flag. When confidence < 0.4, `PlannerAgent` sets `route='clarify'` and `ExecutorAgent` returns the clarification question directly — no retrieval. Old approval-queue HITL was deleted in the same sprint.
+
+**Why:** Ambiguous medical queries should be clarified, not guessed. "What should I take?" is medically dangerous without context.
+
+**Tradeoff:** One extra field per rewriter call. No retrieval cost on clarify turns.
+
+**Must remain true:** `HITL_CLARIFICATION_ENABLED=true` by default. Prior conversation context should suppress clarification (rewriter should detect it). Clarify route must never trigger retrieval.
+
+---
+
 ## 2026-03-20 — Hallucination detection via chunk grounding
 
 **What changed:** `ReflectionAgent` now receives the top-5 retrieved chunks (condensed to 2000 chars) alongside the answer. Prompt asks judge to assess what fraction of answer claims are traceable to source chunks (`grounding_score` 0–1). Ungrounded answers set `failure_category='hallucination'` and trigger retry.
