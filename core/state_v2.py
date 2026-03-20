@@ -47,6 +47,9 @@ class AgentStateV2(TypedDict):
     user_id: str | None
     episodic_memories: list[dict[str, Any]]
     long_term_memory_repo: Any | None
+    intent_confidence: float
+    needs_clarification: bool
+    clarification_question: str
 
 
 def initialize_state(session_id: str, trace_id: str) -> AgentStateV2:
@@ -93,6 +96,9 @@ def initialize_state(session_id: str, trace_id: str) -> AgentStateV2:
         'user_id': None,
         'episodic_memories': [],
         'long_term_memory_repo': None,
+        'intent_confidence': 1.0,
+        'needs_clarification': False,
+        'clarification_question': '',
     }
 
 
@@ -131,6 +137,9 @@ def reset_query_state(state: AgentStateV2, question: str) -> AgentStateV2:
             'query_context': '',
             'sub_questions': [],
             'episodic_memories': [],
+            'intent_confidence': 1.0,
+            'needs_clarification': False,
+            'clarification_question': '',
         }
     )
     return state
