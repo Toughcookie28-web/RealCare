@@ -15,7 +15,7 @@ It features **PostgreSQL-powered long-term memory** for persistent medical conve
 * **Advanced RAG pipeline** from indexed medical PDFs with hierarchical chunking, hybrid search (dense + BM25), and reranking
 * **Semantic routing** via Planner Agent (chitchat, vector, web, literature routes)
 * **Query rewriting** with coreference resolution for context-aware searches
-* **Input guardrails** for safety filtering and HITL review on high-risk queries
+* **Input guardrails** for safety filtering on dangerous queries
 * **Self-reflection node** for hallucination detection with bounded retries
 * **Trusted-domain web search** (Tavily + Wikipedia + PubMed) filtered to NIH, Mayo Clinic, CDC, WHO
 * **Vector database (pgvector)** with hybrid retrieval and cross-encoder reranking
@@ -24,7 +24,6 @@ It features **PostgreSQL-powered long-term memory** for persistent medical conve
 * **Semantic caching** for near-duplicate query optimization
 * **Explainable AI citations** mapped to source documents with page/section references
 * **SSE streaming** with real-time agent status updates in the UI
-* **Human-in-the-loop (HITL)** approval gates for high-risk medical queries
 * **Observability stack** with Prometheus metrics, Grafana dashboards, structured JSON logging, and OpenTelemetry tracing
 * **Dockerized deployment** with `docker compose` (runtime stack by default, profile-gated eval service when needed)
 * **FastAPI backend** with custom HTML, CSS, and JavaScript frontend
@@ -43,7 +42,7 @@ It features **PostgreSQL-powered long-term memory** for persistent medical conve
 | **Vector Database**        | PostgreSQL + pgvector (hybrid search)                                                                     |
 | **Document Processing**    | Docling parser + structure-aware chunker (section-aware text and table chunks)                            |
 | **Search Tools**           | Tavily (domain-locked), Wikipedia API, PubMed NCBI API                                                   |
-| **Conversation Flow**      | LangGraph StateGraph with conditional routing, reflection loops, and HITL interrupts                      |
+| **Conversation Flow**      | LangGraph StateGraph with conditional routing and reflection loops                                        |
 | **Medical Knowledge Base** | Domain-specific medical PDFs + Wikipedia + PubMed                                                        |
 | **Backend**                | FastAPI (REST API + SSE streaming)                                                                       |
 | **Frontend**               | Custom HTML, CSS, JavaScript (SPA with glass-morphism UI)                                                |
@@ -63,7 +62,6 @@ It features **PostgreSQL-powered long-term memory** for persistent medical conve
 graph TD
     A[User Query] --> B[GuardrailAgent - Safety Filter]
     B -->|Blocked| Z[Safety Refusal]
-    B -->|High Risk| HITL[HITL Review Queue]
     B -->|Safe| C[MemoryAgent - Summary + Facts]
 
     C --> D[QueryRewriterAgent - Coreference Resolution]
@@ -110,7 +108,7 @@ RealCare/
 │
 ├── agents/
 │   ├── common.py                    # Node wrapper with metrics
-│   ├── guardrail_agent.py           # Input safety filtering + HITL triggers
+│   ├── guardrail_agent.py           # Input safety filtering
 │   ├── query_rewriter_agent.py      # Coreference resolution and query expansion
 │   ├── planner_agent.py             # Semantic routing (chitchat/vector/web/literature)
 │   ├── memory_agent.py              # Summary buffer + user fact extraction
@@ -127,19 +125,19 @@ RealCare/
 │   ├── env.py
 │   └── versions/
 │       ├── 0001_initial_schema.py
-│       └── 0002_add_hitl_reviews.py
+│       ├── 0002_add_hitl_reviews.py
+│       ├── 0003_align_document_chunks_vector_contract.py
+│       └── 0004_drop_hitl_reviews.py
 │
 ├── api/
 │   ├── deps.py                      # FastAPI dependency injection
 │   └── routes/
 │       ├── chat.py                  # POST /api/chat, POST /api/chat/stream
 │       ├── health.py                # Liveness, readiness, metrics
-│       ├── history.py               # Session and message history
-│       └── hitl.py                  # HITL pending reviews and decisions
+│       └── history.py               # Session and message history
 │
 ├── core/
 │   ├── contracts.py                 # Pydantic request/response models
-│   ├── hitl.py                      # HITL review logic (DB-backed)
 │   ├── langgraph_workflow.py        # LangGraph StateGraph orchestration
 │   ├── settings.py                  # Centralized pydantic-settings config
 │   ├── state.py                     # Compatibility shim → state_v2
@@ -229,10 +227,16 @@ Start the runtime stack:
 docker compose up -d
 ```
 
-Apply migrations:
+Apply migrations (local):
 
 ```bash
 python3 -m alembic -c alembic.ini upgrade head
+```
+
+Apply migrations (Docker container):
+
+```bash
+python3 -m alembic -c /app/alembic.ini upgrade head
 ```
 
 Reindex the corpus:
@@ -296,10 +300,8 @@ Example request:
 - `POST /api/clear` — clear current conversation
 - `POST /api/new-chat` — create a new session
 
-### HITL and health
+### Health
 
-- `GET /api/hitl/pending` — list pending HITL reviews
-- `POST /api/hitl/decision` — approve or reject a review
 - `GET /health/live` — liveness probe
 - `GET /health/ready` — readiness probe
 - `GET /metrics` — Prometheus metrics

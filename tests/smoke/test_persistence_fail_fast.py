@@ -78,25 +78,3 @@ def test_get_chat_repository_raises_when_db_is_unavailable():
 def test_session_module_no_longer_contains_sqlite_in_memory_fallback():
     text = (ROOT / "db/session.py").read_text(encoding="utf-8")
     assert "sqlite+pysqlite:///:memory:" not in text
-
-
-def test_create_pending_review_requires_database():
-    sqlalchemy_orm_module = types.ModuleType("sqlalchemy.orm")
-    sqlalchemy_orm_module.Session = object
-
-    module = _load_module(
-        "batch_a_core_hitl",
-        "core/hitl.py",
-        {
-            "sqlalchemy.orm": sqlalchemy_orm_module,
-        },
-    )
-
-    with pytest.raises(RuntimeError, match="persistent HITL database required"):
-        module.create_pending_review(
-            approval_id="approval-1",
-            session_id="session-1",
-            trace_id="trace-1",
-            question="Need approval",
-            db=None,
-        )

@@ -12,7 +12,6 @@ from observability.metrics import REQUEST_COUNT, REQUEST_LATENCY
 
 _PATH_NORMALIZERS = [
     (re.compile(r'/api/session/[^/]+'), '/api/session/{id}'),
-    (re.compile(r'/api/hitl/[^/]+/[^/]+'), '/api/hitl/{action}/{id}'),
 ]
 
 
