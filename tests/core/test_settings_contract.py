@@ -42,3 +42,10 @@ def test_diversity_settings_have_correct_defaults():
     assert s.diversity_mmr_enabled is True
     assert s.diversity_mmr_lambda == 0.7
     assert s.diversity_max_per_section == 2
+
+
+def test_grounding_settings_have_correct_defaults():
+    from core.settings import Settings
+    s = Settings(_env_file=None)
+    assert s.reflection_grounding_enabled is True
+    assert s.reflection_grounding_threshold == 0.5

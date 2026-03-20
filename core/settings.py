@@ -37,6 +37,8 @@ class Settings(BaseSettings):
     working_memory_recent_turns_max: int = Field(default=12, alias='WORKING_MEMORY_RECENT_TURNS_MAX')
     live_judge_enabled: bool = Field(default=False, alias='LIVE_JUDGE_ENABLED')
     live_judge_sampling_ratio: float = Field(default=0.2, alias='LIVE_JUDGE_SAMPLING_RATIO')
+    reflection_grounding_enabled: bool = Field(default=True, alias='REFLECTION_GROUNDING_ENABLED')
+    reflection_grounding_threshold: float = Field(default=0.5, alias='REFLECTION_GROUNDING_THRESHOLD')
 
     llm_primary_model: str = Field(default='moonshotai/kimi-k2-instruct-0905', alias='LLM_PRIMARY_MODEL')
     llm_fallback_model: str = Field(default='llama-3.3-70b-versatile', alias='LLM_FALLBACK_MODEL')
