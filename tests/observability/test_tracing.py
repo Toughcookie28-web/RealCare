@@ -112,3 +112,52 @@ def test_emit_node_metrics_reflection_grounding():
     _emit_node_metrics('reflection', {'needs_retry': False, 'grounding_score': 0.65})
     after = _get_histogram_sum(m.REFLECTION_GROUNDING_SCORE)
     assert after == pytest.approx(before + 0.65, abs=1e-6)
+
+
+# --- run_node OTel span tests ---
+
+def test_run_node_creates_span():
+    """run_node() wraps fn execution in a span named after the node."""
+    mock_span = MagicMock()
+    mock_span.get_span_context.return_value = MagicMock(trace_id=0)
+    mock_ctx_mgr = MagicMock()
+    mock_ctx_mgr.__enter__ = MagicMock(return_value=mock_span)
+    mock_ctx_mgr.__exit__ = MagicMock(return_value=False)
+    mock_tracer = MagicMock()
+    mock_tracer.start_as_current_span.return_value = mock_ctx_mgr
+
+    with patch('agents.common.trace') as mock_trace:
+        mock_trace.get_tracer.return_value = mock_tracer
+        from agents.common import run_node
+        state = {'trace_id': 't1', 'session_id': 's1', 'status_events': []}
+        updated = run_node('executor', lambda s: {**s, 'source': 'vector', 'generation': 'hello'}, state)
+
+    mock_tracer.start_as_current_span.assert_called_once_with('executor')
+    mock_span.set_status.assert_called()
+
+
+def test_run_node_exception_sets_error_status():
+    """run_node() records exception and sets ERROR status on the span, then returns degraded state."""
+    from opentelemetry.trace import StatusCode
+
+    mock_span = MagicMock()
+    mock_span.get_span_context.return_value = MagicMock(trace_id=0)
+    mock_ctx_mgr = MagicMock()
+    mock_ctx_mgr.__enter__ = MagicMock(return_value=mock_span)
+    mock_ctx_mgr.__exit__ = MagicMock(return_value=False)
+    mock_tracer = MagicMock()
+    mock_tracer.start_as_current_span.return_value = mock_ctx_mgr
+
+    def failing_fn(s):
+        raise ValueError("boom")
+
+    with patch('agents.common.trace') as mock_trace:
+        mock_trace.get_tracer.return_value = mock_tracer
+        from agents.common import run_node
+        state = {'trace_id': 't1', 'session_id': 's1', 'status_events': []}
+        result = run_node('executor', failing_fn, state)
+
+    mock_span.record_exception.assert_called_once()
+    mock_span.set_status.assert_called_once_with(StatusCode.ERROR, 'boom')
+    assert result['source'] == 'System Message'
+    assert 'internal error' in result['generation'].lower()
