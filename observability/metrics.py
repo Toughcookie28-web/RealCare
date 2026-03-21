@@ -28,6 +28,15 @@ LIVE_CONTEXT_COVERAGE_PROXY = Histogram(
     ['route'],
 )
 
+ROUTE_COUNTER = Counter('medigenius_route_total', 'Route decisions', ['route'])
+INTENT_CONFIDENCE = Histogram('medigenius_intent_confidence', 'Intent confidence score (0-1)')
+CLARIFICATION_TRIGGERED = Counter('medigenius_clarification_triggered_total', 'Clarification triggers')
+REFLECTION_RETRY = Counter('medigenius_reflection_retry_total', 'Reflection retry triggers')
+REFLECTION_GROUNDING_SCORE = Histogram(
+    'medigenius_reflection_grounding_score',
+    'Reflection grounding score — fraction of answer claims traceable to source chunks (0=no grounding, 1=fully grounded)',
+)
+
 
 def metrics_payload() -> bytes:
     return generate_latest()
