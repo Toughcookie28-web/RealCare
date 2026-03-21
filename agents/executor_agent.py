@@ -230,6 +230,8 @@ def _executor_cache_namespace() -> str:
 
 
 def _should_use_semantic_cache(state: AgentStateV2) -> bool:
+    if state.get('route') == 'clarify':
+        return False
     if state.get('needs_retry'):
         return False
     if state.get('reflection_feedback'):

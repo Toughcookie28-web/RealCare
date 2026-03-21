@@ -125,6 +125,12 @@ def _build_chunk_context(docs: list, max_chars: int = 2000) -> str:
 
 
 def ReflectionAgent(state: AgentStateV2) -> AgentStateV2:
+    # Clarify turns carry no source chunks — skip the judge to avoid
+    # a false needs_retry that would route back to retrieval (ADR-0007).
+    if state.get('route') == 'clarify' or state.get('source') == 'Clarification Request':
+        state['needs_retry'] = False
+        return state
+
     question = state.get('question', '')
     answer = state.get('generation', '')
     docs = state.get('documents', [])
