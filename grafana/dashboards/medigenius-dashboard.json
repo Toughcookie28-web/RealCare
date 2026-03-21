@@ -308,6 +308,120 @@
         }
       ],
       "gridPos": {"h": 8, "w": 24, "x": 0, "y": 94}
+    },
+    {
+      "type": "piechart",
+      "title": "Route Distribution",
+      "description": "Distribution of pipeline routes (vector, chitchat, memory, clarify, etc.) over the selected time range",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 102},
+      "options": {"pieType": "pie", "displayLabels": ["name", "percent"], "legend": {"displayMode": "table", "placement": "right"}},
+      "fieldConfig": {"defaults": {"unit": "short"}, "overrides": []},
+      "targets": [
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "sum by (route) (increase(medigenius_route_total[1h]))",
+          "legendFormat": "{{route}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Intent Confidence",
+      "description": "Median and P10 intent confidence score from the query rewriter (lower = more ambiguous queries)",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 102},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}},
+      "fieldConfig": {
+        "defaults": {"unit": "percentunit", "min": 0, "max": 1, "custom": {"lineWidth": 2}},
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "histogram_quantile(0.5, sum(rate(medigenius_intent_confidence_bucket[5m])) by (le))",
+          "legendFormat": "P50 confidence",
+          "refId": "A"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "histogram_quantile(0.1, sum(rate(medigenius_intent_confidence_bucket[5m])) by (le))",
+          "legendFormat": "P10 confidence (most ambiguous)",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Reflection Grounding Score",
+      "description": "P50 and P10 grounding score from the reflection agent (fraction of answer claims traceable to source chunks; lower = potential hallucination)",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 102},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}},
+      "fieldConfig": {
+        "defaults": {"unit": "percentunit", "min": 0, "max": 1, "custom": {"lineWidth": 2}},
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "histogram_quantile(0.5, sum(rate(medigenius_reflection_grounding_score_bucket[5m])) by (le))",
+          "legendFormat": "P50 grounding",
+          "refId": "A"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "histogram_quantile(0.1, sum(rate(medigenius_reflection_grounding_score_bucket[5m])) by (le))",
+          "legendFormat": "P10 grounding (worst)",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Clarification Rate",
+      "description": "Rate of queries triggering a clarification request (intent_confidence < 0.4)",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 110},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}},
+      "fieldConfig": {
+        "defaults": {"unit": "reqpm", "custom": {"lineWidth": 2}},
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "increase(medigenius_clarification_triggered_total[5m])",
+          "legendFormat": "Clarification triggers",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "SLO — Node Latency P95 < 2000ms",
+      "description": "SLO: 95th-percentile node latency must stay below 2000ms. Green = meeting SLO.",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 110},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "textMode": "value", "colorMode": "background", "graphMode": "area"},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "yellow", "value": 1500},
+              {"color": "red", "value": 2000}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "histogram_quantile(0.95, sum(rate(medigenius_node_latency_ms_bucket[5m])) by (le))",
+          "legendFormat": "P95 latency",
+          "refId": "A"
+        }
+      ]
     }
   ]
 }
