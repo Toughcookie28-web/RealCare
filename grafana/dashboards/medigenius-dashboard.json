@@ -13,7 +13,12 @@
           "legendFormat": "{{method}} {{path}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      }
     },
     {
       "type": "timeseries",
@@ -24,7 +29,12 @@
           "legendFormat": "{{method}} {{path}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      }
     },
     {
       "type": "timeseries",
@@ -35,7 +45,12 @@
           "legendFormat": "P95 {{path}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      }
     },
     {
       "type": "timeseries",
@@ -46,18 +61,48 @@
           "legendFormat": "P99 {{path}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      }
     },
     {
       "type": "timeseries",
       "title": "Node Latency (ms)",
       "targets": [
         {
-          "expr": "medigenius_node_latency_ms_sum / medigenius_node_latency_ms_count",
-          "legendFormat": "{{node}}"
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "rate(medigenius_node_latency_ms_sum[1m]) / rate(medigenius_node_latency_ms_count[1m])",
+          "legendFormat": "{{node}}",
+          "exemplar": true,
+          "refId": "A"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "showPoints": "auto",
+            "spanNulls": false
+          }
+        }
+      }
     },
     {
       "type": "timeseries",
@@ -68,7 +113,12 @@
           "legendFormat": "{{node}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      }
     },
     {
       "type": "timeseries",
@@ -83,7 +133,12 @@
           "legendFormat": "misses"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 24}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      }
     },
     {
       "type": "gauge",
@@ -94,7 +149,12 @@
           "legendFormat": "hit ratio"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 24}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      }
     },
     {
       "type": "timeseries",
@@ -109,7 +169,12 @@
           "legendFormat": "{{tool}} misses"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 32}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      }
     },
     {
       "type": "gauge",
@@ -126,14 +191,28 @@
           "max": 1,
           "thresholds": {
             "steps": [
-              {"color": "red", "value": 0},
-              {"color": "yellow", "value": 0.3},
-              {"color": "green", "value": 0.6}
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 0.3
+              },
+              {
+                "color": "green",
+                "value": 0.6
+              }
             ]
           }
         }
       },
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 32}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      }
     },
     {
       "type": "stat",
@@ -147,81 +226,152 @@
       "fieldConfig": {
         "defaults": {
           "mappings": [
-            {"type": "value", "options": {"0": {"text": "DOWN", "color": "red"}}},
-            {"type": "value", "options": {"1": {"text": "UP", "color": "green"}}}
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "DOWN",
+                  "color": "red"
+                }
+              }
+            },
+            {
+              "type": "value",
+              "options": {
+                "1": {
+                  "text": "UP",
+                  "color": "green"
+                }
+              }
+            }
           ]
         }
       },
-      "gridPos": {"h": 4, "w": 6, "x": 0, "y": 40}
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 40
+      }
     },
     {
       "type": "timeseries",
       "title": "Tracked Retrieval Recall@5",
-      "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+      "datasource": {
+        "type": "postgres",
+        "uid": "grafana-postgres-benchmark"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+          "datasource": {
+            "type": "postgres",
+            "uid": "grafana-postgres-benchmark"
+          },
           "editorMode": "code",
           "format": "time_series",
           "rawSql": "SELECT r.created_at AS \"time\", m.metric_value AS value, r.mode AS metric FROM eval_run_metrics m JOIN eval_runs r ON r.run_id = m.run_id WHERE r.eval_type = 'retrieval' AND m.metric_name = 'recall@5' ORDER BY 1, 3"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 44}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 44
+      }
     },
     {
       "type": "timeseries",
       "title": "Tracked Retrieval MRR@5",
-      "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+      "datasource": {
+        "type": "postgres",
+        "uid": "grafana-postgres-benchmark"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+          "datasource": {
+            "type": "postgres",
+            "uid": "grafana-postgres-benchmark"
+          },
           "editorMode": "code",
           "format": "time_series",
           "rawSql": "SELECT r.created_at AS \"time\", m.metric_value AS value, r.mode AS metric FROM eval_run_metrics m JOIN eval_runs r ON r.run_id = m.run_id WHERE r.eval_type = 'retrieval' AND m.metric_name = 'mrr@5' ORDER BY 1, 3"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 44}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 44
+      }
     },
     {
       "type": "timeseries",
       "title": "Tracked RAGAS Context Precision",
-      "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+      "datasource": {
+        "type": "postgres",
+        "uid": "grafana-postgres-benchmark"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+          "datasource": {
+            "type": "postgres",
+            "uid": "grafana-postgres-benchmark"
+          },
           "editorMode": "code",
           "format": "time_series",
           "rawSql": "SELECT r.created_at AS \"time\", m.metric_value AS value, r.mode AS metric FROM eval_run_metrics m JOIN eval_runs r ON r.run_id = m.run_id WHERE r.eval_type = 'ragas' AND m.metric_name = 'context_precision' ORDER BY 1, 3"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 52}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 52
+      }
     },
     {
       "type": "timeseries",
       "title": "Tracked RAGAS Faithfulness",
-      "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+      "datasource": {
+        "type": "postgres",
+        "uid": "grafana-postgres-benchmark"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+          "datasource": {
+            "type": "postgres",
+            "uid": "grafana-postgres-benchmark"
+          },
           "editorMode": "code",
           "format": "time_series",
           "rawSql": "SELECT r.created_at AS \"time\", m.metric_value AS value, r.mode AS metric FROM eval_run_metrics m JOIN eval_runs r ON r.run_id = m.run_id WHERE r.eval_type = 'ragas' AND m.metric_name = 'faithfulness' ORDER BY 1, 3"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 52}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 52
+      }
     },
     {
       "type": "table",
       "title": "Recent Benchmark Runs",
-      "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+      "datasource": {
+        "type": "postgres",
+        "uid": "grafana-postgres-benchmark"
+      },
       "targets": [
         {
           "refId": "A",
-          "datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"},
+          "datasource": {
+            "type": "postgres",
+            "uid": "grafana-postgres-benchmark"
+          },
           "editorMode": "code",
           "format": "table",
           "rawSql": "SELECT r.created_at, r.eval_type, r.mode, r.split, r.sample_count, r.git_sha, COALESCE(r.judge_model, '') AS judge_model, r.snapshot_path FROM eval_runs r ORDER BY r.created_at DESC LIMIT 20"
@@ -230,7 +380,12 @@
       "options": {
         "showHeader": true
       },
-      "gridPos": {"h": 10, "w": 24, "x": 0, "y": 60}
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 60
+      }
     },
     {
       "type": "timeseries",
@@ -241,7 +396,12 @@
           "legendFormat": "{{route}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 70}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 70
+      }
     },
     {
       "type": "timeseries",
@@ -252,7 +412,12 @@
           "legendFormat": "{{route}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 70}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 70
+      }
     },
     {
       "type": "timeseries",
@@ -263,7 +428,12 @@
           "legendFormat": "{{route}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 78}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 78
+      }
     },
     {
       "type": "timeseries",
@@ -274,7 +444,12 @@
           "legendFormat": "{{route}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 78}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 78
+      }
     },
     {
       "type": "timeseries",
@@ -285,7 +460,12 @@
           "legendFormat": "{{route}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 86}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 86
+      }
     },
     {
       "type": "timeseries",
@@ -296,7 +476,12 @@
           "legendFormat": "{{route}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 86}
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 86
+      }
     },
     {
       "type": "timeseries",
@@ -307,18 +492,46 @@
           "legendFormat": "P95 {{route}}"
         }
       ],
-      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 94}
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 94
+      }
     },
     {
       "type": "piechart",
       "title": "Route Distribution",
       "description": "Distribution of pipeline routes (vector, chitchat, memory, clarify, etc.) over the selected time range",
-      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 102},
-      "options": {"pieType": "pie", "displayLabels": ["name", "percent"], "legend": {"displayMode": "table", "placement": "right"}},
-      "fieldConfig": {"defaults": {"unit": "short"}, "overrides": []},
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 102
+      },
+      "options": {
+        "pieType": "pie",
+        "displayLabels": [
+          "name",
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "targets": [
         {
-          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "sum by (route) (increase(medigenius_route_total[1h]))",
           "legendFormat": "{{route}}",
           "refId": "A"
@@ -329,21 +542,44 @@
       "type": "timeseries",
       "title": "Intent Confidence",
       "description": "Median and P10 intent confidence score from the query rewriter (lower = more ambiguous queries)",
-      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 102},
-      "options": {"legend": {"displayMode": "list", "placement": "bottom"}},
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 102
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
       "fieldConfig": {
-        "defaults": {"unit": "percentunit", "min": 0, "max": 1, "custom": {"lineWidth": 2}},
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "custom": {
+            "lineWidth": 2
+          }
+        },
         "overrides": []
       },
       "targets": [
         {
-          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "histogram_quantile(0.5, sum(rate(medigenius_intent_confidence_bucket[5m])) by (le))",
           "legendFormat": "P50 confidence",
           "refId": "A"
         },
         {
-          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "histogram_quantile(0.1, sum(rate(medigenius_intent_confidence_bucket[5m])) by (le))",
           "legendFormat": "P10 confidence (most ambiguous)",
           "refId": "B"
@@ -354,21 +590,44 @@
       "type": "timeseries",
       "title": "Reflection Grounding Score",
       "description": "P50 and P10 grounding score from the reflection agent (fraction of answer claims traceable to source chunks; lower = potential hallucination)",
-      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 102},
-      "options": {"legend": {"displayMode": "list", "placement": "bottom"}},
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 102
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
       "fieldConfig": {
-        "defaults": {"unit": "percentunit", "min": 0, "max": 1, "custom": {"lineWidth": 2}},
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "custom": {
+            "lineWidth": 2
+          }
+        },
         "overrides": []
       },
       "targets": [
         {
-          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "histogram_quantile(0.5, sum(rate(medigenius_reflection_grounding_score_bucket[5m])) by (le))",
           "legendFormat": "P50 grounding",
           "refId": "A"
         },
         {
-          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "histogram_quantile(0.1, sum(rate(medigenius_reflection_grounding_score_bucket[5m])) by (le))",
           "legendFormat": "P10 grounding (worst)",
           "refId": "B"
@@ -379,15 +638,33 @@
       "type": "timeseries",
       "title": "Clarification Rate",
       "description": "Rate of queries triggering a clarification request (intent_confidence < 0.4)",
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 110},
-      "options": {"legend": {"displayMode": "list", "placement": "bottom"}},
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 110
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
       "fieldConfig": {
-        "defaults": {"unit": "reqpm", "custom": {"lineWidth": 2}},
+        "defaults": {
+          "unit": "reqpm",
+          "custom": {
+            "lineWidth": 2
+          }
+        },
         "overrides": []
       },
       "targets": [
         {
-          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "increase(medigenius_clarification_triggered_total[5m])",
           "legendFormat": "Clarification triggers",
           "refId": "A"
@@ -396,19 +673,42 @@
     },
     {
       "type": "stat",
-      "title": "SLO — Node Latency P95 < 2000ms",
+      "title": "SLO \u2014 Node Latency P95 < 2000ms",
       "description": "SLO: 95th-percentile node latency must stay below 2000ms. Green = meeting SLO.",
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 110},
-      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "textMode": "value", "colorMode": "background", "graphMode": "area"},
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 110
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "textMode": "value",
+        "colorMode": "background",
+        "graphMode": "area"
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "ms",
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {"color": "green", "value": null},
-              {"color": "yellow", "value": 1500},
-              {"color": "red", "value": 2000}
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1500
+              },
+              {
+                "color": "red",
+                "value": 2000
+              }
             ]
           }
         },
@@ -416,12 +716,46 @@
       },
       "targets": [
         {
-          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "histogram_quantile(0.95, sum(rate(medigenius_node_latency_ms_bucket[5m])) by (le))",
           "legendFormat": "P95 latency",
           "refId": "A"
         }
       ]
+    },
+    {
+      "type": "traces",
+      "title": "Pipeline Trace Explorer \u2014 click any trace to see node waterfall",
+      "description": "Shows recent pipeline.request traces from Tempo. Each trace contains child spans for every node (query_rewriter, planner, retriever, executor, reflection) with their attributes (optimized_query, route, grounding_score, etc.).",
+      "datasource": {
+        "type": "tempo",
+        "uid": "tempo"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "tempo",
+            "uid": "tempo"
+          },
+          "queryType": "nativeSearch",
+          "serviceName": "medigenius",
+          "spanName": "pipeline.request",
+          "refId": "A",
+          "limit": 20
+        }
+      ],
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 120
+      },
+      "options": {
+        "frameType": "TraceList"
+      }
     }
   ]
 }

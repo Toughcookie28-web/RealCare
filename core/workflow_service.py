@@ -5,6 +5,10 @@ import uuid
 from datetime import datetime
 from typing import Any, Generator
 
+from opentelemetry import context as otel_context
+from opentelemetry import trace
+from opentelemetry.trace import StatusCode
+
 from core.langgraph_workflow import create_workflow
 from core.state_v2 import initialize_state, reset_query_state
 
@@ -36,8 +40,22 @@ class WorkflowService:
         state['user_id'] = user_id
         state['long_term_memory_repo'] = long_term_memory_repo
 
-        result = self.workflow.invoke(state)
-        return result
+        tracer = trace.get_tracer('medigenius.pipeline')
+        with tracer.start_as_current_span('pipeline.request') as root_span:
+            root_span.set_attribute('trace_id', trace_id)
+            root_span.set_attribute('session_id', session_id)
+            root_span.set_attribute('question.length', len(question))
+            # Capture context so node spans can re-attach it even when LangGraph
+            # runs node functions in a different thread or async context.
+            state['_otel_context'] = otel_context.get_current()
+            try:
+                result = self.workflow.invoke(state)
+                root_span.set_status(StatusCode.OK)
+                return result
+            except Exception as exc:
+                root_span.record_exception(exc)
+                root_span.set_status(StatusCode.ERROR, str(exc))
+                raise
 
     def stream(
         self,
@@ -62,30 +80,41 @@ class WorkflowService:
         state['user_id'] = user_id
         state['long_term_memory_repo'] = long_term_memory_repo
 
+        tracer = trace.get_tracer('medigenius.pipeline')
         final_result = None
         emitted = 0
-        try:
-            for current_state in self.workflow.stream(state, stream_mode='values'):
-                if not isinstance(current_state, dict):
-                    continue
-                status_events = current_state.get('status_events', [])
-                while emitted < len(status_events):
-                    node_event = status_events[emitted]
-                    emitted += 1
-                    yield {
-                        'event': 'status',
-                        'trace_id': trace_id,
-                        'data': {'node': node_event.get('node'), 'status': node_event.get('status')},
-                    }
-                final_result = current_state
-        except Exception as exc:  # pragma: no cover - runtime safety path
-            logging.getLogger(__name__).exception('Workflow stream error', extra={'trace_id': trace_id})
-            yield {
-                'event': 'error',
-                'trace_id': trace_id,
-                'data': {'message': str(exc)},
-            }
-            return {}
+        with tracer.start_as_current_span('pipeline.request') as root_span:
+            root_span.set_attribute('trace_id', trace_id)
+            root_span.set_attribute('session_id', session_id)
+            root_span.set_attribute('question.length', len(question))
+            # Capture context so node spans can re-attach it even when LangGraph
+            # runs node functions in a different thread or async context.
+            state['_otel_context'] = otel_context.get_current()
+            try:
+                for current_state in self.workflow.stream(state, stream_mode='values'):
+                    if not isinstance(current_state, dict):
+                        continue
+                    status_events = current_state.get('status_events', [])
+                    while emitted < len(status_events):
+                        node_event = status_events[emitted]
+                        emitted += 1
+                        yield {
+                            'event': 'status',
+                            'trace_id': trace_id,
+                            'data': {'node': node_event.get('node'), 'status': node_event.get('status')},
+                        }
+                    final_result = current_state
+                root_span.set_status(StatusCode.OK)
+            except Exception as exc:  # pragma: no cover - runtime safety path
+                root_span.record_exception(exc)
+                root_span.set_status(StatusCode.ERROR, str(exc))
+                logging.getLogger(__name__).exception('Workflow stream error', extra={'trace_id': trace_id})
+                yield {
+                    'event': 'error',
+                    'trace_id': trace_id,
+                    'data': {'message': str(exc)},
+                }
+                return {}
 
         if not isinstance(final_result, dict):
             final_result = self.workflow.invoke(state)

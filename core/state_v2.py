@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, TypedDict
+from typing import Any, Optional, TypedDict
 from langchain_core.documents import Document
 
 
@@ -50,6 +50,9 @@ class AgentStateV2(TypedDict):
     intent_confidence: float
     needs_clarification: bool
     clarification_question: str
+    # Internal: OTel context captured in WorkflowService so run_node() can re-attach
+    # it even when LangGraph executes node functions in a different thread/async context.
+    _otel_context: Optional[Any]
 
 
 def initialize_state(session_id: str, trace_id: str) -> AgentStateV2:
@@ -99,6 +102,7 @@ def initialize_state(session_id: str, trace_id: str) -> AgentStateV2:
         'intent_confidence': 1.0,
         'needs_clarification': False,
         'clarification_question': '',
+        '_otel_context': None,
     }
 
 
