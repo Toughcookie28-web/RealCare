@@ -19,3 +19,10 @@ def test_dashboard_includes_live_judge_panels():
     assert "Live Context Precision Proxy (avg 5m)" in titles
     assert "Live Context Coverage Proxy (avg 5m)" in titles
     assert "Live Judge Latency P95 (ms)" in titles
+
+    # New panels added by OTel observability implementation
+    assert "Route Distribution" in titles
+    assert "Intent Confidence" in titles
+    assert "Reflection Grounding Score" in titles
+    assert "Clarification Rate" in titles
+    assert "SLO — Node Latency P95 < 2000ms" in titles
