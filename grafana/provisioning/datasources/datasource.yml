@@ -7,6 +7,10 @@ datasources:
     url: http://prometheus:9090
     isDefault: true
     editable: false
+    jsonData:
+      exemplarTraceIdDestinations:
+        - name: trace_id
+          datasourceUid: tempo
   - name: Postgres Benchmark
     uid: grafana-postgres-benchmark
     type: postgres
@@ -20,3 +24,14 @@ datasources:
       postgresVersion: 1600
       timescaledb: false
     editable: false
+  - name: Tempo
+    type: tempo
+    uid: tempo
+    url: http://tempo:3200
+    access: proxy
+    editable: false
+    jsonData:
+      nodeGraph:
+        enabled: true
+      serviceMap:
+        datasourceUid: prometheus
