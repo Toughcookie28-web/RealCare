@@ -10,6 +10,24 @@ For each entry, capture:
 
 ---
 
+## 2026-03-22 — Observability overhaul (Grafana, OTel trace ID, live judge, Postgres datasource)
+
+**What changed:**
+- `core/workflow_service.py`: capture real OTel hex trace_id (`format(root_span.get_span_context().trace_id, '032x')`) inside the span block in both `run()` and `stream()`. Store it as a span attribute and propagate it through the result dict and final stream event.
+- `core/contracts.py`: added `otel_trace_id: str | None = None` to `ChatResponse` so the Tempo-indexable trace_id is visible to API callers.
+- `api/routes/chat.py`: pass `otel_trace_id=result.get('otel_trace_id')` into `ChatResponse`.
+- `docker-compose.yml`: set `LIVE_JUDGE_ENABLED: "true"` in `app` service environment so live judge/RAGAS metrics are actually collected.
+- `grafana/dashboards/medigenius-dashboard.json`: (a) added explicit `{"type": "prometheus", "uid": "prometheus"}` datasource object to all 17 Prometheus panel targets that had `null` — Grafana 10 no longer falls back to the default datasource for null targets; (b) removed "Tracked Retrieval MRR@5" panel (no ground-truth labels available); (c) changed "Node Latency (ms)" from a time-series using `rate(sum[1m])/rate(count[1m])` (produces NaN at low traffic) to a horizontal bargauge using `avg by (node)(sum/count)` as an instant query.
+- `grafana/provisioning/datasources/datasource.yml`: hardcoded `database: medigenius`, `user: postgres`, moved password to `secureJsonData` — bash-style `${VAR:-default}` substitution does not expand in Grafana 10 Postgres provisioning YAML.
+
+**Why:** All five observability issues were structural rather than config: (1) `generate_trace_id()` returns a UUID that Tempo does not index — Tempo indexes on its own 32-char hex trace_id only; (2) Grafana 10 requires explicit datasource on each target; (3) live judge was off by default; (4) Postgres datasource env-var expansion silently failed leaving user/database empty; (5) rate-based latency queries return NaN with no traffic window.
+
+**Tradeoff:** `otel_trace_id` now surfaces in the HTTP API response — this exposes an internal Tempo trace reference to callers. Acceptable for an internal/dev deployment; would need to be scrubbed for public-facing APIs.
+
+**Must remain true:** `otel_trace_id` must be captured inside the `with tracer.start_as_current_span(...)` block — capturing it after the `with` block returns zero-value. Live judge sampling (20% hash-based on trace_id) relies on `LIVE_JUDGE_ENABLED=true` being set; removing the env var reverts to disabled. Grafana dashboard targets must keep explicit datasource objects — do not remove them.
+
+---
+
 ## 2026-03-22 — QA bug fixes (executor source label, timestamp display, test fragility)
 
 **What changed:**

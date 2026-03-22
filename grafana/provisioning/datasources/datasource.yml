@@ -17,9 +17,10 @@ datasources:
     type: postgres
     access: proxy
     url: db:5432
-    database: ${POSTGRES_DB:-medigenius}
-    user: ${POSTGRES_USER:-postgres}
-    password: ${POSTGRES_PASSWORD:-postgres}
+    database: medigenius
+    user: postgres
+    secureJsonData:
+      password: postgres
     jsonData:
       sslmode: disable
       postgresVersion: 1600

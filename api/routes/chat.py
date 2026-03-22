@@ -105,6 +105,7 @@ def chat(
         timestamp=timestamp,
         success=bool(answer),
         trace_id=trace_id,
+        otel_trace_id=result.get('otel_trace_id'),
         route=result.get('route'),
         citations=result.get('citations', []),
     )

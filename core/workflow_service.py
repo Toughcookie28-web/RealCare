@@ -42,7 +42,10 @@ class WorkflowService:
 
         tracer = trace.get_tracer('medigenius.pipeline')
         with tracer.start_as_current_span('pipeline.request') as root_span:
+            # Expose the real OTel hex trace_id so callers can look up traces in Tempo.
+            otel_trace_id = format(root_span.get_span_context().trace_id, '032x')
             root_span.set_attribute('trace_id', trace_id)
+            root_span.set_attribute('otel_trace_id', otel_trace_id)
             root_span.set_attribute('session_id', session_id)
             root_span.set_attribute('question.length', len(question))
             # Capture context so node spans can re-attach it even when LangGraph
@@ -51,6 +54,8 @@ class WorkflowService:
             try:
                 result = self.workflow.invoke(state)
                 root_span.set_status(StatusCode.OK)
+                if isinstance(result, dict):
+                    result['otel_trace_id'] = otel_trace_id
                 return result
             except Exception as exc:
                 root_span.record_exception(exc)
@@ -83,8 +88,12 @@ class WorkflowService:
         tracer = trace.get_tracer('medigenius.pipeline')
         final_result = None
         emitted = 0
+        otel_trace_id = ''
         with tracer.start_as_current_span('pipeline.request') as root_span:
+            # Expose the real OTel hex trace_id so the frontend can link to Tempo.
+            otel_trace_id = format(root_span.get_span_context().trace_id, '032x')
             root_span.set_attribute('trace_id', trace_id)
+            root_span.set_attribute('otel_trace_id', otel_trace_id)
             root_span.set_attribute('session_id', session_id)
             root_span.set_attribute('question.length', len(question))
             # Capture context so node spans can re-attach it even when LangGraph
@@ -122,6 +131,7 @@ class WorkflowService:
         yield {
             'event': 'final',
             'trace_id': trace_id,
+            'otel_trace_id': otel_trace_id,
             'data': {
                 'response': final_result.get('generation', ''),
                 'source': final_result.get('source', 'Unknown'),
@@ -131,6 +141,7 @@ class WorkflowService:
                 'citations': final_result.get('citations', []),
                 'summary': final_result.get('summary'),
                 'facts': final_result.get('facts', []),
+                'otel_trace_id': otel_trace_id,
             },
             '_internal': {
                 'generation': final_result.get('generation', ''),

@@ -68,6 +68,7 @@ services:
     environment:
       <<: *app-env
       OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+      LIVE_JUDGE_ENABLED: "true"
     volumes:
       - ./data:/app/data:ro
       - ./.cache/embeddings:/app/.cache/embeddings

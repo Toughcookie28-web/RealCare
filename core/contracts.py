@@ -38,6 +38,7 @@ class ChatResponse(BaseModel):
     timestamp: str
     success: bool
     trace_id: str
+    otel_trace_id: str | None = None
     route: str | None = None
     citations: list[Citation] = Field(default_factory=list)
 

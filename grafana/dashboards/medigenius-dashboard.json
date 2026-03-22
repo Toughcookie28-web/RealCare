@@ -2,15 +2,20 @@
   "title": "MediGenius Overview",
   "uid": "medigenius-overview",
   "schemaVersion": 36,
-  "version": 3,
+  "version": 4,
   "panels": [
     {
       "type": "timeseries",
       "title": "HTTP Request Rate",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_http_requests_total[1m])",
-          "legendFormat": "{{method}} {{path}}"
+          "legendFormat": "{{method}} {{path}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -25,8 +30,13 @@
       "title": "HTTP 5xx Error Rate",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_http_requests_total{status=~\"5..\"}[5m])",
-          "legendFormat": "{{method}} {{path}}"
+          "legendFormat": "{{method}} {{path}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -41,8 +51,13 @@
       "title": "Request Latency P95 (seconds)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "histogram_quantile(0.95, rate(medigenius_http_request_latency_seconds_bucket[5m]))",
-          "legendFormat": "P95 {{path}}"
+          "legendFormat": "P95 {{path}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -57,8 +72,13 @@
       "title": "Request Latency P99 (seconds)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "histogram_quantile(0.99, rate(medigenius_http_request_latency_seconds_bucket[5m]))",
-          "legendFormat": "P99 {{path}}"
+          "legendFormat": "P99 {{path}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -69,17 +89,18 @@
       }
     },
     {
-      "type": "timeseries",
-      "title": "Node Latency (ms)",
+      "type": "bargauge",
+      "title": "Node Latency (ms) — avg per node",
+      "description": "Average latency per pipeline node. Uses instant cumulative sum/count to avoid NaN from short rate windows.",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_node_latency_ms_sum[1m]) / rate(medigenius_node_latency_ms_count[1m])",
+          "expr": "avg by (node)(medigenius_node_latency_ms_sum / medigenius_node_latency_ms_count)",
           "legendFormat": "{{node}}",
-          "exemplar": true,
+          "instant": true,
           "refId": "A"
         }
       ],
@@ -90,16 +111,24 @@
         "y": 16
       },
       "options": {
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"]
+        },
+        "displayMode": "gradient",
+        "showUnfilled": true
       },
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "showPoints": "auto",
-            "spanNulls": false
+          "unit": "ms",
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "yellow", "value": 500},
+              {"color": "red", "value": 2000}
+            ]
           }
         }
       }
@@ -109,8 +138,13 @@
       "title": "Node Errors",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_node_errors_total[5m])",
-          "legendFormat": "{{node}}"
+          "legendFormat": "{{node}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -125,12 +159,22 @@
       "title": "Semantic Cache Hit/Miss Rate",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_semantic_cache_hits_total[5m])",
-          "legendFormat": "hits"
+          "legendFormat": "hits",
+          "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_semantic_cache_misses_total[5m])",
-          "legendFormat": "misses"
+          "legendFormat": "misses",
+          "refId": "B"
         }
       ],
       "gridPos": {
@@ -145,8 +189,13 @@
       "title": "Cache Hit Ratio",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "medigenius_semantic_cache_hits_total / (medigenius_semantic_cache_hits_total + medigenius_semantic_cache_misses_total)",
-          "legendFormat": "hit ratio"
+          "legendFormat": "hit ratio",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -161,12 +210,22 @@
       "title": "Tool Cache Hit/Miss Rate (by tool)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_tool_cache_hits_total[5m])",
-          "legendFormat": "{{tool}} hits"
+          "legendFormat": "{{tool}} hits",
+          "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_tool_cache_misses_total[5m])",
-          "legendFormat": "{{tool}} misses"
+          "legendFormat": "{{tool}} misses",
+          "refId": "B"
         }
       ],
       "gridPos": {
@@ -181,8 +240,13 @@
       "title": "Tool Cache Hit Ratio (by tool)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "medigenius_tool_cache_hits_total / (medigenius_tool_cache_hits_total + medigenius_tool_cache_misses_total)",
-          "legendFormat": "{{tool}}"
+          "legendFormat": "{{tool}}",
+          "refId": "A"
         }
       ],
       "fieldConfig": {
@@ -219,8 +283,13 @@
       "title": "Redis Status",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "medigenius_redis_up",
-          "legendFormat": "Redis"
+          "legendFormat": "Redis",
+          "refId": "A"
         }
       ],
       "fieldConfig": {
@@ -282,32 +351,6 @@
     },
     {
       "type": "timeseries",
-      "title": "Tracked Retrieval MRR@5",
-      "datasource": {
-        "type": "postgres",
-        "uid": "grafana-postgres-benchmark"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "grafana-postgres-benchmark"
-          },
-          "editorMode": "code",
-          "format": "time_series",
-          "rawSql": "SELECT r.created_at AS \"time\", m.metric_value AS value, r.mode AS metric FROM eval_run_metrics m JOIN eval_runs r ON r.run_id = m.run_id WHERE r.eval_type = 'retrieval' AND m.metric_name = 'mrr@5' ORDER BY 1, 3"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 44
-      }
-    },
-    {
-      "type": "timeseries",
       "title": "Tracked RAGAS Context Precision",
       "datasource": {
         "type": "postgres",
@@ -328,8 +371,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 52
+        "x": 12,
+        "y": 44
       }
     },
     {
@@ -354,7 +397,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
+        "x": 0,
         "y": 52
       }
     },
@@ -392,8 +435,13 @@
       "title": "Live Judged Request Rate",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_live_judged_requests_total[5m])",
-          "legendFormat": "{{route}}"
+          "legendFormat": "{{route}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -408,8 +456,13 @@
       "title": "Live Judge Failure Rate",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_live_judge_failures_total[5m])",
-          "legendFormat": "{{route}}"
+          "legendFormat": "{{route}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -424,8 +477,13 @@
       "title": "Live Answer Relevance (avg 5m)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_live_answer_relevance_score_sum[5m]) / clamp_min(rate(medigenius_live_answer_relevance_score_count[5m]), 1e-9)",
-          "legendFormat": "{{route}}"
+          "legendFormat": "{{route}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -440,8 +498,13 @@
       "title": "Live Groundedness (avg 5m)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_live_groundedness_score_sum[5m]) / clamp_min(rate(medigenius_live_groundedness_score_count[5m]), 1e-9)",
-          "legendFormat": "{{route}}"
+          "legendFormat": "{{route}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -456,8 +519,13 @@
       "title": "Live Context Precision Proxy (avg 5m)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_live_context_precision_proxy_sum[5m]) / clamp_min(rate(medigenius_live_context_precision_proxy_count[5m]), 1e-9)",
-          "legendFormat": "{{route}}"
+          "legendFormat": "{{route}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -472,8 +540,13 @@
       "title": "Live Context Coverage Proxy (avg 5m)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "rate(medigenius_live_context_coverage_proxy_sum[5m]) / clamp_min(rate(medigenius_live_context_coverage_proxy_count[5m]), 1e-9)",
-          "legendFormat": "{{route}}"
+          "legendFormat": "{{route}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -488,8 +561,13 @@
       "title": "Live Judge Latency P95 (ms)",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
           "expr": "histogram_quantile(0.95, rate(medigenius_live_judge_latency_ms_bucket[5m]))",
-          "legendFormat": "P95 {{route}}"
+          "legendFormat": "P95 {{route}}",
+          "refId": "A"
         }
       ],
       "gridPos": {
