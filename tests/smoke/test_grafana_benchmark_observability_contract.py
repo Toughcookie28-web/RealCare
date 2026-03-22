@@ -17,13 +17,26 @@ def test_grafana_provisions_postgres_benchmark_datasource_and_db_env():
 
 
 def test_grafana_dashboard_includes_benchmark_panels_backed_by_eval_run_tables():
-    dashboard = Path("grafana/dashboards/medigenius-dashboard.json").read_text(encoding="utf-8")
+    import json
 
-    assert '"Tracked Retrieval Recall@5"' in dashboard
-    assert '"Tracked Retrieval MRR@5"' in dashboard
-    assert '"Tracked RAGAS Context Precision"' in dashboard
-    assert '"Tracked RAGAS Faithfulness"' in dashboard
-    assert '"Recent Benchmark Runs"' in dashboard
-    assert "eval_run_metrics" in dashboard
-    assert "eval_runs" in dashboard
-    assert '"datasource": {"type": "postgres", "uid": "grafana-postgres-benchmark"}' in dashboard
+    dashboard_text = Path("grafana/dashboards/medigenius-dashboard.json").read_text(encoding="utf-8")
+    dashboard = json.loads(dashboard_text)
+
+    panel_titles = [p.get("title", "") for p in dashboard.get("panels", [])]
+
+    assert "Tracked Retrieval Recall@5" in panel_titles
+    assert "Tracked Retrieval MRR@5" in panel_titles
+    assert "Tracked RAGAS Context Precision" in panel_titles
+    assert "Tracked RAGAS Faithfulness" in panel_titles
+    assert "Recent Benchmark Runs" in panel_titles
+    assert "eval_run_metrics" in dashboard_text
+    assert "eval_runs" in dashboard_text
+
+    # Verify at least one panel uses the postgres benchmark datasource
+    postgres_panels = [
+        p for p in dashboard.get("panels", [])
+        if isinstance(p.get("datasource"), dict)
+        and p["datasource"].get("type") == "postgres"
+        and p["datasource"].get("uid") == "grafana-postgres-benchmark"
+    ]
+    assert postgres_panels, "No panels use the grafana-postgres-benchmark datasource"

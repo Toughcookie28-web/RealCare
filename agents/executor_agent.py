@@ -365,7 +365,11 @@ def ExecutorAgent(state: AgentStateV2) -> AgentStateV2:
         )
         state['source'] = 'System Fallback'
     else:
-        if not state.get('source'):
+        # Always set source for a successful execution. Do not preserve 'System Message'
+        # which is set by run_node()'s error handler when an upstream node failed — that
+        # error state is stale once the executor produces a real answer.
+        if state.get('source') not in {'Semantic Cache', 'Clarification Request',
+                                        'Memory (no history)', 'Memory (Conversation History)'}:
             state['source'] = 'LLM + Retrieved Evidence'
 
     state['generation'] = answer

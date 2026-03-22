@@ -308,6 +308,33 @@ Example request:
 
 ---
 
+## **Installation**
+
+### Runtime (default — no eval services)
+
+```bash
+python3 -m pip install .
+docker-compose up
+```
+
+### Development and evaluation
+
+```bash
+python3 -m pip install ".[dev]"
+python3 -m pip install ".[eval,ingest]"
+```
+
+### Live runtime smoke test
+
+Verify the full stack is healthy after deployment:
+
+```bash
+python3 scripts/run_live_runtime_smoke.py --dry-run
+python3 scripts/run_live_runtime_smoke.py --compose-bin docker-compose
+```
+
+---
+
 ## **Future Improvements**
 
 - Add voice input/output

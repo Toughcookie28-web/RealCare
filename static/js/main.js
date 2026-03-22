@@ -345,7 +345,14 @@ function addMessage(content, type, timestamp = null, source = null, animate = tr
     messageDiv.className = `message ${type}-message`;
     if (animate) messageDiv.style.opacity = '0';
     
-    const time = timestamp || new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    let time;
+    if (timestamp) {
+        // History API returns ISO 8601 datetimes; format them to HH:MM AM/PM
+        const d = new Date(timestamp);
+        time = isNaN(d.getTime()) ? timestamp : d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    } else {
+        time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
     
     if (type === 'user') {
         messageDiv.innerHTML = `
