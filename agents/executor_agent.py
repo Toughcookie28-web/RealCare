@@ -286,6 +286,11 @@ def ExecutorAgent(state: AgentStateV2) -> AgentStateV2:
         state['semantic_cache_hit'] = True
         return state
 
+    # Upstream node failure: run_node() sets source='System Message' when a node crashes.
+    # Do not call the LLM or set 'LLM + Retrieved Evidence' — the error message is already set.
+    if state.get('source') == 'System Message':
+        return state
+
     # Clarify route: return clarification question directly, no retrieval or LLM generation
     if state.get('route') == 'clarify':
         clarification_q = state.get('clarification_question', '')

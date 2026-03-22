@@ -2,95 +2,60 @@
   "title": "MediGenius Overview",
   "uid": "medigenius-overview",
   "schemaVersion": 36,
-  "version": 4,
+  "version": 5,
   "panels": [
     {
-      "type": "timeseries",
-      "title": "HTTP Request Rate",
+      "title": "HTTP 5xx Errors (total)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_http_requests_total[1m])",
-          "legendFormat": "{{method}} {{path}}",
+          "expr": "sum(medigenius_http_requests_total{status=~\"5..\"}) or vector(0)",
+          "instant": true,
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "HTTP 5xx Error Rate",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "rate(medigenius_http_requests_total{status=~\"5..\"}[5m])",
-          "legendFormat": "{{method}} {{path}}",
-          "refId": "A"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "Request Latency P95 (seconds)",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "histogram_quantile(0.95, rate(medigenius_http_request_latency_seconds_bucket[5m]))",
-          "legendFormat": "P95 {{path}}",
-          "refId": "A"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 8
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "Request Latency P99 (seconds)",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "histogram_quantile(0.99, rate(medigenius_http_request_latency_seconds_bucket[5m]))",
-          "legendFormat": "P99 {{path}}",
-          "refId": "A"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 8
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
       "type": "bargauge",
-      "title": "Node Latency (ms) — avg per node",
+      "title": "Node Latency (ms) \u2014 avg per node",
       "description": "Average latency per pipeline node. Uses instant cumulative sum/count to avoid NaN from short rate windows.",
       "targets": [
         {
@@ -113,7 +78,9 @@
       "options": {
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"]
+          "calcs": [
+            "lastNotNull"
+          ]
         },
         "displayMode": "gradient",
         "showUnfilled": true
@@ -125,46 +92,83 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {"color": "green", "value": null},
-              {"color": "yellow", "value": 500},
-              {"color": "red", "value": 2000}
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 500
+              },
+              {
+                "color": "red",
+                "value": 2000
+              }
             ]
           }
         }
       }
     },
     {
-      "type": "timeseries",
-      "title": "Node Errors",
+      "title": "Node Errors (total by node)",
+      "type": "bargauge",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_node_errors_total[5m])",
+          "expr": "sum by (node)(medigenius_node_errors_total)",
+          "instant": true,
           "legendFormat": "{{node}}",
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 16
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "orientation": "horizontal",
+        "displayMode": "gradient"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
-      "type": "timeseries",
-      "title": "Semantic Cache Hit/Miss Rate",
+      "title": "Semantic Cache Hits vs Misses (total)",
+      "type": "bargauge",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_semantic_cache_hits_total[5m])",
-          "legendFormat": "hits",
+          "expr": "medigenius_semantic_cache_hits_total or vector(0)",
+          "instant": true,
+          "legendFormat": "Hits",
           "refId": "A"
         },
         {
@@ -172,16 +176,35 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_semantic_cache_misses_total[5m])",
-          "legendFormat": "misses",
+          "expr": "medigenius_semantic_cache_misses_total or vector(0)",
+          "instant": true,
+          "legendFormat": "Misses",
           "refId": "B"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 24
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "orientation": "horizontal",
+        "displayMode": "gradient"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
@@ -203,79 +226,6 @@
         "w": 12,
         "x": 12,
         "y": 24
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "Tool Cache Hit/Miss Rate (by tool)",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "rate(medigenius_tool_cache_hits_total[5m])",
-          "legendFormat": "{{tool}} hits",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "rate(medigenius_tool_cache_misses_total[5m])",
-          "legendFormat": "{{tool}} misses",
-          "refId": "B"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 32
-      }
-    },
-    {
-      "type": "gauge",
-      "title": "Tool Cache Hit Ratio (by tool)",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "medigenius_tool_cache_hits_total / (medigenius_tool_cache_hits_total + medigenius_tool_cache_misses_total)",
-          "legendFormat": "{{tool}}",
-          "refId": "A"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "min": 0,
-          "max": 1,
-          "thresholds": {
-            "steps": [
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 0.3
-              },
-              {
-                "color": "green",
-                "value": 0.6
-              }
-            ]
-          }
-        }
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 32
       }
     },
     {
@@ -324,84 +274,6 @@
       }
     },
     {
-      "type": "timeseries",
-      "title": "Tracked Retrieval Recall@5",
-      "datasource": {
-        "type": "postgres",
-        "uid": "grafana-postgres-benchmark"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "grafana-postgres-benchmark"
-          },
-          "editorMode": "code",
-          "format": "time_series",
-          "rawSql": "SELECT r.created_at AS \"time\", m.metric_value AS value, r.mode AS metric FROM eval_run_metrics m JOIN eval_runs r ON r.run_id = m.run_id WHERE r.eval_type = 'retrieval' AND m.metric_name = 'recall@5' ORDER BY 1, 3"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 44
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "Tracked RAGAS Context Precision",
-      "datasource": {
-        "type": "postgres",
-        "uid": "grafana-postgres-benchmark"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "grafana-postgres-benchmark"
-          },
-          "editorMode": "code",
-          "format": "time_series",
-          "rawSql": "SELECT r.created_at AS \"time\", m.metric_value AS value, r.mode AS metric FROM eval_run_metrics m JOIN eval_runs r ON r.run_id = m.run_id WHERE r.eval_type = 'ragas' AND m.metric_name = 'context_precision' ORDER BY 1, 3"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 44
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "Tracked RAGAS Faithfulness",
-      "datasource": {
-        "type": "postgres",
-        "uid": "grafana-postgres-benchmark"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "grafana-postgres-benchmark"
-          },
-          "editorMode": "code",
-          "format": "time_series",
-          "rawSql": "SELECT r.created_at AS \"time\", m.metric_value AS value, r.mode AS metric FROM eval_run_metrics m JOIN eval_runs r ON r.run_id = m.run_id WHERE r.eval_type = 'ragas' AND m.metric_name = 'faithfulness' ORDER BY 1, 3"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 52
-      }
-    },
-    {
       "type": "table",
       "title": "Recent Benchmark Runs",
       "datasource": {
@@ -431,150 +303,289 @@
       }
     },
     {
-      "type": "timeseries",
-      "title": "Live Judged Request Rate",
+      "title": "Live Judged Requests (total)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_live_judged_requests_total[5m])",
-          "legendFormat": "{{route}}",
+          "expr": "medigenius_live_judged_requests_total or vector(0)",
+          "instant": true,
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 70
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
-      "type": "timeseries",
-      "title": "Live Judge Failure Rate",
+      "title": "Live Answer Relevance (avg)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_live_judge_failures_total[5m])",
-          "legendFormat": "{{route}}",
+          "expr": "(medigenius_live_answer_relevance_score_sum / clamp_min(medigenius_live_answer_relevance_score_count, 1)) or vector(0)",
+          "instant": true,
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 70
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.7
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
-      "type": "timeseries",
-      "title": "Live Answer Relevance (avg 5m)",
+      "title": "Live Groundedness (avg)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_live_answer_relevance_score_sum[5m]) / clamp_min(rate(medigenius_live_answer_relevance_score_count[5m]), 1e-9)",
-          "legendFormat": "{{route}}",
+          "expr": "(medigenius_live_groundedness_score_sum / clamp_min(medigenius_live_groundedness_score_count, 1)) or vector(0)",
+          "instant": true,
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 78
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.7
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
-      "type": "timeseries",
-      "title": "Live Groundedness (avg 5m)",
+      "title": "Live Context Precision Proxy (avg)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_live_groundedness_score_sum[5m]) / clamp_min(rate(medigenius_live_groundedness_score_count[5m]), 1e-9)",
-          "legendFormat": "{{route}}",
+          "expr": "(medigenius_live_context_precision_proxy_sum / clamp_min(medigenius_live_context_precision_proxy_count, 1)) or vector(0)",
+          "instant": true,
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 78
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.7
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
-      "type": "timeseries",
-      "title": "Live Context Precision Proxy (avg 5m)",
+      "title": "Live Context Coverage Proxy (avg)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_live_context_precision_proxy_sum[5m]) / clamp_min(rate(medigenius_live_context_precision_proxy_count[5m]), 1e-9)",
-          "legendFormat": "{{route}}",
+          "expr": "(medigenius_live_context_coverage_proxy_sum / clamp_min(medigenius_live_context_coverage_proxy_count, 1)) or vector(0)",
+          "instant": true,
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 86
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.7
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
-      "type": "timeseries",
-      "title": "Live Context Coverage Proxy (avg 5m)",
+      "title": "Live Judge Latency (avg ms)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(medigenius_live_context_coverage_proxy_sum[5m]) / clamp_min(rate(medigenius_live_context_coverage_proxy_count[5m]), 1e-9)",
-          "legendFormat": "{{route}}",
+          "expr": "(medigenius_live_judge_latency_ms_sum / clamp_min(medigenius_live_judge_latency_ms_count, 1)) or vector(0)",
+          "instant": true,
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 86
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "Live Judge Latency P95 (ms)",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "histogram_quantile(0.95, rate(medigenius_live_judge_latency_ms_bucket[5m]))",
-          "legendFormat": "P95 {{route}}",
-          "refId": "A"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 94
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 2000
+              },
+              {
+                "color": "red",
+                "value": 5000
+              }
+            ]
+          }
+        },
+        "overrides": []
       }
     },
     {
@@ -610,144 +621,151 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (route) (increase(medigenius_route_total[1h]))",
+          "expr": "sum by (route)(medigenius_route_total)",
           "legendFormat": "{{route}}",
-          "refId": "A"
+          "refId": "A",
+          "instant": true
         }
       ]
     },
     {
-      "type": "timeseries",
-      "title": "Intent Confidence",
-      "description": "Median and P10 intent confidence score from the query rewriter (lower = more ambiguous queries)",
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 102
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
+      "title": "Intent Confidence (avg)",
+      "type": "stat",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "(medigenius_intent_confidence_sum / clamp_min(medigenius_intent_confidence_count, 1)) or vector(0)",
+          "instant": true,
+          "refId": "A"
         }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
       },
       "fieldConfig": {
         "defaults": {
           "unit": "percentunit",
-          "min": 0,
-          "max": 1,
-          "custom": {
-            "lineWidth": 2
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.4
+              },
+              {
+                "color": "green",
+                "value": 0.7
+              }
+            ]
           }
         },
         "overrides": []
-      },
+      }
+    },
+    {
+      "title": "Reflection Grounding Score (avg)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.5, sum(rate(medigenius_intent_confidence_bucket[5m])) by (le))",
-          "legendFormat": "P50 confidence",
+          "expr": "(medigenius_reflection_grounding_score_sum / clamp_min(medigenius_reflection_grounding_score_count, 1)) or vector(0)",
+          "instant": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "histogram_quantile(0.1, sum(rate(medigenius_intent_confidence_bucket[5m])) by (le))",
-          "legendFormat": "P10 confidence (most ambiguous)",
-          "refId": "B"
         }
-      ]
-    },
-    {
-      "type": "timeseries",
-      "title": "Reflection Grounding Score",
-      "description": "P50 and P10 grounding score from the reflection agent (fraction of answer claims traceable to source chunks; lower = potential hallucination)",
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 102
-      },
+      ],
       "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        }
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
       },
       "fieldConfig": {
         "defaults": {
           "unit": "percentunit",
-          "min": 0,
-          "max": 1,
-          "custom": {
-            "lineWidth": 2
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.75
+              }
+            ]
           }
         },
         "overrides": []
-      },
+      }
+    },
+    {
+      "title": "Clarifications Triggered (total)",
+      "type": "stat",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.5, sum(rate(medigenius_reflection_grounding_score_bucket[5m])) by (le))",
-          "legendFormat": "P50 grounding",
+          "expr": "medigenius_clarification_triggered_total or vector(0)",
+          "instant": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "histogram_quantile(0.1, sum(rate(medigenius_reflection_grounding_score_bucket[5m])) by (le))",
-          "legendFormat": "P10 grounding (worst)",
-          "refId": "B"
         }
-      ]
-    },
-    {
-      "type": "timeseries",
-      "title": "Clarification Rate",
-      "description": "Rate of queries triggering a clarification request (intent_confidence < 0.4)",
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 110
-      },
+      ],
       "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        }
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "reqpm",
-          "custom": {
-            "lineWidth": 2
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
           }
         },
         "overrides": []
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "increase(medigenius_clarification_triggered_total[5m])",
-          "legendFormat": "Clarification triggers",
-          "refId": "A"
-        }
-      ]
+      }
     },
     {
       "type": "stat",

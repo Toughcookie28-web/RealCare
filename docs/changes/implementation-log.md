@@ -10,6 +10,22 @@ For each entry, capture:
 
 ---
 
+## 2026-03-22 — OTel span enrichment, embedding backup, executor failure guard, dashboard overhaul
+
+**What changed:**
+- `agents/common.py`: added `_NODE_ATTRS` extractors for `guardrail` (blocked, risk_level, safety_reason), `memory` (history_len, facts_extracted, summary_generated, long_term_enabled, episodic_memories_loaded), and `explanation` (citations_count, docs_available). Enriched `query_rewriter` extractor with `turn_intent`, `slots`, `stepback_query`. Added `citations_count` to `executor`.
+- `agents/executor_agent.py`: added early-return guard — if `state['source'] == 'System Message'` (set by `run_node()` on upstream node failure), executor returns the error state immediately instead of calling the LLM and falsely reporting `source='LLM + Retrieved Evidence'`.
+- `.env`: `EMBEDDING_ENABLE_BACKUP=true` — when local `gte-base-en-v1.5` model fails with its known RoPE IndexError, embedding client now falls back to Gemini instead of raising `RuntimeError`.
+- `grafana/dashboards/medigenius-dashboard.json`: removed 9 panels (HTTP Request Rate, P95, P99, Tracked Recall@5, RAGAS Context Precision, RAGAS Faithfulness, Tool Cache Hit/Miss, Tool Cache Ratio, Live Judge Failure Rate); converted 10 timeseries panels to stat/bargauge using cumulative totals instead of rate windows; Route Distribution updated to use `medigenius_route_total` totals instead of `increase([1h])`. Version bumped to 5.
+
+**Why:** Tempo trace waterfall showed opaque spans for guardrail/memory/explanation. Retriever failure silently propagated to `'LLM + Retrieved Evidence'` source, hiding the real error. RoPE IndexError in gte-base-en-v1.5 crashed retrieval with no recovery. Dashboard time-series panels were meaningless in single-user dev (no traffic over time windows).
+
+**Tradeoff:** `EMBEDDING_ENABLE_BACKUP=true` adds Gemini API latency on local model failure (~200-500ms). Executor guard makes retriever failure more visible but does not auto-retry.
+
+**Must remain true:** `run_node()` must only set `source='System Message'` on exception (not on clean runs that produce empty results). Embedding backup requires `GOOGLE_API_KEY` to be set.
+
+---
+
 ## 2026-03-22 — Observability overhaul (Grafana, OTel trace ID, live judge, Postgres datasource)
 
 **What changed:**

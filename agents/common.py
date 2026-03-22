@@ -22,9 +22,24 @@ from observability.metrics import (
 # a dict of {attribute_name: value} to attach to the span.
 # All string values are truncated to 500 chars to avoid OTel's 128KB attribute limit.
 _NODE_ATTRS: dict[str, Callable] = {
+    'guardrail': lambda s: {
+        'blocked': bool((s.get('safety_flags') or {}).get('blocked', False)),
+        'risk_level': str((s.get('safety_flags') or {}).get('risk_level', 'low')),
+        'safety_reason': str((s.get('safety_flags') or {}).get('reason') or 'none'),
+    },
+    'memory': lambda s: {
+        'history_len': len(s.get('conversation_history', [])),
+        'facts_extracted': len(s.get('facts', [])),
+        'summary_generated': bool(s.get('summary')),
+        'long_term_enabled': bool(s.get('long_term_memory_repo') is not None),
+        'episodic_memories_loaded': len(s.get('episodic_memories', [])),
+    },
     'query_rewriter': lambda s: {
         'optimized_query': str(s.get('optimized_query', ''))[:500],
+        'stepback_query': str(s.get('stepback_query', ''))[:300],
         'route': str(s.get('route', '')),
+        'turn_intent': str(s.get('turn_intent', '')),
+        'slots': str(s.get('slots', {}))[:300],
         'intent_confidence': float(s.get('intent_confidence', 1.0)),
         'needs_clarification': bool(s.get('needs_clarification', False)),
     },
@@ -50,6 +65,12 @@ _NODE_ATTRS: dict[str, Callable] = {
     },
     'executor': lambda s: {
         'source': str(s.get('source', ''))[:200],
+        'generation_length': len(s.get('generation', '')),
+        'citations_count': len(s.get('citations', [])),
+    },
+    'explanation': lambda s: {
+        'citations_count': len(s.get('citations', [])),
+        'docs_available': len(s.get('documents', [])),
         'generation_length': len(s.get('generation', '')),
     },
 }
