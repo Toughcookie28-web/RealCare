@@ -10,6 +10,22 @@ For each entry, capture:
 
 ---
 
+## 2026-03-22 — QA bug fixes (executor source label, timestamp display, test fragility)
+
+**What changed:**
+- `executor_agent.py`: fixed stale `source='System Message'` persisting for successful vector responses. Guard changed from `if not state.get('source')` to an explicit whitelist of valid success-path sources.
+- `static/js/main.js`: parse ISO 8601 timestamps from `/api/session/{id}` before display; history no longer shows raw ISO strings.
+- `test_grafana_benchmark_observability_contract.py`: fragile single-line JSON substring replaced with `json.loads()` + structural check.
+- `README.md`: added installation commands required by smoke tests.
+
+**Why:** `/qa` pass on master found 4 fixable issues. The source label bug was introduced by `run_node()` error handler setting `source='System Message'` on embedding failures; executor was supposed to overwrite it but the falsy check prevented it. Timestamp bug was present since session-load API was added. Test fragility was a formatting assumption mismatch.
+
+**Tradeoff:** None material. Executor source logic is now slightly more explicit (whitelist vs falsy).
+
+**Must remain true:** executor source is always one of: `Semantic Cache`, `Clarification Request`, `Memory (no history)`, `Memory (Conversation History)`, `LLM + Retrieved Evidence`, `System Fallback`.
+
+---
+
 ## 2026-03-20 — HITL proactive clarification
 
 **What changed:** Added lightweight proactive clarification. `QueryRewriterAgent` now outputs `intent_confidence` (0–1) and `needs_clarification` flag. When confidence < 0.4, `PlannerAgent` sets `route='clarify'` and `ExecutorAgent` returns the clarification question directly — no retrieval. Old approval-queue HITL was deleted in the same sprint.
