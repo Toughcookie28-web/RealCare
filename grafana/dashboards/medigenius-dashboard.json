@@ -740,11 +740,11 @@
             "type": "tempo",
             "uid": "tempo"
           },
-          "queryType": "nativeSearch",
-          "serviceName": "medigenius",
-          "spanName": "pipeline.request",
+          "queryType": "traceql",
+          "query": "{resource.service.name=\"medigenius\" && name=\"pipeline.request\"}",
           "refId": "A",
-          "limit": 20
+          "limit": 20,
+          "tableType": "traces"
         }
       ],
       "gridPos": {
