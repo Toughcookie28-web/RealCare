@@ -98,7 +98,7 @@ Follow these rules:
    - "web": current events, latest guidelines, recent outbreaks, news
    - "literature": explicit requests for research papers, studies, PubMed, systematic reviews
    - "memory": questions about previous conversation ("what did we discuss", "remind me")
-   - "chitchat": greetings, thanks, non-medical small talk with NO medical content
+   - "chitchat": greetings, thanks, expressions of improvement, social acknowledgements — even when prior conversation was medical. Use chitchat whenever the user is NOT explicitly asking a medical question, regardless of conversation history.
 4. SESSION INTENT: Overall goal of this conversation based on history. Empty if no history.
 5. TURN INTENT: What this specific message asks for (e.g., "dosage_lookup", "drug_comparison", "definition", "side_effects", "mechanism_of_action", "greeting").
 6. SLOTS: Structured medical entities. Keys: drug, condition, population, aspect, timeframe, comparison_target. Add others if relevant.
@@ -120,7 +120,8 @@ Final output examples:
 - "what does aspirin do for heart attacks?" → {{"reasoning": "User asks about aspirin's role in heart attacks. Expand to include synonym myocardial infarction. This is a mechanism question, so generate a step-back query about the broader drug class.", "optimized_query": "aspirin mechanism of action for myocardial infarction (heart attack)", "stepback_query": "pharmacology of antiplatelet agents in cardiovascular disease", "route": "vector", "session_intent": "", "turn_intent": "mechanism_of_action", "slots": {{"drug": "aspirin", "condition": "myocardial infarction", "aspect": "mechanism"}}, "query_context": "User wants to understand how aspirin works in treating heart attacks"}}
 - "what is hypertension?" → {{"reasoning": "Simple definition lookup for hypertension. Add synonym high blood pressure. No step-back needed.", "optimized_query": "hypertension (high blood pressure) definition and overview", "stepback_query": "", "route": "vector", "session_intent": "", "turn_intent": "definition", "slots": {{"condition": "hypertension"}}, "query_context": "User wants a basic definition of hypertension"}}
 - "what did we talk about last time?" → {{"reasoning": "User wants to recall previous conversation. Route to memory, no retrieval needed.", "optimized_query": "what did we talk about last time", "stepback_query": "", "route": "memory", "session_intent": "", "turn_intent": "conversation_recall", "slots": {{}}, "query_context": "User wants to recall previous conversation topics"}}
-- "hello!" → {{"reasoning": "Simple greeting with no medical content.", "optimized_query": "hello", "stepback_query": "", "route": "chitchat", "session_intent": "", "turn_intent": "greeting", "slots": {{}}, "query_context": "User is greeting"}}"""
+- "hello!" → {{"reasoning": "Simple greeting with no medical content.", "optimized_query": "hello", "stepback_query": "", "route": "chitchat", "session_intent": "", "turn_intent": "greeting", "slots": {{}}, "query_context": "User is greeting"}}
+- "thank you, I feel better today" (with prior headache conversation) → {{"reasoning": "User expresses social gratitude and improvement. Despite prior medical conversation, there is no explicit follow-up question being asked. No medical information is requested.", "optimized_query": "thank you, I feel better today", "stepback_query": "", "route": "chitchat", "session_intent": "headache management", "turn_intent": "acknowledgement", "slots": {{}}, "query_context": "User is expressing gratitude and improvement, no medical question asked", "intent_confidence": 0.95, "needs_clarification": false, "clarification_question": ""}}}}"""
 
 
 def parse_rewrite_response(raw: str, fallback_query: str) -> RewriteResult:
