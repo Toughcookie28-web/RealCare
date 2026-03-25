@@ -5,6 +5,7 @@ from functools import lru_cache
 
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage
+from opentelemetry import trace as _otel_trace
 try:
     from langchain_groq import ChatGroq
 except Exception:  # pragma: no cover - optional provider
@@ -104,29 +105,41 @@ def invoke_llm(prompt: str, system: str | None = None, use_fallback: bool = Fals
     if system:
         messages.append(SystemMessage(content=system))
     messages.append(HumanMessage(content=prompt))
+
+    # Emit prompt as a span event on the active node span (guardrail, executor, etc.)
+    _span = _otel_trace.get_current_span()
+    _span.add_event('llm.prompt', attributes={
+        'prompt': prompt[:3000],
+        'system': system or '',
+    })
+
     def _call(model: BaseChatModel | None) -> str:
         if model is None:
             return ''
         response = model.invoke(messages)
         return response.content.strip() if hasattr(response, 'content') else str(response).strip()
 
+    result = ''
     if use_fallback:
         try:
-            return _call(get_fallback_llm())
+            result = _call(get_fallback_llm())
         except Exception:
-            return ''
+            result = ''
+    else:
+        primary = get_primary_llm()
+        if primary is not None:
+            try:
+                result = _call(primary)
+            except Exception:
+                pass
+        if not result:
+            try:
+                result = _call(get_fallback_llm())
+            except Exception:
+                result = ''
 
-    primary = get_primary_llm()
-    if primary is not None:
-        try:
-            return _call(primary)
-        except Exception:
-            pass
-
-    try:
-        return _call(get_fallback_llm())
-    except Exception:
-        return ''
+    _span.add_event('llm.response', attributes={'response': result[:3000]})
+    return result
 
 
 def _invoke_json_mode(
@@ -206,6 +219,12 @@ def invoke_json(
 
     # Layer 2: Parse JSON (with brace-extraction fallback)
     result = _parse_json_text(text)
+
+    # Emit parsed keys so the active span shows what the LLM returned
+    if result:
+        _otel_trace.get_current_span().add_event(
+            'llm.json_parsed', attributes={'keys': str(list(result.keys()))[:500]}
+        )
 
     # Layer 3: Pydantic validation + retry
     if pydantic_model is not None and result:
