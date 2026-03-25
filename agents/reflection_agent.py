@@ -9,29 +9,41 @@ from tools.llm_client import invoke_json
 
 logger = logging.getLogger(__name__)
 
+# Strip citation block before judging — evaluate the medical content only
+_CITATION_STRIP_MARKERS = ('\n\nSource:', '\n\n**Sources:**', '\n\n[Source:')
+
+
+def _strip_citations(text: str) -> str:
+    for marker in _CITATION_STRIP_MARKERS:
+        idx = text.find(marker)
+        if idx != -1:
+            return text[:idx]
+    return text
+
+
 _REFLECTION_SYSTEM = "You are a strict medical QA reviewer. Evaluate answer quality and safety."
 
-_REFLECTION_PROMPT = """Evaluate this medical Q&A pair with access to the source chunks used to generate the answer.
+_REFLECTION_PROMPT = """Evaluate this medical Q&A pair.
 
 Question: {question}
 Answer: {answer}
 
-Source chunks used for this answer:
+Source chunks retrieved for this answer:
 {chunk_context}
 
-Judge the response on these criteria:
-1. Is the answer relevant to the question?
-2. Does it contain hallucinations? Specifically: are there claims in the answer that CANNOT be traced to any of the source chunks above?
-3. Is it complete enough to be useful?
-4. Is it safe (no dangerous unsupported medical advice)?
+Judge on these criteria:
+1. RELEVANCE: Does the answer directly address what was asked in the question? An answer that discusses a related topic but misses the actual question is irrelevant.
+2. HALLUCINATION: Does the answer contain claims that CONTRADICT the source chunks, or claims that are medically implausible given the question context? Note: well-established medical facts not explicitly in the chunks are acceptable — only flag genuine contradictions or implausible claims.
+3. COMPLETENESS: Is the answer sufficiently complete to be useful for the question asked?
+4. SAFETY: Does the answer contain dangerous or unsupported medical advice?
 
 Return JSON ONLY with these keys:
 - "is_relevant": boolean
-- "has_hallucinations": boolean — true if any answer claim is absent from the source chunks
+- "has_hallucinations": boolean — true ONLY if claims contradict source chunks or are medically implausible, NOT just because they are absent from chunks
 - "failure_category": one of "none", "irrelevant", "hallucination", "incomplete", "unsafe"
-- "suggested_focus": if the answer is incomplete or irrelevant, write a specific search query that would find the missing information. Otherwise empty string.
-- "confidence": 0.0-1.0 score for overall answer quality
-- "grounding_score": 0.0-1.0 — what fraction of the answer's key claims are supported by the source chunks (1.0 = fully grounded, 0.0 = no grounding)
+- "suggested_focus": if incomplete or irrelevant, a specific search query to find missing information. Otherwise empty string.
+- "confidence": 0.0-1.0 overall answer quality score
+- "grounding_score": 0.0-1.0 — fraction of answer claims consistent with source chunks (1.0 = fully consistent, 0.0 = contradicts chunks)
 - "feedback": brief explanation of your judgment
 """
 
@@ -107,14 +119,14 @@ def _parse_reflection_response(raw: dict) -> ReflectionResult:
         return ReflectionResult()
 
 
-def _build_chunk_context(docs: list, max_chars: int = 2000) -> str:
+def _build_chunk_context(docs: list, max_chars: int = 4000) -> str:
     """Build a condensed view of retrieved chunks for the reflection judge."""
     if not docs:
         return "(no source chunks — answer was generated from memory or cache)"
     parts = []
     total = 0
     for i, doc in enumerate(docs[:5]):
-        snippet = doc.page_content[:400].strip()
+        snippet = doc.page_content[:800].strip()
         section = doc.metadata.get("section", "unknown")
         part = f"[Chunk {i+1} — {section}]\n{snippet}"
         if total + len(part) > max_chars:
@@ -125,14 +137,16 @@ def _build_chunk_context(docs: list, max_chars: int = 2000) -> str:
 
 
 def ReflectionAgent(state: AgentStateV2) -> AgentStateV2:
-    # Clarify turns carry no source chunks — skip the judge to avoid
-    # a false needs_retry that would route back to retrieval (ADR-0007).
-    if state.get('route') == 'clarify' or state.get('source') == 'Clarification Request':
+    # Skip the judge for routes that carry no retrieved source chunks.
+    # - clarify: no retrieval was performed (ADR-0007)
+    # - chitchat: no documents retrieved; judge would always flag poor groundedness
+    # - memory: answer is from conversation history, not chunks; grounding is meaningless
+    if state.get('route') in ('clarify', 'chitchat', 'memory') or state.get('source') in ('Clarification Request', 'LLM Medical Reasoning'):
         state['needs_retry'] = False
         return state
 
     question = state.get('question', '')
-    answer = state.get('generation', '')
+    answer = _strip_citations(state.get('generation', ''))
     docs = state.get('documents', [])
 
     chunk_context = _build_chunk_context(docs)
@@ -144,8 +158,25 @@ def ReflectionAgent(state: AgentStateV2) -> AgentStateV2:
     attempts['reflection'] = attempts.get('reflection', 0) + 1
     state['attempts'] = attempts
 
-    needs_retry = result.failure_category != 'none' and attempts['reflection'] < 2
+    # Only retry when the judge has a concrete suggested focus to improve retrieval.
+    # Hallucination without a focus = same query again = no improvement.
+    has_focus = bool(result.suggested_focus.strip())
+    needs_retry = (
+        result.failure_category in ('incomplete', 'irrelevant')
+        or (result.failure_category == 'hallucination' and has_focus)
+    ) and attempts['reflection'] < 2
     state['needs_retry'] = needs_retry
+
+    # If hallucination detected but no useful focus for retry, inject safety caveat
+    if result.failure_category == 'hallucination' and not has_focus and not needs_retry:
+        generation = state.get('generation', '')
+        caveat = (
+            '\n\n⚠️ *Note: parts of this answer may not be fully supported by the '
+            'retrieved medical sources. Please verify with a qualified healthcare professional.*'
+        )
+        if caveat not in generation:
+            state['generation'] = generation + caveat
+
     state['reflection_feedback'] = result.feedback
     state['reflection_suggested_focus'] = result.suggested_focus
     state['reflection_confidence'] = result.confidence
