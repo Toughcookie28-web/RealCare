@@ -845,6 +845,7 @@ body {
     font-size: 15px;
     line-height: 1.6;
     word-wrap: break-word;
+    white-space: pre-wrap;
     display: inline-block;
 }
 
@@ -892,6 +893,7 @@ body {
     font-size: 15px;
     line-height: 1.6;
     word-wrap: break-word;
+    white-space: pre-wrap;
     display: inline-block;
     border: 1px solid var(--glass-border);
 }
