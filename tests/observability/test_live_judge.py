@@ -213,3 +213,32 @@ def test_score_live_payload_llm_exception_falls_back_to_bm25(monkeypatch):
         "context_precision_proxy",
         "context_coverage_proxy",
     }
+
+
+def test_score_live_payload_llm_empty_contexts_short_circuits_to_bm25(monkeypatch):
+    """No retrieved contexts → skip LLM call entirely; delegate to BM25 scorer."""
+    call_count = {"n": 0}
+
+    def _track_invoke(*a, **kw):
+        call_count["n"] += 1
+        return {}
+
+    monkeypatch.setattr(live_judge, "invoke_json", _track_invoke)
+
+    no_context_payload = {
+        "question": "What is metformin?",
+        "answer": "Metformin is a diabetes drug.",
+        "contexts": [],   # ← no contexts
+        "route": "vector",
+        "trace_id": "trace-empty",
+    }
+
+    scores = live_judge.score_live_payload_llm(no_context_payload)
+
+    assert call_count["n"] == 0, "invoke_json must NOT be called when contexts is empty"
+    assert set(scores.keys()) == {
+        "answer_relevance",
+        "groundedness",
+        "context_precision_proxy",
+        "context_coverage_proxy",
+    }
