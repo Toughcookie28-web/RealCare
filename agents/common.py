@@ -33,11 +33,16 @@ _NODE_ATTRS: dict[str, Callable] = {
         'summary_generated': bool(s.get('summary')),
         'long_term_enabled': bool(s.get('long_term_memory_repo') is not None),
         'episodic_memories_loaded': len(s.get('episodic_memories', [])),
+        'fact_keys': ','.join([f.get('key', '') for f in (s.get('facts') or [])])[:300],
+        'history_preview': str(((s.get('conversation_history') or [{}])[-1]).get('content', ''))[:200],
+        'summary_preview': str(s.get('summary', '') or '')[:200],
+        'episodic_preview': str(((s.get('episodic_memories') or [{}])[0]).get('summary', ''))[:200],
     },
     'query_rewriter': lambda s: {
         'optimized_query': str(s.get('optimized_query', ''))[:500],
         'stepback_query': str(s.get('stepback_query', ''))[:300],
         'route': str(s.get('route', '')),
+        'session_intent': str(s.get('session_intent', ''))[:200],
         'turn_intent': str(s.get('turn_intent', '')),
         'slots': str(s.get('slots', {}))[:300],
         'intent_confidence': float(s.get('intent_confidence', 1.0)),
@@ -50,6 +55,7 @@ _NODE_ATTRS: dict[str, Callable] = {
     'retriever': lambda s: {
         'num_docs': len(s.get('documents', [])),
         'mmr_enabled': True,
+        'rerank_method': str(s.get('rerank_method', ''))[:50],
         'sections': ','.join(
             list({
                 d.metadata.get('section', '')
