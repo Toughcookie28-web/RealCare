@@ -41,7 +41,7 @@ Return JSON ONLY with these keys:
 - "is_relevant": boolean
 - "has_hallucinations": boolean — true ONLY if claims contradict source chunks or are medically implausible, NOT just because they are absent from chunks
 - "failure_category": one of "none", "irrelevant", "hallucination", "incomplete", "unsafe"
-- "suggested_focus": if incomplete or irrelevant, a specific search query to find missing information. Otherwise empty string.
+- "suggested_focus": if the answer is incomplete, irrelevant, or has hallucinations, write a specific search query that would find the missing or corrected information. Otherwise empty string.
 - "confidence": 0.0-1.0 overall answer quality score
 - "grounding_score": 0.0-1.0 — fraction of answer claims consistent with source chunks (1.0 = fully consistent, 0.0 = contradicts chunks)
 - "feedback": brief explanation of your judgment
@@ -141,7 +141,10 @@ def ReflectionAgent(state: AgentStateV2) -> AgentStateV2:
     # - clarify: no retrieval was performed (ADR-0007)
     # - chitchat: no documents retrieved; judge would always flag poor groundedness
     # - memory: answer is from conversation history, not chunks; grounding is meaningless
-    if state.get('route') in ('clarify', 'chitchat', 'memory') or state.get('source') in ('Clarification Request', 'LLM Medical Reasoning'):
+    if state.get('route') in ('clarify', 'chitchat', 'memory') or state.get('source') in (
+        'Clarification Request', 'LLM Medical Reasoning',
+        'Memory (Conversation History)', 'Memory (no history)'
+    ):
         state['needs_retry'] = False
         return state
 
