@@ -2,7 +2,7 @@
   "title": "MediGenius Overview",
   "uid": "medigenius-overview",
   "schemaVersion": 36,
-  "version": 5,
+  "version": 6,
   "panels": [
     {
       "title": "HTTP 5xx Errors (total)",
@@ -200,6 +200,105 @@
               {
                 "color": "green",
                 "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "Tool Cache Hits vs Misses (total)",
+      "type": "bargauge",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "medigenius_tool_cache_hits_total or vector(0)",
+          "instant": true,
+          "legendFormat": "Hits",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "medigenius_tool_cache_misses_total or vector(0)",
+          "instant": true,
+          "legendFormat": "Misses",
+          "refId": "B"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "orientation": "horizontal",
+        "displayMode": "gradient"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "Tool Cache Hit Ratio (by tool)",
+      "type": "gauge",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "medigenius_tool_cache_hits_total / clamp_min(medigenius_tool_cache_hits_total + medigenius_tool_cache_misses_total, 1)",
+          "instant": true,
+          "legendFormat": "{{tool}}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.8
               }
             ]
           }
