@@ -1,5 +1,5 @@
 from langchain_core.documents import Document
-from agents.executor_agent import _build_citations, _format_citations_block
+from agents.executor_agent import _build_citations
 
 
 def _doc(section=None, page=None, doc_id='book1'):
@@ -44,23 +44,6 @@ def test_citations_missing_page():
     assert citations[0].get('page') is None
 
 
-def test_citations_format_string():
-    docs = [
-        _doc(section='Pharmacology', page=42),
-        _doc(section='Toxicology', page=88),
-    ]
-    citations = _build_citations(docs)
-    text = _format_citations_block(citations)
-    assert 'Pharmacology' in text
-    assert '42' in text
-    assert 'Toxicology' in text
-
-
 def test_citations_empty_docs():
     citations = _build_citations([])
     assert citations == []
-
-
-def test_format_empty_citations():
-    text = _format_citations_block([])
-    assert text == ''

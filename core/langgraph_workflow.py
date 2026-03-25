@@ -4,7 +4,6 @@ from langgraph.graph import END, StateGraph
 
 from agents.common import run_node
 from agents.executor_agent import ExecutorAgent
-from agents.explanation_agent import ExplanationAgent
 from agents.guardrail_agent import GuardrailAgent
 from agents.literature_agent import LiteratureAgent
 from agents.llm_agent import LLMAgent
@@ -62,10 +61,6 @@ def _reflection_node(state: AgentStateV2) -> AgentStateV2:
     return run_node('reflection', ReflectionAgent, state)
 
 
-def _explanation_node(state: AgentStateV2) -> AgentStateV2:
-    return run_node('explanation', ExplanationAgent, state)
-
-
 def route_after_guardrail(state: AgentStateV2) -> str:
     return 'blocked' if state.get('safety_flags', {}).get('blocked') else 'continue'
 
@@ -113,7 +108,6 @@ def create_workflow():
 
     workflow.add_node('executor', _executor_node)
     workflow.add_node('reflection', _reflection_node)
-    workflow.add_node('explanation', _explanation_node)
 
     workflow.set_entry_point('guardrail')
 
@@ -167,9 +161,8 @@ def create_workflow():
         route_after_reflection,
         {
             'retry': 'retriever',
-            'finalize': 'explanation',
+            'finalize': END,
         },
     )
-    workflow.add_edge('explanation', END)
 
     return workflow.compile()
