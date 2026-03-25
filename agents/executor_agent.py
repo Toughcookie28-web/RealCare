@@ -261,18 +261,6 @@ def _build_citations(docs: list) -> list[dict]:
     return citations
 
 
-def _format_citations_block(citations: list[dict]) -> str:
-    """Format citations as a readable Sources block."""
-    if not citations:
-        return ''
-    lines = ['**Sources:**']
-    for c in citations:
-        parts = [f"Section: \"{c['section']}\""]
-        if c.get('page') is not None:
-            parts.append(f"Page {c['page']}")
-        lines.append(f"- {', '.join(parts)}")
-    return '\n'.join(lines)
-
 
 def ExecutorAgent(state: AgentStateV2) -> AgentStateV2:
     cache = get_semantic_cache()
@@ -374,17 +362,14 @@ def ExecutorAgent(state: AgentStateV2) -> AgentStateV2:
         # which is set by run_node()'s error handler when an upstream node failed — that
         # error state is stale once the executor produces a real answer.
         if state.get('source') not in {'Semantic Cache', 'Clarification Request',
-                                        'Memory (no history)', 'Memory (Conversation History)'}:
+                                        'Memory (no history)', 'Memory (Conversation History)',
+                                        'LLM Medical Reasoning'}:
             state['source'] = 'LLM + Retrieved Evidence'
 
-    state['generation'] = answer
-
-    # Build and append citations
+    # Build citations for API response (structured, not appended to generation text)
     citations = _build_citations(docs)
     state['citations'] = citations
-    if citations:
-        citation_block = _format_citations_block(citations)
-        state['generation'] = f"{answer}\n\n{citation_block}"
+    state['generation'] = answer
 
     cache.set(query, state['generation'], namespace=cache_namespace)
 
