@@ -157,7 +157,7 @@ def ReflectionAgent(state: AgentStateV2) -> AgentStateV2:
     raw = invoke_json(judge_prompt, system=_REFLECTION_SYSTEM)
     result = _parse_reflection_response(raw)
 
-    attempts = state.get('attempts', {'reflection': 0, 'executor': 0})
+    attempts = dict(state.get('attempts', {'reflection': 0, 'executor': 0}))
     attempts['reflection'] = attempts.get('reflection', 0) + 1
     state['attempts'] = attempts
 
@@ -170,15 +170,26 @@ def ReflectionAgent(state: AgentStateV2) -> AgentStateV2:
     ) and attempts['reflection'] < 2
     state['needs_retry'] = needs_retry
 
-    # If hallucination detected but no useful focus for retry, inject safety caveat
-    if result.failure_category == 'hallucination' and not has_focus and not needs_retry:
+    _CAVEAT = (
+        '\n\n⚠️ *Note: parts of this answer may not be fully supported by the '
+        'retrieved medical sources. Please verify with a qualified healthcare professional.*'
+    )
+    _UNSAFE_CAVEAT = (
+        '\n\n⚠️ *Warning: this answer may contain unsupported or potentially unsafe medical '
+        'information. Please consult a qualified healthcare professional before acting on it.*'
+    )
+
+    # Inject caveat when the judge flags a problem but no retry will fix it:
+    # - hallucination (no retry OR retry exhausted): answer may contain incorrect claims
+    # - unsafe: answer may contain dangerous advice — always inject, never retry
+    if result.failure_category == 'unsafe':
         generation = state.get('generation', '')
-        caveat = (
-            '\n\n⚠️ *Note: parts of this answer may not be fully supported by the '
-            'retrieved medical sources. Please verify with a qualified healthcare professional.*'
-        )
-        if caveat not in generation:
-            state['generation'] = generation + caveat
+        if _UNSAFE_CAVEAT not in generation:
+            state['generation'] = generation + _UNSAFE_CAVEAT
+    elif result.failure_category == 'hallucination' and not needs_retry:
+        generation = state.get('generation', '')
+        if _CAVEAT not in generation:
+            state['generation'] = generation + _CAVEAT
 
     state['reflection_feedback'] = result.feedback
     state['reflection_suggested_focus'] = result.suggested_focus

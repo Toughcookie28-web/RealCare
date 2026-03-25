@@ -221,3 +221,94 @@ def test_hallucination_caveat_not_duplicated():
         result = ReflectionAgent(state)
 
     assert result["generation"].count("⚠️") == 1, "Caveat must not be duplicated"
+
+
+def test_hallucination_caveat_injected_when_retry_exhausted():
+    """When hallucination+focus triggers a retry that exhausts the limit (attempts==2),
+    needs_retry becomes False — caveat must still be injected."""
+    hallucination_with_focus = {
+        "failure_category": "hallucination",
+        "is_relevant": True,
+        "has_hallucinations": True,
+        "confidence": 0.4,
+        "grounding_score": 0.3,
+        "suggested_focus": "aspirin mechanism of action",  # non-empty focus
+        "feedback": "claim contradicts source",
+    }
+    with patch("agents.reflection_agent.invoke_json", return_value=hallucination_with_focus):
+        from agents.reflection_agent import ReflectionAgent
+
+        # attempts['reflection'] == 1 already means next check reaches limit
+        state = _rag_state(attempts={"reflection": 1, "executor": 0})
+        result = ReflectionAgent(state)
+
+    assert result.get("needs_retry") is False
+    assert "⚠️" in result.get("generation", ""), (
+        "Caveat must be injected when hallucination retry is exhausted (attempts limit reached)"
+    )
+
+
+def test_unsafe_caveat_injected():
+    """When judge flags failure_category='unsafe', a strong safety warning must be appended."""
+    unsafe_response = {
+        "failure_category": "unsafe",
+        "is_relevant": True,
+        "has_hallucinations": False,
+        "confidence": 0.3,
+        "grounding_score": 0.5,
+        "suggested_focus": "",
+        "feedback": "answer contains dangerous dosage advice",
+    }
+    with patch("agents.reflection_agent.invoke_json", return_value=unsafe_response):
+        from agents.reflection_agent import ReflectionAgent
+
+        state = _rag_state()
+        result = ReflectionAgent(state)
+
+    assert result.get("needs_retry") is False
+    generation = result.get("generation", "")
+    assert "⚠️" in generation, "Safety caveat must be injected for unsafe answers"
+    assert "Warning" in generation or "unsafe" in generation.lower(), (
+        "Unsafe caveat should signal stronger warning than hallucination caveat"
+    )
+
+
+# ---------------------------------------------------------------------------
+# Executor chitchat passthrough
+# ---------------------------------------------------------------------------
+
+def test_executor_chitchat_passthrough():
+    """ExecutorAgent must return state unchanged when route=='chitchat'.
+    LLMAgent already set the generation; executor must not overwrite it."""
+    import sys
+    from pathlib import Path
+    ROOT = Path(__file__).resolve().parents[2]
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+
+    from unittest.mock import patch, MagicMock
+
+    chitchat_state = {
+        "question": "thank you, I feel better today",
+        "optimized_query": "thank you, I feel better today",
+        "generation": "That's great to hear! Wishing you continued good health.",
+        "source": "LLM Medical Reasoning",
+        "route": "chitchat",
+        "documents": [],
+        "attempts": {"reflection": 0, "executor": 0},
+        "session_id": "s3",
+        "trace_id": "t3",
+        "status_events": [],
+    }
+
+    # Patch invoke_llm so we can detect if executor makes an LLM call
+    with patch("agents.executor_agent.invoke_llm") as mock_llm, \
+         patch("agents.executor_agent.get_semantic_cache") as mock_cache:
+        mock_cache.return_value.get.return_value = None  # no cache hit
+        from agents.executor_agent import ExecutorAgent
+
+        result = ExecutorAgent(chitchat_state)
+
+    mock_llm.assert_not_called(), "ExecutorAgent must NOT call the LLM for chitchat route"
+    assert result["generation"] == "That's great to hear! Wishing you continued good health."
+    assert result["source"] == "LLM Medical Reasoning"

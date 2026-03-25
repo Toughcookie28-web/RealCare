@@ -289,6 +289,12 @@ def ExecutorAgent(state: AgentStateV2) -> AgentStateV2:
         state['source'] = 'Clarification Request'
         return state
 
+    # Chitchat route: LLMAgent already generated the response — pass through unchanged.
+    # The workflow always edges llm→executor, so without this guard the executor would
+    # overwrite the chitchat generation with a RAG prompt on empty docs.
+    if state.get('route') == 'chitchat':
+        return state
+
     question = state.get('question', '')
     summary = state.get('summary', '')
     facts = ', '.join([f"{f.get('key')}={f.get('value')}" for f in state.get('facts', [])])

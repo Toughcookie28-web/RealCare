@@ -33,10 +33,20 @@ _NODE_ATTRS: dict[str, Callable] = {
         'summary_generated': bool(s.get('summary')),
         'long_term_enabled': bool(s.get('long_term_memory_repo') is not None),
         'episodic_memories_loaded': len(s.get('episodic_memories', [])),
-        'fact_keys': ','.join([f.get('key', '') for f in (s.get('facts') or [])])[:300],
-        'history_preview': str(((s.get('conversation_history') or [{}])[-1]).get('content', ''))[:200],
+        'fact_keys': ','.join([
+            f.get('key', '') for f in (s.get('facts') or []) if isinstance(f, dict)
+        ])[:300],
+        'history_preview': str(
+            (lambda h: h.get('content', '') if isinstance(h, dict) else '')(
+                (s.get('conversation_history') or [{}])[-1]
+            )
+        )[:200],
         'summary_preview': str(s.get('summary', '') or '')[:200],
-        'episodic_preview': str(((s.get('episodic_memories') or [{}])[0]).get('summary', ''))[:200],
+        'episodic_preview': str(
+            (lambda e: e.get('summary', '') if isinstance(e, dict) else '')(
+                (s.get('episodic_memories') or [{}])[0]
+            )
+        )[:200],
     },
     'query_rewriter': lambda s: {
         'optimized_query': str(s.get('optimized_query', ''))[:500],
