@@ -50,6 +50,7 @@ class AgentStateV2(TypedDict):
     intent_confidence: float
     needs_clarification: bool
     clarification_question: str
+    rerank_method: str
     # Internal: OTel context captured in WorkflowService so run_node() can re-attach
     # it even when LangGraph executes node functions in a different thread/async context.
     _otel_context: Optional[Any]
@@ -102,6 +103,7 @@ def initialize_state(session_id: str, trace_id: str) -> AgentStateV2:
         'intent_confidence': 1.0,
         'needs_clarification': False,
         'clarification_question': '',
+        'rerank_method': '',
         '_otel_context': None,
     }
 
@@ -144,6 +146,7 @@ def reset_query_state(state: AgentStateV2, question: str) -> AgentStateV2:
             'intent_confidence': 1.0,
             'needs_clarification': False,
             'clarification_question': '',
+            'rerank_method': '',
         }
     )
     return state

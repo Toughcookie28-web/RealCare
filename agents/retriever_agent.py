@@ -5,6 +5,11 @@ import logging
 import re
 from typing import Any
 
+try:
+    from cohere import RequestOptions as _CohereRequestOptions
+except Exception:  # cohere not installed or import error
+    _CohereRequestOptions = None  # type: ignore[assignment,misc]
+
 import numpy as np
 from langchain_core.documents import Document
 
@@ -165,6 +170,7 @@ def RetrieverAgent(state: AgentStateV2) -> AgentStateV2:
         state['documents'] = []
         state['retrieval_confidence'] = 0.0
         state['retrieval_candidate_count'] = 0
+        state['rerank_method'] = 'none'
         state['post_retrieval_route'] = 'executor'
         state['route_decision_reason'] = 'no_vector_repo'
         return state
@@ -180,7 +186,8 @@ def RetrieverAgent(state: AgentStateV2) -> AgentStateV2:
             sb_docs = repo.hybrid_search(query=stepback, query_embedding=sb_embedding, k=10)
             docs = _merge_and_deduplicate(docs, sb_docs)
 
-    ranked, scores = rerank(query, docs)
+    ranked, scores, rerank_method = rerank(query, docs)
+    state['rerank_method'] = rerank_method
 
     # Apply MMR diversity filter to top-k selection
     settings = get_settings()
@@ -206,24 +213,29 @@ def RetrieverAgent(state: AgentStateV2) -> AgentStateV2:
     return state
 
 
-def rerank(query: str, docs: list[Document]) -> tuple[list[Document], list[float]]:
-    """Rerank documents using Cohere cross-encoder, with BM25 fallback."""
+def rerank(query: str, docs: list[Document]) -> tuple[list[Document], list[float], str]:
+    """Rerank documents using Cohere cross-encoder, with BM25 fallback.
+
+    Returns (ranked_docs, scores, method_name) where method_name is "cohere" or "bm25".
+    """
     if not docs:
-        return docs, []
+        return docs, [], "bm25"
 
     settings = get_settings()
 
     if settings.cohere_api_key:
         try:
-            return _cohere_rerank(query, docs, settings)
+            ranked, scores = _cohere_rerank(query, docs, settings)
+            return ranked, scores, "cohere"
         except Exception:
             logger.warning("Cohere rerank failed, falling back to BM25", exc_info=True)
 
-    return _bm25_rerank(query, docs)
+    ranked, scores = _bm25_rerank(query, docs)
+    return ranked, scores, "bm25"
 
 
-_COHERE_MAX_RETRIES = 3
-_COHERE_RETRY_WAIT = 62  # seconds — wait past the 1-minute rate limit window
+_COHERE_MAX_RETRIES = 2
+_COHERE_RETRY_WAIT = 3  # seconds — short wait, fall back to BM25 quickly
 
 
 def _cohere_rerank(
@@ -245,17 +257,30 @@ def _cohere_rerank(
         ranked_scores = parsed["scores"]
         ranked_docs = [docs[i] for i in indices]
         logger.debug("Cohere rerank cache hit for query: %s", query[:80])
+        logger.debug("rerank_method=cohere (cache)")
         return ranked_docs, ranked_scores
+
+    # Build request_options with a 10s timeout if the SDK supports it
+    request_options = None
+    if _CohereRequestOptions is not None:
+        try:
+            request_options = _CohereRequestOptions(timeout_in_seconds=10)
+        except Exception:
+            pass
 
     last_exc: Exception | None = None
     for attempt in range(_COHERE_MAX_RETRIES):
         try:
-            response = client.rerank(
+            call_kwargs: dict[str, Any] = dict(
                 query=query,
                 documents=doc_texts,
                 model=settings.cohere_rerank_model,
                 top_n=len(docs),
             )
+            if request_options is not None:
+                call_kwargs["request_options"] = request_options
+
+            response = client.rerank(**call_kwargs)
 
             ranked_docs = []
             ranked_scores = []
@@ -268,17 +293,19 @@ def _cohere_rerank(
             # --- Cache store ---
             _cohere_cache.set(cache_key, json.dumps({"indices": indices, "scores": ranked_scores}))
 
+            logger.debug("rerank_method=cohere")
             return ranked_docs, ranked_scores
 
         except Exception as exc:
             last_exc = exc
             exc_str = str(exc).lower()
             if 'rate' in exc_str or 'limit' in exc_str or '429' in exc_str:
-                logger.info(
-                    "Cohere rate limited, waiting %ds (attempt %d/%d)",
-                    _COHERE_RETRY_WAIT, attempt + 1, _COHERE_MAX_RETRIES,
-                )
-                time.sleep(_COHERE_RETRY_WAIT)
+                if attempt < _COHERE_MAX_RETRIES - 1:
+                    logger.info(
+                        "Cohere rate limited, waiting %ds (attempt %d/%d)",
+                        _COHERE_RETRY_WAIT, attempt + 1, _COHERE_MAX_RETRIES,
+                    )
+                    time.sleep(_COHERE_RETRY_WAIT)
             else:
                 raise
 
@@ -316,6 +343,7 @@ def _bm25_rerank(
         scored.append((doc, score))
 
     scored.sort(key=lambda item: item[1], reverse=True)
+    logger.debug("rerank_method=bm25")
     return [doc for doc, _ in scored], [score for _, score in scored]
 
 

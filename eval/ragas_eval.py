@@ -86,7 +86,7 @@ def _retrieve_for_query(
     start = time.perf_counter()
     query_embedding = embed_query(query)
     docs = repo.hybrid_search(query=query, query_embedding=query_embedding, k=fetch_k)
-    ranked, _scores = rerank(query, docs)
+    ranked, _scores, _rerank_method = rerank(query, docs)
     latency_ms = (time.perf_counter() - start) * 1000.0
 
     top_docs = ranked[:top_k]
