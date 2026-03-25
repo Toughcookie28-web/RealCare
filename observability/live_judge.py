@@ -16,6 +16,7 @@ from observability.metrics import (
     LIVE_JUDGE_LATENCY,
     LIVE_JUDGED_REQUESTS,
 )
+from tools.llm_client import invoke_json
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +80,90 @@ def score_live_payload(payload: dict[str, Any]) -> dict[str, float]:
     }
 
 
+_LLM_SYSTEM_PROMPT = (
+    "You are a medical RAG quality evaluator. "
+    "Score the quality of a question-answer pair given retrieved context. "
+    "Return JSON only."
+)
+
+_LLM_PROMPT_TEMPLATE = """\
+Evaluate the following medical RAG response and return a JSON object with exactly these keys:
+  answer_relevance, groundedness, context_precision, context_coverage, reasoning
+
+All scores are floats from 0.0 to 1.0.
+
+Scoring rubric:
+- answer_relevance: Does the answer semantically address the question?
+  1.0 = fully answers, 0.5 = partial/drifts, 0.0 = off-topic
+- groundedness: Are medical claims consistent with the retrieved context?
+  1.0 = all claims consistent, 0.5 = most supported with some from general knowledge, 0.0 = contradicts context
+- context_precision: What fraction of retrieved chunks are actually relevant to the question?
+  1.0 = every chunk useful, 0.5 = half relevant, 0.0 = no chunks relevant
+- context_coverage: Does the context contain enough info to fully answer the question?
+  1.0 = fully covers, 0.5 = partial coverage, 0.0 = missing key information
+
+Question: {question}
+
+Answer: {answer}
+
+Retrieved context chunks:
+{contexts}
+
+Return ONLY valid JSON: {{"answer_relevance": float, "groundedness": float, "context_precision": float, "context_coverage": float, "reasoning": "..."}}
+"""
+
+_MAX_CHUNKS = 5
+_MAX_CHARS_PER_CHUNK = 300
+_MAX_ANSWER_CHARS = 500
+
+
+def score_live_payload_llm(payload: dict[str, Any]) -> dict[str, float]:
+    """Score a live judge payload using a single LLM call.
+
+    Falls back to score_live_payload (BM25) on any exception or missing keys.
+    Scores are capped to [0.0, 1.0].
+    """
+    try:
+        question = str(payload.get("question", ""))
+        answer = str(payload.get("answer", ""))[:_MAX_ANSWER_CHARS]
+        raw_contexts = [str(c) for c in payload.get("contexts", [])]
+        truncated_contexts = [c[:_MAX_CHARS_PER_CHUNK] for c in raw_contexts[:_MAX_CHUNKS]]
+
+        contexts_text = "\n".join(
+            f"[{i + 1}] {chunk}" for i, chunk in enumerate(truncated_contexts)
+        ) or "(no context)"
+
+        prompt = _LLM_PROMPT_TEMPLATE.format(
+            question=question,
+            answer=answer,
+            contexts=contexts_text,
+        )
+
+        result = invoke_json(prompt, system=_LLM_SYSTEM_PROMPT)
+
+        required_keys = {"answer_relevance", "groundedness", "context_precision", "context_coverage"}
+        if not required_keys.issubset(result.keys()):
+            logger.warning(
+                "live_judge_llm_missing_keys",
+                extra={"got_keys": list(result.keys()), "expected": list(required_keys)},
+            )
+            return score_live_payload(payload)
+
+        def _cap(v: Any) -> float:
+            return min(1.0, max(0.0, float(v)))
+
+        return {
+            "answer_relevance": _cap(result["answer_relevance"]),
+            "groundedness": _cap(result["groundedness"]),
+            "context_precision_proxy": _cap(result["context_precision"]),
+            "context_coverage_proxy": _cap(result["context_coverage"]),
+        }
+
+    except Exception:
+        logger.warning("live_judge_llm_failed_falling_back_to_bm25", exc_info=True)
+        return score_live_payload(payload)
+
+
 class LiveJudgeService:
     def __init__(
         self,
@@ -94,7 +179,7 @@ class LiveJudgeService:
         self.sampling_ratio = (
             sampling_ratio if sampling_ratio is not None else float(settings.live_judge_sampling_ratio)
         )
-        self.scorer = scorer or score_live_payload
+        self.scorer = scorer or score_live_payload_llm
 
     def should_judge(self, trace_id: str) -> bool:
         if not self.enabled:
