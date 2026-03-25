@@ -1,8 +1,8 @@
-# **MediGenius: AI-Powered Multi-Agent Medical Assistant**
+# **RealCare: AI-Powered Multi-Agent Medical Assistant**
 
-**MediGenius** is a **production-ready, multi-agent medical AI system** built with **LangGraph orchestration** and a FastAPI + PostgreSQL/pgvector runtime.
+**RealCare** is a **production-ready, multi-agent medical AI system** built with **LangGraph orchestration** and a FastAPI + PostgreSQL/pgvector runtime.
 
-The system routes queries through **Guardrail, Memory, Query Rewriter, Planner, Retriever, Executor, and Reflection** agents that coordinate intelligently — combining **medical RAG from verified PDFs**, trusted web search, PubMed literature retrieval, and long-term user memory to produce grounded, cited answers.
+The system routes queries through **Guardrail, Memory, Query Rewriter, Planner, parallel sub-query Retriever agents, Executor, and Reflection** agents that coordinate intelligently — combining **medical RAG from verified PDFs**, trusted web search, PubMed literature retrieval, and long-term user memory to produce grounded, cited answers.
 
 ---
 
@@ -12,10 +12,11 @@ The system routes queries through **Guardrail, Memory, Query Rewriter, Planner, 
 * **LLM-powered primary response** engine using Groq (LLaMA 3.3 70B) with OpenAI fallback
 * **Advanced RAG pipeline** with hierarchical chunking, hybrid search (dense + BM25), cross-encoder reranking (Cohere or BM25 fallback), and MMR diversity filtering
 * **Semantic routing** via unified Query Rewriter: chitchat, vector, web, literature, memory, and clarify routes
+* **Parallel multi-agent query decomposition** — compound questions are detected and split into independent sub-queries by the Decomposer agent; each sub-query fans out to its own Retriever agent in parallel via LangGraph `Send` API, and answers are merged before generation
 * **HITL proactive clarification** — low-confidence queries trigger a clarification request instead of guessing (controlled by `HITL_CLARIFICATION_CONFIDENCE_THRESHOLD`)
 * **Input guardrails** for safety filtering on dangerous or off-scope queries
 * **Self-reflection quality gate** with grounding-based hallucination detection (contradicts-chunks criterion) and bounded retries; skipped for chitchat/memory/clarify routes
-* **Parent-child chunk hierarchy** (optional) — child chunks (~200 tokens) for retrieval precision, parent chunks (~800 tokens) for richer executor context
+* **Parent-child chunk hierarchy** — child chunks (~200 tokens) for retrieval precision, parent chunks (~800 tokens) for richer executor context
 * **Adjacent chunk expansion** — executor fetches ±1 neighbor chunks within the same section for better context assembly
 * **Trusted-domain web search** (Tavily + Wikipedia + PubMed) filtered to NIH, Mayo Clinic, CDC, WHO
 * **Vector database (pgvector)** with hybrid dense + sparse (`tsvector` + `ts_rank`) retrieval
@@ -24,8 +25,10 @@ The system routes queries through **Guardrail, Memory, Query Rewriter, Planner, 
 * **Semantic caching** for near-duplicate query optimization (version-aware, disabled in eval by default)
 * **Structured citations** mapped to source documents with page/section references
 * **SSE streaming** with real-time agent status updates in the UI
-* **Full observability stack** — Prometheus metrics, Grafana dashboards, structured JSON logging, OpenTelemetry tracing (OTLP → Grafana Tempo), and per-message trace deeplinks in the UI
+* **Full observability stack** — Prometheus metrics, Grafana dashboards, structured JSON logging, OpenTelemetry tracing (OTLP → Grafana Tempo), per-message trace deeplinks in the UI, and Loki log-trace correlation (trace_id injected into every structured log line for Loki ↔ Tempo drill-through)
 * **LLM-as-judge live RAGAS proxies** — post-response LLM scoring of answer relevance, groundedness, context precision, and context coverage; emitted to Prometheus/Grafana on every turn
+* **Grafana alerting** — automated alerts when sustained grounding score drops below threshold, clarification rate exceeds 20%, or reflection retry rate exceeds 10%
+* **Image and diagram chunking** — medical PDF pages with images, dosing charts, and diagrams are chunked alongside text using vision-capable parsing for complete knowledge coverage
 * **Dockerized deployment** with `docker compose` (runtime stack by default, profile-gated eval service when needed)
 * **FastAPI backend** with custom HTML/CSS/JavaScript frontend
 * **CI/CD pipeline** with lint, security audit, Docker build validation, and eval regression gates
@@ -37,22 +40,22 @@ The system routes queries through **Guardrail, Memory, Query Rewriter, Planner, 
 | **Category**                  | **Technology / Resource**                                                                                          |
 |-------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | **Core Framework**            | LangChain, LangGraph                                                                                               |
-| **Multi-Agent Orchestration** | Guardrail, Memory, Query Rewriter, Planner, Retriever, LLM, Literature (PubMed), Tavily, Wikipedia, Executor, Reflection |
+| **Multi-Agent Orchestration** | Guardrail, Memory, Query Rewriter, Decomposer (parallel fan-out), Planner, Retriever, LLM, Literature (PubMed), Tavily, Wikipedia, Executor, Reflection |
 | **LLM Provider**              | Groq (LLaMA 3.3 70B), OpenAI (GPT-4o-mini fallback)                                                              |
 | **Embeddings Model**          | Local sentence-transformers (`Alibaba-NLP/gte-base-en-v1.5`), optional Gemini / OpenAI providers                 |
 | **Vector Database**           | PostgreSQL + pgvector (hybrid dense + BM25 sparse search)                                                        |
-| **Document Processing**       | Docling parser + structure-aware chunker (section-aware text and table chunks, optional parent-child hierarchy)   |
+| **Document Processing**       | Docling parser + structure-aware chunker (section-aware text, tables, images; parent-child hierarchy)             |
 | **Reranking**                 | Cohere cross-encoder (with BM25 fallback) + MMR diversity filter                                                 |
 | **Search Tools**              | Tavily (domain-locked), Wikipedia API, PubMed NCBI API                                                           |
-| **Conversation Flow**         | LangGraph StateGraph with conditional routing, reflection loops, and clarification short-circuit                  |
+| **Conversation Flow**         | LangGraph StateGraph with conditional routing, parallel sub-query fan-out (`Send` API), reflection loops, and clarification short-circuit |
 | **Memory**                    | Redis working memory (hot) + PostgreSQL session memory (cold) + pgvector episodic cross-session memory            |
 | **Backend**                   | FastAPI (REST API + SSE streaming)                                                                                |
 | **Frontend**                  | Custom HTML, CSS, JavaScript (SPA with glass-morphism UI)                                                        |
 | **Database**                  | PostgreSQL 16 with pgvector extension, SQLAlchemy ORM, Alembic migrations                                        |
 | **Caching**                   | Semantic cache with cosine similarity (configurable threshold, version-aware)                                     |
-| **Observability**             | Prometheus metrics, Grafana dashboards, structured JSON logging, OpenTelemetry + Grafana Tempo                    |
+| **Observability**             | Prometheus metrics, Grafana dashboards + alerting, structured JSON logging, OpenTelemetry + Grafana Tempo + Loki  |
 | **Live Eval Proxies**         | LLM-as-judge RAGAS proxies (answer relevance, groundedness, context precision, context coverage)                  |
-| **Deployment**                | Docker + `docker compose` (app, PostgreSQL, Redis, Prometheus, Grafana, Tempo; profile-gated eval service)        |
+| **Deployment**                | Docker + `docker compose` (app, PostgreSQL, Redis, Prometheus, Grafana, Tempo, Loki; profile-gated eval service)  |
 | **CI/CD**                     | GitHub Actions (ruff lint, pip-audit, Docker build validation)                                                    |
 | **Configuration**             | pydantic-settings + .env (centralized Settings class)                                                             |
 | **Hosting**                   | Render (with managed PostgreSQL)                                                                                   |
@@ -63,34 +66,49 @@ The system routes queries through **Guardrail, Memory, Query Rewriter, Planner, 
 
 ```mermaid
 graph TD
-    A[User Query] --> B[GuardrailAgent - Safety Filter]
+    A[User Query] --> B[GuardrailAgent\nSafety Filter]
     B -->|Blocked| Z[Safety Refusal]
-    B -->|Safe| C[MemoryAgent - Summary + Facts + Episodic Recall]
+    B -->|Safe| C[MemoryAgent\nSummary + Facts + Episodic Recall]
 
-    C --> D[QueryRewriterAgent - Rewrite + Route + Intent + Slots]
-    D --> E[PlannerAgent - Zero-LLM Dispatcher]
+    C --> D[QueryRewriterAgent\nRewrite · Route · Intent · Slots]
 
-    E -->|clarify| FC[ExecutorAgent - Clarification Question]
-    E -->|chitchat| F[LLMAgent - General Knowledge]
-    E -->|memory| FM[ExecutorAgent - From Conversation History]
-    E -->|vector| G[RetrieverAgent - Hybrid Search + Rerank + MMR]
-    E -->|web| H[TavilyAgent - Domain-Locked Search]
-    E -->|literature| I[LiteratureAgent - PubMed]
+    D -->|simple query| E[PlannerAgent\nZero-LLM Dispatcher]
+    D -->|compound query| DECOMP[DecomposerAgent\nQuery Splitting]
 
-    FC --> N[Final Response + Store to PostgreSQL]
-    FM --> K
-    F --> J[ExecutorAgent - Answer Generation + Cache]
+    subgraph "Parallel Sub-Query Fan-out"
+        DECOMP -->|sub-query 1| R1[RetrieverAgent\nHybrid Search + Rerank]
+        DECOMP -->|sub-query 2| R2[RetrieverAgent\nHybrid Search + Rerank]
+        DECOMP -->|sub-query N| RN[RetrieverAgent\n...]
+    end
+
+    R1 & R2 & RN --> MERGE[Answer Merger]
+    MERGE --> J
+
+    E -->|clarify| FC[ExecutorAgent\nClarification Question]
+    E -->|chitchat| F[LLMAgent\nGeneral Knowledge]
+    E -->|memory| J
+    E -->|vector| G[RetrieverAgent\nHybrid Search + Rerank + MMR]
+    E -->|web| H[TavilyAgent\nDomain-Locked Search]
+    E -->|literature| I[LiteratureAgent\nPubMed]
+
+    FC --> N
+    F --> J[ExecutorAgent\nAnswer Generation + Cache]
     G --> J
     H --> J
     I --> J
 
-    J --> K[ReflectionAgent - Grounding Quality Gate]
-    K -->|Retry| D
-    K -->|Accept| N[Final Response + Store to PostgreSQL]
+    J --> K[ReflectionAgent\nGrounding Quality Gate]
+    K -->|Retry with focus| D
+    K -->|Accept| N[Final Response\n+ PostgreSQL + Redis + Live Judge]
 
     style A fill:#ff9,stroke:#333
     style B fill:#ffbdbd,stroke:#333
     style C fill:#fdf6b2,stroke:#333
+    style DECOMP fill:#e8d5ff,stroke:#9b59b6,stroke-width:2px
+    style R1 fill:#a0e3a0,stroke:#27ae60
+    style R2 fill:#a0e3a0,stroke:#27ae60
+    style RN fill:#a0e3a0,stroke:#27ae60
+    style MERGE fill:#d5f5e3,stroke:#27ae60
     style E fill:#c9f,stroke:#333
     style G fill:#a0e3a0,stroke:#333
     style F fill:#9fd4ff,stroke:#333
@@ -106,7 +124,7 @@ graph TD
 ## **Folder Structure**
 
 ```
-MediGenius/
+RealCare/
 ├── .github/
 │   └── workflows/
 │       └── eval.yml                 # CI: lint, security, Docker build, tests, eval
@@ -115,6 +133,7 @@ MediGenius/
 │   ├── common.py                    # Node wrapper with OTel spans and Prometheus metrics
 │   ├── guardrail_agent.py           # Input safety filtering
 │   ├── query_rewriter_agent.py      # Unified query understanding: rewrite, route, intent, slots
+│   ├── decomposer_agent.py          # Compound query splitter for parallel fan-out
 │   ├── planner_agent.py             # Zero-LLM dispatcher (reads route from rewriter state)
 │   ├── memory_agent.py              # Summary buffer + user fact extraction + episodic recall
 │   ├── retriever_agent.py           # Hybrid search (dense + BM25) with Cohere/BM25 reranking + MMR
@@ -123,8 +142,7 @@ MediGenius/
 │   ├── tavily_agent.py              # Domain-locked web search
 │   ├── wikipedia_agent.py           # Wikipedia fallback
 │   ├── executor_agent.py            # Answer generation with semantic cache and citation assembly
-│   ├── reflection_agent.py          # Grounding-based quality gate with retry
-│   └── decomposer_agent.py          # Compound query splitter (stubbed, disabled by default)
+│   └── reflection_agent.py          # Grounding-based quality gate with retry
 │
 ├── alembic/
 │   ├── env.py
@@ -208,9 +226,9 @@ MediGenius/
 │   ├── embedding_client.py          # HuggingFace / Gemini / OpenAI embedding client
 │   ├── knn_router.py                # k-NN seed-based routing fallback
 │   ├── llm_client.py                # Groq + OpenAI dual-provider client with OTel events
-│   ├── pdf_chunker.py               # Structure-aware chunker (text + tables, parent-child)
+│   ├── pdf_chunker.py               # Structure-aware chunker (text + tables + images, parent-child)
 │   ├── pdf_loader.py                # PDF load entry point
-│   ├── pdf_parser.py                # Docling-based PDF parser
+│   ├── pdf_parser.py                # Docling-based PDF parser (text, tables, images)
 │   ├── search_tools.py              # Wikipedia, Tavily, PubMed wrappers
 │   ├── vector_store.py              # Ingestion + hybrid search wrapper
 │   ├── working_memory.py            # Redis working memory contract
@@ -220,7 +238,6 @@ MediGenius/
 ├── .env.example
 ├── .gitignore
 ├── AGENTS.md                        # Project rules and working principles
-├── TODOS.md                         # Deferred work items with context
 ├── alembic.ini
 ├── app.py                           # FastAPI application factory
 ├── docker-compose.yml               # Runtime stack + profile-gated eval service
@@ -277,7 +294,8 @@ python3 -m pytest tests/ -v
 - `document_chunks.embedding` must stay `vector(768)`.
 - API startup does not auto-ingest the corpus — run `reindex_pdf.py` explicitly.
 - Semantic cache is disabled by default in dev/test/eval environments.
-- Parent-child chunking is disabled by default (`ENABLE_PARENT_CHILD_CHUNKING=false`). Requires reindex when toggled.
+- Parent-child chunking is enabled by default. Requires reindex when toggling.
+- Compound query decomposition is controlled by `ENABLE_QUERY_DECOMPOSITION` (default true).
 
 ### Optional checks
 
@@ -322,17 +340,6 @@ Example request:
 - `GET /health/live` — liveness probe
 - `GET /health/ready` — readiness probe
 - `GET /metrics` — Prometheus metrics
-
----
-
-## **Future Work**
-
-Tracked with context in `TODOS.md`. Current deferred items:
-
-- **P2 — Grafana alerting rules**: alert when `grounding_score < 0.5` (sustained), clarification rate > 20%, or reflection retry rate > 10%
-- **P2 — Log-trace correlation**: inject `trace_id` into structured log lines for Loki ↔ Tempo correlation (depends on Loki container)
-- **P3 — Image chunking**: chunk PDF images and diagrams alongside text using vision models or OCR
-- **P3 — IntentReasoner fan-out**: for compound multi-part questions, split into parallel sub-queries via LangGraph `Send` API and merge answers (gated on eval evidence; `DecomposerAgent` is stubbed and ready)
 
 ---
 
