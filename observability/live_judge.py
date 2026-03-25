@@ -42,6 +42,10 @@ def _f1_like(left: set[str], right: set[str]) -> float:
     return (2 * precision * recall) / (precision + recall)
 
 
+def _cap(v: Any) -> float:
+    return min(1.0, max(0.0, float(v)))
+
+
 def build_live_judge_payload(question: str, trace_id: str, result: dict[str, Any]) -> dict[str, Any]:
     contexts: list[str] = []
     for doc in result.get("documents", []) or []:
@@ -109,12 +113,13 @@ Answer: {answer}
 Retrieved context chunks:
 {contexts}
 
-Return ONLY valid JSON: {{"answer_relevance": float, "groundedness": float, "context_precision": float, "context_coverage": float, "reasoning": "..."}}
+Return ONLY valid JSON: {{"answer_relevance": 0.85, "groundedness": 0.90, "context_precision": 0.75, "context_coverage": 0.80, "reasoning": "..."}}
 """
 
 _MAX_CHUNKS = 5
 _MAX_CHARS_PER_CHUNK = 300
 _MAX_ANSWER_CHARS = 500
+_MAX_QUESTION_CHARS = 300
 
 
 def score_live_payload_llm(payload: dict[str, Any]) -> dict[str, float]:
@@ -124,14 +129,18 @@ def score_live_payload_llm(payload: dict[str, Any]) -> dict[str, float]:
     Scores are capped to [0.0, 1.0].
     """
     try:
-        question = str(payload.get("question", ""))
+        question = str(payload.get("question", ""))[:_MAX_QUESTION_CHARS]
         answer = str(payload.get("answer", ""))[:_MAX_ANSWER_CHARS]
         raw_contexts = [str(c) for c in payload.get("contexts", [])]
         truncated_contexts = [c[:_MAX_CHARS_PER_CHUNK] for c in raw_contexts[:_MAX_CHUNKS]]
 
+        # No documents retrieved — skip LLM call; BM25 scorer handles the empty-context case.
+        if not truncated_contexts:
+            return score_live_payload(payload)
+
         contexts_text = "\n".join(
             f"[{i + 1}] {chunk}" for i, chunk in enumerate(truncated_contexts)
-        ) or "(no context)"
+        )
 
         prompt = _LLM_PROMPT_TEMPLATE.format(
             question=question,
@@ -141,6 +150,7 @@ def score_live_payload_llm(payload: dict[str, Any]) -> dict[str, float]:
 
         result = invoke_json(prompt, system=_LLM_SYSTEM_PROMPT)
 
+        # "reasoning" is intentionally excluded — it is a free-text debug field, not a scored metric.
         required_keys = {"answer_relevance", "groundedness", "context_precision", "context_coverage"}
         if not required_keys.issubset(result.keys()):
             logger.warning(
@@ -148,9 +158,6 @@ def score_live_payload_llm(payload: dict[str, Any]) -> dict[str, float]:
                 extra={"got_keys": list(result.keys()), "expected": list(required_keys)},
             )
             return score_live_payload(payload)
-
-        def _cap(v: Any) -> float:
-            return min(1.0, max(0.0, float(v)))
 
         return {
             "answer_relevance": _cap(result["answer_relevance"]),

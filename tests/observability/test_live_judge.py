@@ -145,3 +145,71 @@ def test_live_judge_records_failure_metric_on_error(monkeypatch):
     assert result is None
     assert live_judge.LIVE_JUDGED_REQUESTS.count == 0
     assert live_judge.LIVE_JUDGE_FAILURES.count == 1
+
+
+# ---------------------------------------------------------------------------
+# score_live_payload_llm unit tests
+# ---------------------------------------------------------------------------
+
+_SAMPLE_PAYLOAD = {
+    "question": "What are the side effects of metformin?",
+    "answer": "Common effects include nausea and diarrhea.",
+    "contexts": ["Metformin commonly causes gastrointestinal upset."],
+    "route": "vector",
+    "trace_id": "trace-llm-1",
+}
+
+
+def test_score_live_payload_llm_happy_path(monkeypatch):
+    """Valid JSON from invoke_json → correct scores returned, capped, key mapping correct."""
+    llm_response = {
+        "answer_relevance": 0.9,
+        "groundedness": 1.2,       # above 1.0 — should be capped to 1.0
+        "context_precision": 0.75,
+        "context_coverage": 0.8,
+        "reasoning": "Looks good",
+    }
+    monkeypatch.setattr(live_judge, "invoke_json", lambda *a, **kw: llm_response)
+
+    scores = live_judge.score_live_payload_llm(_SAMPLE_PAYLOAD)
+
+    assert scores["answer_relevance"] == 0.9
+    assert scores["groundedness"] == 1.0          # capped from 1.2
+    assert scores["context_precision_proxy"] == 0.75   # LLM key → _proxy key
+    assert scores["context_coverage_proxy"] == 0.8
+    assert "reasoning" not in scores
+
+
+def test_score_live_payload_llm_missing_keys_falls_back_to_bm25(monkeypatch):
+    """Missing required keys → falls back to BM25 score_live_payload result."""
+    llm_response = {"answer_relevance": 0.8}       # groundedness, context_* missing
+    monkeypatch.setattr(live_judge, "invoke_json", lambda *a, **kw: llm_response)
+
+    scores = live_judge.score_live_payload_llm(_SAMPLE_PAYLOAD)
+
+    # BM25 fallback always returns all four keys
+    assert set(scores.keys()) == {
+        "answer_relevance",
+        "groundedness",
+        "context_precision_proxy",
+        "context_coverage_proxy",
+    }
+    # Confirm we actually got BM25 values (not the partial LLM dict)
+    assert scores["answer_relevance"] != 0.8 or "groundedness" in scores
+
+
+def test_score_live_payload_llm_exception_falls_back_to_bm25(monkeypatch):
+    """invoke_json raises → falls back to BM25 score_live_payload result."""
+    def _raise(*a, **kw):
+        raise RuntimeError("LLM unavailable")
+
+    monkeypatch.setattr(live_judge, "invoke_json", _raise)
+
+    scores = live_judge.score_live_payload_llm(_SAMPLE_PAYLOAD)
+
+    assert set(scores.keys()) == {
+        "answer_relevance",
+        "groundedness",
+        "context_precision_proxy",
+        "context_coverage_proxy",
+    }
