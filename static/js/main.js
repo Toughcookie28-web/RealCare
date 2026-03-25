@@ -319,7 +319,7 @@ async function sendMessage() {
         }
 
         if (finalPayload && finalPayload.success) {
-            addMessage(finalPayload.response, 'assistant', finalPayload.timestamp, finalPayload.source);
+            addMessage(finalPayload.response, 'assistant', finalPayload.timestamp, finalPayload.source, true, finalPayload.otel_trace_id);
             showToast('Response received', 'success');
             loadChatSessions();
         } else if (!finalPayload) {
@@ -340,7 +340,7 @@ async function sendMessage() {
 }
 
 // Add Message
-function addMessage(content, type, timestamp = null, source = null, animate = true) {
+function addMessage(content, type, timestamp = null, source = null, animate = true, otelTraceId = null) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}-message`;
     if (animate) messageDiv.style.opacity = '0';
@@ -383,6 +383,10 @@ function addMessage(content, type, timestamp = null, source = null, animate = tr
                         <button class="message-action" onclick="copyMessage(this)" title="Copy">
                             <i class="fas fa-copy"></i>
                         </button>
+                        ${otelTraceId ? `
+                        <a class="message-action" href="http://localhost:3000/explore?orgId=1&left=%7B%22datasource%22%3A%22tempo%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22queryType%22%3A%22traceql%22%2C%22query%22%3A%22${otelTraceId}%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D" target="_blank" title="View trace in Grafana">
+                            <i class="fas fa-search"></i>
+                        </a>` : ''}
                     </div>
                 </div>
             `;
